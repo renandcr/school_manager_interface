@@ -43,9 +43,9 @@ export const HeaderNavContainer = styled.div`
       width: fit-content;
       li {
         border: solid 1px transparent;
-        transition: all ease-in 500ms;
+        transition: all ease-in 300ms;
         :hover {
-          transition: all ease-in 500ms;
+          transition: all ease-in 300ms;
           border-bottom: solid 1px ${VARIABLES.yellowColor};
           color: ${VARIABLES.yellowColor};
         }
