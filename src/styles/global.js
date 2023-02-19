@@ -2,8 +2,10 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
     html *{
-        font-family:"Roboto", sans-serif ;
+        font-family:"Roboto", sans-serif;
         font-size: 16px;
+        line-height: 21px;
+        font-weight: 300;
         color: #333;
     }
     body{
@@ -33,5 +35,6 @@ export const VARIABLES = {
   fontOne: "'Roboto', sans-serif",
   fontTwo: "'Nunito', sans-serif",
   fontThree: "'Lato', sans-serif",
+  fontFour: "'Orbitron', sans-serif",
   fontFive: "'Opens Sans', sans-serif",
 };
