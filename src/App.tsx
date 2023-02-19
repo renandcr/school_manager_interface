@@ -3,6 +3,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { GlobalStyle } from "./styles/global";
 import Header from "./components/Header";
 import React from "react";
+import DefaultButton from "./components/DefaultButton";
 // import "./App.css";
 
 function App() {
@@ -10,7 +11,8 @@ function App() {
     <>
       <GlobalStyle />
       <ToastContainer autoClose={4000} />
-      <Header />
+      {/* <Header /> */}
+      {/* <DefaultButton>{"Cadastrar"}</DefaultButton> */}
     </>
   );
 }
