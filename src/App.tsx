@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import React from "react";
 import DefaultButton from "./components/DefaultButton";
 // import "./App.css";
+import RegistrationForm from "./components/RegistrationForm";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <ToastContainer autoClose={4000} />
       {/* <Header /> */}
       {/* <DefaultButton>{"Cadastrar"}</DefaultButton> */}
+      <RegistrationForm />
     </>
   );
 }
