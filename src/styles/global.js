@@ -29,6 +29,7 @@ export const VARIABLES = {
   grayColor3: "#283139",
   grayColor4: "#edf6f9",
   grayColor5: "#495057",
+  grayColor6: "#c0c0c0",
   yellowColor: "#eead2d",
   colorDarkBackground: "rgba(0, 0, 0, 0.75)",
 
