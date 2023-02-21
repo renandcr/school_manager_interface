@@ -4,17 +4,16 @@ import styled from "styled-components";
 export const HeaderContainer = styled.header`
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
-  height: 80px;
-  position: fixed;
-  z-index: 3;
+  background-color: ${VARIABLES.grayColor4};
   .header_box_one {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding: 10px 0 10px 0;
-    height: 80px;
+    height: 75px;
     width: 85%;
     max-width: 1400px;
 
@@ -43,7 +42,7 @@ export const HeaderNavContainer = styled.div`
       width: fit-content;
       li {
         border: solid 1px transparent;
-        transition: all ease-in 300ms;
+        transition: all ease-in 500ms;
         :hover {
           transition: all ease-in 300ms;
           border-bottom: solid 1px ${VARIABLES.yellowColor};
@@ -52,9 +51,8 @@ export const HeaderNavContainer = styled.div`
         a {
           font-size: 18px;
           line-height: 24px;
-          color: ${VARIABLES.grayColor5};
-          text-decoration: none;
           color: inherit;
+          text-decoration: none;
           font-weight: 400;
         }
       }
