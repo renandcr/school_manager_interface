@@ -17,7 +17,7 @@ interface IUserRegistration {
   confirm_password?: string;
 }
 
-interface IRegistrationForm {
+export interface IRegistrationForm {
   showRegistrationForm: boolean;
   setShowRegistrationForm: React.Dispatch<boolean>;
 }
@@ -62,11 +62,9 @@ const RegistrationForm: React.FC<IRegistrationForm> = ({
       .oneOf([yup.ref("password")], "As senhas não são iguais"),
   });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IUserRegistration>({ resolver: yupResolver(FormSchema) });
+  const { register, handleSubmit, formState } = useForm<IUserRegistration>({
+    resolver: yupResolver(FormSchema),
+  });
 
   const submissionMethod = (data: IUserRegistration) => {
     delete data.confirm_password;
@@ -74,7 +72,7 @@ const RegistrationForm: React.FC<IRegistrationForm> = ({
       .post("/user", data)
       .then(() => {
         toast.success("Cadastro realizado com sucesso");
-        setShowRegistrationForm(true);
+        setShowRegistrationForm(false);
       })
       .catch((error) => {
         toast.error(error.response.data.email[0]);
@@ -93,7 +91,9 @@ const RegistrationForm: React.FC<IRegistrationForm> = ({
             autoFocus
             {...register("first_name")}
           />
-          {errors?.first_name && <p>{errors.first_name?.message}</p>}
+          {formState.errors?.first_name && (
+            <p>{formState.errors.first_name?.message}</p>
+          )}
 
           <TextField
             className="text_field"
@@ -101,7 +101,9 @@ const RegistrationForm: React.FC<IRegistrationForm> = ({
             type="text"
             {...register("last_name")}
           />
-          {errors?.last_name && <p>{errors.last_name?.message}</p>}
+          {formState.errors?.last_name && (
+            <p>{formState.errors.last_name?.message}</p>
+          )}
 
           <TextField
             className="text_field"
@@ -109,7 +111,7 @@ const RegistrationForm: React.FC<IRegistrationForm> = ({
             type="text"
             {...register("email")}
           />
-          {errors?.email && <p>{errors.email?.message}</p>}
+          {formState.errors?.email && <p>{formState.errors.email?.message}</p>}
 
           <TextField
             className="text_field"
@@ -118,24 +120,28 @@ const RegistrationForm: React.FC<IRegistrationForm> = ({
             placeholder="Nome que será exibido"
             {...register("username")}
           />
-          {errors?.username && <p>{errors.username?.message}</p>}
+          {formState.errors?.username && (
+            <p>{formState.errors.username?.message}</p>
+          )}
 
           <TextField
             className="text_field"
             label="Senha"
-            type="text"
+            type="password"
             {...register("password")}
           />
-          {errors?.password && <p>{errors.password?.message}</p>}
+          {formState.errors?.password && (
+            <p>{formState.errors.password?.message}</p>
+          )}
 
           <TextField
             className="text_field"
             label="Confirmar senha"
-            type="text"
+            type="password"
             {...register("confirm_password")}
           />
-          {errors?.confirm_password && (
-            <p>{errors.confirm_password?.message}</p>
+          {formState.errors?.confirm_password && (
+            <p>{formState.errors.confirm_password?.message}</p>
           )}
           <LoginOptionContainer>
             <span>Já possui conta?</span>
