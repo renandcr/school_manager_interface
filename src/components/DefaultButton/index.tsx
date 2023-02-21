@@ -3,21 +3,30 @@ import * as React from "react";
 
 export interface IDefaultButton
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  // export interface IDefaultButton {
   children: string;
   height?: string;
   width?: string;
+  border?: string;
+  backgroundColor?: string;
+  color?: string;
 }
 
 const DefaultButton: React.FC<IDefaultButton> = ({
   children,
   height,
   width,
-  // ...rest
+  border,
+  backgroundColor,
+  color,
 }) => {
   return (
-    // <DefaultButtonContainer height={height} width={width} {...rest}>
-    <DefaultButtonContainer height={height} width={width}>
+    <DefaultButtonContainer
+      height={height}
+      width={width}
+      border={border}
+      backgroundColor={backgroundColor}
+      color={color}
+    >
       {children}
     </DefaultButtonContainer>
   );

@@ -4,9 +4,11 @@ import Footer from "../../components/Footer";
 import * as React from "react";
 
 const HomePage = () => {
+  const [showModal, setShowModal] = React.useState(false);
+
   return (
     <>
-      <Header />
+      <Header setShowModal={setShowModal} />
       <MainHomePageContainer>
         <HomePageContainer></HomePageContainer>
       </MainHomePageContainer>
