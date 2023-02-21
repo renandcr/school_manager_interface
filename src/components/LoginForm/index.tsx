@@ -4,6 +4,7 @@ import DefaultButton from "../DefaultButton";
 import { LoginFormContainer } from "./style";
 import { TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router";
 import { toast } from "react-toastify";
 import api from "../../assets/axios";
 import * as React from "react";
@@ -23,6 +24,8 @@ const LoginForm: React.FC<ILoginForm> = ({
   showRegistrationForm,
   setShowRegistrationForm,
 }) => {
+  const history = useHistory();
+
   const formSchema = yup.object().shape({
     email: yup
       .string()
@@ -41,6 +44,7 @@ const LoginForm: React.FC<ILoginForm> = ({
       .post("/login", data)
       .then(() => {
         toast.success("Login realizado com sucesso");
+        history.push("/home-page");
       })
       .catch((error) => toast.error(error.response.data.detail));
   };
