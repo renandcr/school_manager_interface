@@ -9,7 +9,6 @@ export const GlobalStyle = createGlobalStyle`
         color: #495057;
     }
     body{
-        min-height: 100vh; 	
         background-color: #edf6f9; 
     }
     button{
