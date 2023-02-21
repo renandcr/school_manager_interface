@@ -1,7 +1,11 @@
 import { HeaderContainer, HeaderNavContainer, LogoContainer } from "./style";
 import * as React from "react";
 
-const Header: React.FC = () => {
+interface IHeader {
+  setShowModal?: React.Dispatch<boolean>;
+}
+
+const Header: React.FC<IHeader> = ({ setShowModal }) => {
   return (
     <HeaderContainer id="header">
       <div className="header_box_one">
@@ -13,9 +17,7 @@ const Header: React.FC = () => {
         <HeaderNavContainer>
           <nav>
             <ul>
-              <li>
-                <a href="">Gerenciamento</a>
-              </li>
+              <li onClick={() => setShowModal?.(true)}>Gerenciamento</li>
             </ul>
           </nav>
         </HeaderNavContainer>

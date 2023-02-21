@@ -41,19 +41,16 @@ export const HeaderNavContainer = styled.div`
     ul {
       width: fit-content;
       li {
+        font-size: 18px;
+        line-height: 24px;
+        font-weight: 400;
         border: solid 1px transparent;
         transition: all ease-in 500ms;
+        cursor: pointer;
         :hover {
           transition: all ease-in 300ms;
           border-bottom: solid 1px ${VARIABLES.yellowColor};
           color: ${VARIABLES.yellowColor};
-        }
-        a {
-          font-size: 18px;
-          line-height: 24px;
-          color: inherit;
-          text-decoration: none;
-          font-weight: 400;
         }
       }
     }
