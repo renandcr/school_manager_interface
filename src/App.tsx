@@ -1,3 +1,4 @@
+import BackgroundLogo from "./components/BackgroundLogo";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GlobalStyle } from "./styles/global";
@@ -9,6 +10,7 @@ function App() {
     <>
       <GlobalStyle />
       <ToastContainer autoClose={4000} />
+      <BackgroundLogo />
       <Routes />
     </>
   );

@@ -12,6 +12,5 @@ export const HomeScreenContainer = styled.section`
   flex-direction: column;
   align-items: center;
   margin-top: 50px;
-  padding-bottom: 50px;
   width: 90%;
 `;
