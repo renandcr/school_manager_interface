@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
         font-size: 16px;
         line-height: 21px;
         font-weight: 300;
-        color: #333;
+        color: #495057;
     }
     body{
         min-height: 100vh; 	

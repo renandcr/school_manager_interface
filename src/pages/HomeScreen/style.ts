@@ -7,6 +7,10 @@ export const MainHomeScreenContainer = styled.main`
 `;
 
 export const HomeScreenContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  padding-bottom: 50px;
   width: 90%;
-  margin-top: 110px;
 `;
