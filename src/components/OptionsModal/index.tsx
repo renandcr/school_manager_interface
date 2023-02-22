@@ -1,6 +1,7 @@
 import CloseIcon from "@mui/icons-material/Close";
 import { VARIABLES } from "../../styles/global";
 import { OptionsModalComponent } from "./style";
+import { useHistory } from "react-router-dom";
 import DefaultButton from "../DefaultButton";
 import DefaultModal from "../DefaultModal";
 import * as React from "react";
@@ -11,6 +12,8 @@ interface IOptionsModal {
 }
 
 const OptionsModal: React.FC<IOptionsModal> = ({ showModal, setShowModal }) => {
+  const history = useHistory();
+
   return (
     <>
       {showModal && (
@@ -23,7 +26,7 @@ const OptionsModal: React.FC<IOptionsModal> = ({ showModal, setShowModal }) => {
               />
             </div>
             <ul>
-              <li>
+              <li onClick={() => history.push("/school_page")}>
                 <DefaultButton
                   backgroundColor={VARIABLES.blueColor5}
                   color={VARIABLES.grayColor4}
@@ -43,7 +46,7 @@ const OptionsModal: React.FC<IOptionsModal> = ({ showModal, setShowModal }) => {
                   width="180px"
                   height="55px"
                 >
-                  {"Escola"}
+                  {"Cursos"}
                 </DefaultButton>
               </li>
 
@@ -55,7 +58,7 @@ const OptionsModal: React.FC<IOptionsModal> = ({ showModal, setShowModal }) => {
                   width="180px"
                   height="55px"
                 >
-                  {"Escola"}
+                  {"Alunos"}
                 </DefaultButton>
               </li>
             </ul>

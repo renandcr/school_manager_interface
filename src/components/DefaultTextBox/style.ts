@@ -9,7 +9,8 @@ export const DefaultTextBoxContainer = styled.div`
     align-items: flex-start;
     row-gap: 15px;
     h2 {
-      font-size: 26px;
+      width: fit-content;
+      font-size: 24px;
       line-height: 28px;
       font-weight: 600;
       font-family: ${VARIABLES.fontTwo};
@@ -19,7 +20,7 @@ export const DefaultTextBoxContainer = styled.div`
       color: ${VARIABLES.grayColor3};
     }
     li {
-      width: 100%;
+      width: fit-content;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;

@@ -1,22 +1,27 @@
 import { HeaderContainer, HeaderNavContainer, LogoContainer } from "./style";
+import { useHistory } from "react-router-dom";
 import * as React from "react";
 
-interface IHeader {
+export interface IHeader {
   setShowModal?: React.Dispatch<boolean>;
+  hideOptions?: boolean;
 }
 
-const Header: React.FC<IHeader> = ({ setShowModal }) => {
+const Header: React.FC<IHeader> = ({ setShowModal, hideOptions = false }) => {
+  const history = useHistory();
+
   return (
-    <HeaderContainer id="header">
+    <HeaderContainer>
       <div className="header_box_one">
         <LogoContainer>
           <a href="">
             <span>School Manager CX</span>
           </a>
         </LogoContainer>
-        <HeaderNavContainer>
+        <HeaderNavContainer hideOptions={hideOptions}>
           <nav>
             <ul>
+              <li onClick={() => history.push("/home_page")}>Voltar</li>
               <li onClick={() => setShowModal?.(true)}>Gerenciar</li>
             </ul>
           </nav>

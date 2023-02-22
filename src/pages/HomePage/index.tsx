@@ -19,10 +19,9 @@ const HomePage = () => {
         },
       })
       .then((response) => {
-        console.log("response", response);
         setSchool([response.data]);
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => console.log(error));
   }, []);
 
   return (
@@ -33,7 +32,18 @@ const HomePage = () => {
         <HomePageContainer>
           {school &&
             school.map((current) => (
-              <SchoolInformation key={current.id} current={current} />
+              <SchoolInformation
+                key={current.id}
+                name={current.name}
+                email={current.email}
+                street={current.street}
+                number={current.number}
+                district={current.district}
+                city={current.city}
+                state={current.state}
+                zip_code={current.zip_code}
+                phone={current.phone}
+              />
             ))}
         </HomePageContainer>
       </MainHomePageContainer>

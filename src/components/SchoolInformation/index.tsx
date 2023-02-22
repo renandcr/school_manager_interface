@@ -3,46 +3,58 @@ import DefaultTextBox from "../DefaultTextBox";
 import * as React from "react";
 
 export interface IDatabaseSchool {
-  id: string;
-  name: string;
-  email: string;
-  zip_code: string;
-  state: string;
-  city: string;
-  street: string;
-  district: string;
-  number: string;
-  phone: string;
-  created_at: Date;
+  id?: string;
+  name?: string;
+  email?: string;
+  zip_code?: string;
+  state?: string;
+  city?: string;
+  street?: string;
+  district?: string;
+  number?: string;
+  phone?: string;
+  created_at?: Date;
 }
 
-const SchoolInformation: React.FC<{ current: IDatabaseSchool }> = ({
-  current,
+export interface ISchoolInformation {
+  editable?: boolean;
+}
+
+const SchoolInformation: React.FC<IDatabaseSchool & ISchoolInformation> = ({
+  name,
+  email,
+  street,
+  number,
+  district,
+  city,
+  state,
+  zip_code,
+  phone,
+  editable = false,
 }) => {
   return (
     <DefaultTextBox>
-      <SchoolInformationContainer>
+      <SchoolInformationContainer editable={editable}>
         <li>
-          <h2>{current.name}</h2>
+          <h2>{name}</h2>
         </li>
         <li>
-          <span className="email_field">{current.email}</span>
+          <span className="email_field">{email}</span>
         </li>
         <li>
-          <span>{current.street},</span>
-          <span> {current.number}</span>
+          <span>{street && `${street}, `}</span>
+          <span>{number}</span>
         </li>
         <li>
-          <span>{current.district}</span>
+          <span>{district}</span>
         </li>
         <li>
-          <span>{current.city},</span>
-          <span> {current.state} - </span>
-          <span>{current.zip_code}</span>
+          <span>{city && `${city}, `}</span>
+          <span> {state && `${state} - `}</span>
+          <span>{zip_code}</span>
         </li>
-
         <li>
-          <span>{current.phone}</span>
+          <span>{phone}</span>
         </li>
       </SchoolInformationContainer>
     </DefaultTextBox>
