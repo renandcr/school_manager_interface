@@ -14,7 +14,7 @@ export const HeaderContainer = styled.header`
     align-items: center;
     padding: 10px 0 10px 0;
     height: 75px;
-    width: 85%;
+    width: 90%;
     max-width: 1400px;
 
     @media only screen and (min-width: 500px) {

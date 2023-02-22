@@ -17,7 +17,7 @@ const Header: React.FC<IHeader> = ({ setShowModal }) => {
         <HeaderNavContainer>
           <nav>
             <ul>
-              <li onClick={() => setShowModal?.(true)}>Gerenciamento</li>
+              <li onClick={() => setShowModal?.(true)}>Gerenciar</li>
             </ul>
           </nav>
         </HeaderNavContainer>
