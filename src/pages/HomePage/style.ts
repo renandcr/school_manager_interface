@@ -11,6 +11,6 @@ export const HomePageContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 70px;
   width: 90%;
 `;
