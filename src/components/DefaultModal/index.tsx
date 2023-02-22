@@ -4,18 +4,18 @@ import * as React from "react";
 
 export interface IDefaultModal {
   children: React.ReactNode;
-  background?: string;
+  backgroundColor?: string;
   border?: string;
 }
 
 const DefaultModal: React.FC<IDefaultModal> = ({
+  backgroundColor,
   children,
-  background,
   border,
 }) => {
   return (
     <DarkBackground>
-      <DefaultModalContainer background={background} border={border}>
+      <DefaultModalContainer backgroundColor={backgroundColor} border={border}>
         {children}
       </DefaultModalContainer>
     </DarkBackground>

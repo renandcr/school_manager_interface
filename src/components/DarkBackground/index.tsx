@@ -2,14 +2,14 @@ import { DarkBackgroundContainer } from "./style";
 import * as React from "react";
 
 interface IDarkBackground {
-  // showModal: boolean;
   children: JSX.Element;
+  onClick?: () => void;
 }
 
-const DarkBackground: React.FC<IDarkBackground> = ({ children }) => {
+const DarkBackground: React.FC<IDarkBackground> = ({ children, ...rest }) => {
   return (
     <>
-      <DarkBackgroundContainer>{children}</DarkBackgroundContainer>
+      <DarkBackgroundContainer {...rest}>{children}</DarkBackgroundContainer>
     </>
   );
 };
