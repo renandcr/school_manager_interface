@@ -1,5 +1,6 @@
 import { VARIABLES } from "../../styles/global";
 import styled from "styled-components";
+import { IHeader } from ".";
 
 export const HeaderContainer = styled.header`
   display: flex;
@@ -36,10 +37,13 @@ export const LogoContainer = styled.div`
   }
 `;
 
-export const HeaderNavContainer = styled.div`
+export const HeaderNavContainer = styled.div<IHeader>`
+  display: ${(props) => (props.hideOptions ? "none" : "flex")};
   nav {
     ul {
-      width: fit-content;
+      display: flex;
+      column-gap: 40px;
+      align-items: center;
       li {
         font-size: 18px;
         line-height: 24px;

@@ -10,7 +10,7 @@ const HomeScreen = () => {
 
   return (
     <>
-      <Header />
+      <Header hideOptions />
       <MainHomeScreenContainer>
         <HomeScreenContainer>
           <RegistrationForm

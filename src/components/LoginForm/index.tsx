@@ -44,7 +44,7 @@ const LoginForm: React.FC<ILoginForm> = ({
       .post("/login", data)
       .then(() => {
         toast.success("Login realizado com sucesso");
-        history.push("/home-page");
+        history.push("/home_page");
       })
       .catch((error) => toast.error(error.response.data.detail));
   };
