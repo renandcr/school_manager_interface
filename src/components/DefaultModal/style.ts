@@ -8,6 +8,6 @@ export const DefaultModalContainer = styled.div<IDefaultModal>`
   padding: 15px;
   border-radius: 2px;
   background-color: ${VARIABLES.grayColor4};
-  background: ${(props) => props.background};
+  background-color: ${(props) => props.backgroundColor};
   border: ${(props) => props.border};
 `;
