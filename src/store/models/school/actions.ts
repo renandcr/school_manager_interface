@@ -1,5 +1,6 @@
 import {
   DATABASE_SCHOOL,
+  SELECTED_SCHOOL,
   CREATE_SCHOOL,
   DELETE_SCHOOL,
   UPDATE_SCHOOL,
@@ -22,6 +23,11 @@ export interface IDatabaseSchool {
 export interface IActionDatabaseSchool {
   type: string;
   payload: Array<IDatabaseSchool> & IDatabaseSchool;
+}
+
+export interface IActionSelectedSchool {
+  type: string;
+  payload: string;
 }
 
 export const actionDatabaseSchool = (schools: Array<IDatabaseSchool>) => {
@@ -49,5 +55,12 @@ export const actionUpdateSchool = (school: IDatabaseSchool) => {
   return {
     type: UPDATE_SCHOOL,
     payload: school,
+  };
+};
+
+export const actionSelectedSchool = (email: string) => {
+  return {
+    type: SELECTED_SCHOOL,
+    payload: email,
   };
 };

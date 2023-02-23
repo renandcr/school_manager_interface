@@ -8,16 +8,19 @@ import Footer from "../../components/Footer";
 import * as React from "react";
 
 const HomePage = () => {
-  const [showModal, setShowModal] = React.useState(false);
+  const [showOptionsModal, setShowOptionsModal] = React.useState(false);
 
   const databaseSchools: Array<IDatabaseSchool> = useTypedSelector(
-    (state) => state.school
+    (state) => state.schools
   );
 
   return (
     <>
-      <OptionsModal showModal={showModal} setShowModal={setShowModal} />
-      <Header setShowModal={setShowModal} />
+      <OptionsModal
+        showOptionsModal={showOptionsModal}
+        setShowOptionsModal={setShowOptionsModal}
+      />
+      <Header setShowOptionsModal={setShowOptionsModal} />
       <MainHomePageContainer>
         <HomePageContainer>
           {databaseSchools.length > 0 &&

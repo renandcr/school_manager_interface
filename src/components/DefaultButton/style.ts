@@ -15,7 +15,16 @@ export const DefaultButtonContainer = styled.button<IDefaultButton>`
   width: ${(props) => props.width};
   transition: all ease-in 500ms;
   :hover {
-    filter: brightness(75%);
+    filter: brightness(65%);
     transition: all ease-in 300ms;
+  }
+`;
+
+export const HorizontalButtonContainer = styled.div`
+  display: flex;
+  column-gap: 12px;
+  margin-top: 12px;
+  button {
+    width: 100%;
   }
 `;

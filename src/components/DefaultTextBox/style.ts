@@ -10,10 +10,10 @@ export const DefaultTextBoxContainer = styled.div`
     row-gap: 12px;
     h2 {
       width: fit-content;
-      font-size: 24px;
-      line-height: 28px;
+      font-size: 20px;
+      line-height: 26px;
       font-weight: 600;
-      font-family: ${VARIABLES.fontTwo};
+      font-family: ${VARIABLES.fontFive};
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -25,10 +25,10 @@ export const DefaultTextBoxContainer = styled.div`
       white-space: nowrap;
       text-overflow: ellipsis;
       span {
-        font-size: 22px;
-        line-height: 26px;
-        font-weight: 400;
-        font-family: ${VARIABLES.fontThree};
+        font-size: 18px;
+        line-height: 24px;
+        font-weight: 500;
+        font-family: ${VARIABLES.fontFive};
         color: ${VARIABLES.grayColor3};
       }
       .email_field {
