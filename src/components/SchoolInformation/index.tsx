@@ -1,11 +1,13 @@
+import { actionSelectedSchool } from "../../store/models/school/actions";
 import { SchoolInformationContainer } from "./style";
 import DefaultTextBox from "../DefaultTextBox";
+import { useDispatch } from "react-redux";
 import * as React from "react";
 
 export interface IDatabaseSchoolAlternative {
   id?: string;
   name?: string;
-  email?: string;
+  email: string;
   zip_code?: string;
   state?: string;
   city?: string;
@@ -18,6 +20,7 @@ export interface IDatabaseSchoolAlternative {
 
 export interface ISchoolInformation {
   editable?: boolean;
+  setShowSchoolInformationModal?: React.Dispatch<boolean>;
 }
 
 const SchoolInformation: React.FC<
@@ -33,10 +36,19 @@ const SchoolInformation: React.FC<
   zip_code,
   phone,
   editable = false,
+  setShowSchoolInformationModal,
 }) => {
+  const dispatch = useDispatch();
+
   return (
     <DefaultTextBox>
-      <SchoolInformationContainer editable={editable}>
+      <SchoolInformationContainer
+        editable={editable}
+        onClick={() => {
+          dispatch(actionSelectedSchool(email));
+          setShowSchoolInformationModal?.(true);
+        }}
+      >
         <li>
           <h2>{name}</h2>
         </li>

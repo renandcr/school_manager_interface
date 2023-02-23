@@ -1,30 +1,35 @@
+import { CloseModalContainer } from "../DefaultModal/style";
+import { VARIABLES } from "../../../styles/global";
 import CloseIcon from "@mui/icons-material/Close";
-import { VARIABLES } from "../../styles/global";
 import { OptionsModalComponent } from "./style";
+import DefaultButton from "../../DefaultButton";
 import { useHistory } from "react-router-dom";
-import DefaultButton from "../DefaultButton";
 import DefaultModal from "../DefaultModal";
 import * as React from "react";
 
 interface IOptionsModal {
-  showModal: boolean;
-  setShowModal: React.Dispatch<boolean>;
+  showOptionsModal: boolean;
+  setShowOptionsModal: React.Dispatch<boolean>;
 }
 
-const OptionsModal: React.FC<IOptionsModal> = ({ showModal, setShowModal }) => {
+const OptionsModal: React.FC<IOptionsModal> = ({
+  showOptionsModal,
+  setShowOptionsModal,
+}) => {
   const history = useHistory();
 
   return (
     <>
-      {showModal && (
+      {showOptionsModal && (
         <DefaultModal backgroundColor="transparent">
           <OptionsModalComponent>
-            <div>
+            <CloseModalContainer>
+              <div></div>
               <CloseIcon
                 className="icon_close"
-                onClick={() => setShowModal?.(false)}
+                onClick={() => setShowOptionsModal?.(false)}
               />
-            </div>
+            </CloseModalContainer>
             <ul>
               <li onClick={() => history.push("/school_page")}>
                 <DefaultButton

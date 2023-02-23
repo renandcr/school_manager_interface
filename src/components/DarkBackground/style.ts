@@ -1,6 +1,5 @@
 import { VARIABLES } from "../../styles/global";
 import styled from "styled-components";
-import { style } from "@mui/system";
 
 export const DarkBackgroundContainer = styled.div`
   display: flex;

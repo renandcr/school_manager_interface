@@ -1,8 +1,11 @@
+import { schoolReducer, selectedSchoolReducer } from "./models/school/reducer";
 import { legacy_createStore as createStore, combineReducers } from "redux";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
-import schoolReducer from "./models/school/reducer";
 
-const reducers = combineReducers({ school: schoolReducer });
+const reducers = combineReducers({
+  schools: schoolReducer,
+  selectedSchool: selectedSchoolReducer,
+});
 
 type RootState = ReturnType<typeof reducers>;
 
