@@ -2,7 +2,7 @@ import { SchoolInformationContainer } from "./style";
 import DefaultTextBox from "../DefaultTextBox";
 import * as React from "react";
 
-export interface IDatabaseSchool {
+export interface IDatabaseSchoolAlternative {
   id?: string;
   name?: string;
   email?: string;
@@ -20,7 +20,9 @@ export interface ISchoolInformation {
   editable?: boolean;
 }
 
-const SchoolInformation: React.FC<IDatabaseSchool & ISchoolInformation> = ({
+const SchoolInformation: React.FC<
+  IDatabaseSchoolAlternative & ISchoolInformation
+> = ({
   name,
   email,
   street,

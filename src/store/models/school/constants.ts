@@ -1,0 +1,4 @@
+export const DATABASE_SCHOOL = "DATABASE_SCHOOL";
+export const CREATE_SCHOOL = "CREATE_SCHOOL";
+export const DELETE_SCHOOL = "DELETE_SCHOOL";
+export const UPDATE_SCHOOL = "UPDATE_SCHOOL";
