@@ -1,7 +1,7 @@
 import { IDatabaseSchool } from "../../components/SchoolInformation";
 import SchoolInformation from "../../components/SchoolInformation";
 import { HomePageContainer, MainHomePageContainer } from "./style";
-import OptionsModal from "../../components/OptionsModal";
+import OptionsModal from "../../components/Modals/OptionsModal";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import api from "../../assets/axios";

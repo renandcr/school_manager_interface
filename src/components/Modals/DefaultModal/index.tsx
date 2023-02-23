@@ -1,5 +1,5 @@
+import DarkBackground from "../../DarkBackground";
 import { DefaultModalContainer } from "./style";
-import DarkBackground from "../DarkBackground";
 import * as React from "react";
 
 export interface IDefaultModal {

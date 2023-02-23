@@ -45,7 +45,7 @@ export const HeaderNavContainer = styled.div<IHeader>`
       column-gap: 40px;
       align-items: center;
       li {
-        font-size: 18px;
+        font-size: 17px;
         line-height: 24px;
         font-weight: 400;
         border: solid 1px transparent;

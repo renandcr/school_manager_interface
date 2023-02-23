@@ -1,8 +1,8 @@
+import { VARIABLES } from "../../../styles/global";
 import CloseIcon from "@mui/icons-material/Close";
-import { VARIABLES } from "../../styles/global";
 import { OptionsModalComponent } from "./style";
+import DefaultButton from "../../DefaultButton";
 import { useHistory } from "react-router-dom";
-import DefaultButton from "../DefaultButton";
 import DefaultModal from "../DefaultModal";
 import * as React from "react";
 

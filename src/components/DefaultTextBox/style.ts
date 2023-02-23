@@ -7,7 +7,7 @@ export const DefaultTextBoxContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    row-gap: 15px;
+    row-gap: 12px;
     h2 {
       width: fit-content;
       font-size: 24px;

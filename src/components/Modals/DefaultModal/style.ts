@@ -1,4 +1,4 @@
-import { VARIABLES } from "../../styles/global";
+import { VARIABLES } from "../../../styles/global";
 import styled from "styled-components";
 import { IDefaultModal } from ".";
 
