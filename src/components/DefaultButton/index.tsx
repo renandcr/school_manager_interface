@@ -18,6 +18,7 @@ const DefaultButton: React.FC<IDefaultButton> = ({
   border,
   backgroundColor,
   color,
+  ...rest
 }) => {
   return (
     <DefaultButtonContainer
@@ -26,6 +27,7 @@ const DefaultButton: React.FC<IDefaultButton> = ({
       border={border}
       backgroundColor={backgroundColor}
       color={color}
+      {...rest}
     >
       {children}
     </DefaultButtonContainer>
