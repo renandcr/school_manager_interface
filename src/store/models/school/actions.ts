@@ -8,6 +8,7 @@ import {
 
 export interface IDatabaseSchool {
   id?: string;
+  branch: string;
   name: string;
   email: string;
   zip_code: string;
@@ -18,6 +19,19 @@ export interface IDatabaseSchool {
   number: string;
   phone: string;
   created_at?: Date;
+}
+
+export interface ISchool {
+  branch: string;
+  name: string;
+  email: string;
+  zip_code: string;
+  state: string;
+  city: string;
+  street: string;
+  district: string;
+  number: string;
+  phone: string;
 }
 
 export interface IActionDatabaseSchool {

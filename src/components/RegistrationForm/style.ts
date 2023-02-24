@@ -6,7 +6,7 @@ export const RegistrationFormContainer = styled.form`
   flex-direction: column;
   row-gap: 10px;
   width: 98%;
-  max-width: 400px;
+  max-width: 440px;
   h1 {
     margin-bottom: 20px;
     font-size: 26px;
@@ -17,6 +17,9 @@ export const RegistrationFormContainer = styled.form`
   .text_field {
     div {
       border-radius: 2px;
+      input {
+        color: ${VARIABLES.grayColor2};
+      }
     }
   }
   p {

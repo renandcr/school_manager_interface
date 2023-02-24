@@ -9,16 +9,18 @@ import DefaultModal from "../DefaultModal";
 import * as React from "react";
 
 interface ISchoolInformationModal {
-  showSchoolInformationModal: boolean;
   setShowSchoolInformationModal: React.Dispatch<boolean>;
+  setShowFormSchool: React.Dispatch<boolean>;
+  showSchoolInformationModal: boolean;
 }
 
 const SchoolInformationModal: React.FC<
   { current: IDatabaseSchool } & ISchoolInformationModal
 > = ({
-  current,
-  showSchoolInformationModal,
   setShowSchoolInformationModal,
+  showSchoolInformationModal,
+  setShowFormSchool,
+  current,
 }) => {
   return (
     <>
@@ -27,7 +29,7 @@ const SchoolInformationModal: React.FC<
           <CloseModalContainer
             onClick={() => setShowSchoolInformationModal(false)}
           >
-            <span>Filial 3</span>
+            <span>Filial {current.branch}</span>
             <CloseIcon className="icon_close" />
           </CloseModalContainer>
           <SchoolInformation
@@ -43,12 +45,20 @@ const SchoolInformationModal: React.FC<
             phone={current.phone}
           />
           <HorizontalButtonContainer>
-            <DefaultButton height="47px">{"Editar"}</DefaultButton>
             <DefaultButton
-              backgroundColor="transparent"
-              border={`solid 1px ${VARIABLES.blueColor}`}
               height="47px"
+              onClick={() => {
+                setShowSchoolInformationModal(false);
+                setShowFormSchool(true);
+              }}
+            >
+              {"Editar"}
+            </DefaultButton>
+            <DefaultButton
+              border={`solid 1px ${VARIABLES.blueColor}`}
+              backgroundColor="transparent"
               color={VARIABLES.blueColor}
+              height="47px"
             >
               {"Excluir"}
             </DefaultButton>

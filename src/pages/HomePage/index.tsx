@@ -3,11 +3,14 @@ import SchoolInformation from "../../components/SchoolInformation";
 import { HomePageContainer, MainHomePageContainer } from "./style";
 import OptionsModal from "../../components/Modals/OptionsModal";
 import { useTypedSelector } from "../../store";
+import { topScreen } from "../../assets/utils";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import * as React from "react";
 
 const HomePage = () => {
+  topScreen();
+
   const [showOptionsModal, setShowOptionsModal] = React.useState(false);
 
   const databaseSchools: Array<IDatabaseSchool> = useTypedSelector(
