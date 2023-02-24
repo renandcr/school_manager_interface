@@ -1,7 +1,9 @@
+import { actionSaveToken } from "../../store/models/user/actions";
 import { LoginOptionContainer } from "../RegistrationForm/style";
 import { yupResolver } from "@hookform/resolvers/yup";
 import DefaultButton from "../DefaultButton";
 import { LoginFormContainer } from "./style";
+import { useDispatch } from "react-redux";
 import { TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
@@ -25,6 +27,7 @@ const LoginForm: React.FC<ILoginForm> = ({
   setShowRegistrationForm,
 }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const formSchema = yup.object().shape({
     email: yup
@@ -42,7 +45,8 @@ const LoginForm: React.FC<ILoginForm> = ({
   const handleRequests = (data: IUserLogin) => {
     api
       .post("/login", data)
-      .then(() => {
+      .then((response) => {
+        dispatch(actionSaveToken(response.data.access));
         toast.success("Login realizado com sucesso");
         history.push("/home_page");
       })

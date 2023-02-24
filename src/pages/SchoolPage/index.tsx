@@ -1,14 +1,18 @@
 import SchoolInformationModal from "../../components/Modals/SchoolInformationModal";
-import { actionDatabaseSchool } from "../../store/models/school/actions";
 import { MainSchoolPageContainer, SchoolPageContainer } from "./style";
-import { IDatabaseSchool } from "../../store/models/school/actions";
 import SchoolInformation from "../../components/SchoolInformation";
+import { IToken } from "../../store/models/user/actions";
 import { useTypedSelector } from "../../store";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useDispatch } from "react-redux";
 import api from "../../assets/axios";
 import * as React from "react";
+
+import {
+  actionDatabaseSchool,
+  IDatabaseSchool,
+} from "../../store/models/school/actions";
 
 const SchoolPage = () => {
   const [showSchoolInformationModal, setShowSchoolInformationModal] =
@@ -21,18 +25,18 @@ const SchoolPage = () => {
     (state) => state.selectedSchool
   );
 
+  const token: IToken = useTypedSelector((state) => state.token);
+
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     api
       .get(`/school`, {
         headers: {
-          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc3MjU5MDg0LCJpYXQiOjE2NzcxNzI2ODQsImp0aSI6ImEwY2M3YjVhY2FiMDQ3ZWU4MDFlMzUzYzI5NjJlMDliIiwidXNlcl9pZCI6IjIyMmQ1NmJlLTE0NzItNDQzMC05ZTM1LTU3NGMwZDUyOTVlYyJ9.HVCvBfpqybGBgJYK2Q7eSSzFiozZRQ5LbKLEdiS871g"}`,
+          Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => {
-        dispatch(actionDatabaseSchool(response.data));
-      })
+      .then((response) => dispatch(actionDatabaseSchool(response.data)))
       .catch((error) => console.log(error));
   }, []);
 
