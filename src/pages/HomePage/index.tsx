@@ -1,49 +1,104 @@
+import SchoolInformationModal from "../../components/Modals/SchoolInformationModal";
+import { actionDatabaseSchool } from "../../store/models/school/actions";
 import { IDatabaseSchool } from "../../store/models/school/actions";
 import SchoolInformation from "../../components/SchoolInformation";
-import { HomePageContainer, MainHomePageContainer } from "./style";
-import OptionsModal from "../../components/Modals/OptionsModal";
+import DefaultButton from "../../components/DefaultButton";
+import { IToken } from "../../store/models/user/actions";
+import SchoolForm from "../../components/SchoolForm";
 import { useTypedSelector } from "../../store";
 import { topScreen } from "../../assets/utils";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import { useDispatch } from "react-redux";
+import api from "../../assets/axios";
 import * as React from "react";
+
+import {
+  HomePageSchoolsContainer,
+  MainHomePageContainer,
+  HomePageContainer,
+} from "./style";
 
 const HomePage = () => {
   topScreen();
 
-  const [showOptionsModal, setShowOptionsModal] = React.useState(false);
+  const [showSchoolInformationModal, setShowSchoolInformationModal] =
+    React.useState(false);
+  const [showFormSchool, setShowFormSchool] = React.useState(false);
+  const token: IToken = useTypedSelector((state) => state.token);
+  const [schoolUpdate, setSchoolUpdate] = React.useState(false);
+  const dispatch = useDispatch();
 
   const databaseSchools: Array<IDatabaseSchool> = useTypedSelector(
     (state) => state.schools
   );
+  const selectedSchool: IDatabaseSchool = useTypedSelector(
+    (state) => state.selectedSchool
+  );
+
+  React.useEffect(() => {
+    api
+      .get(`/school`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => dispatch(actionDatabaseSchool(response.data)))
+      .catch((error) => console.log(error));
+  }, [showFormSchool]);
 
   return (
     <>
-      <OptionsModal
-        showOptionsModal={showOptionsModal}
-        setShowOptionsModal={setShowOptionsModal}
+      <Header />
+      <SchoolInformationModal
+        key={selectedSchool.id}
+        current={selectedSchool}
+        setShowSchoolInformationModal={setShowSchoolInformationModal}
+        showSchoolInformationModal={showSchoolInformationModal}
+        setShowFormSchool={setShowFormSchool}
+        setSchoolUpdate={setSchoolUpdate}
       />
-      <Header setShowOptionsModal={setShowOptionsModal} />
       <MainHomePageContainer>
         <HomePageContainer>
-          {databaseSchools.length > 0 &&
-            databaseSchools.map(
-              (current) =>
-                current.id === "6e7642c7-bd7d-47c6-b4d0-adbb39d735be" && (
+          <SchoolForm
+            setShowFormSchool={setShowFormSchool}
+            setSchoolUpdate={setSchoolUpdate}
+            showFormSchool={showFormSchool}
+            schoolUpdate={schoolUpdate}
+          />
+          <HomePageSchoolsContainer>
+            <div className="schools_container">
+              {databaseSchools.length > 0 &&
+                !showFormSchool &&
+                databaseSchools.map((current) => (
                   <SchoolInformation
                     key={current.id}
+                    id={current.id}
+                    branch={current.branch}
                     name={current.name}
                     email={current.email}
-                    street={current.street}
-                    number={current.number}
-                    district={current.district}
-                    city={current.city}
-                    state={current.state}
-                    zip_code={current.zip_code}
-                    phone={current.phone}
+                    setShowSchoolInformationModal={
+                      setShowSchoolInformationModal
+                    }
+                    editable
                   />
-                )
-            )}
+                ))}
+            </div>
+            <div>
+              {!showFormSchool && (
+                <DefaultButton
+                  height="50px"
+                  width="160px"
+                  onClick={() => {
+                    setShowFormSchool(true);
+                    setSchoolUpdate(false);
+                  }}
+                >
+                  {"Adicionar escola"}
+                </DefaultButton>
+              )}
+            </div>
+          </HomePageSchoolsContainer>
         </HomePageContainer>
       </MainHomePageContainer>
       <Footer />

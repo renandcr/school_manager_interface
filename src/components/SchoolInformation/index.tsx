@@ -6,6 +6,7 @@ import * as React from "react";
 
 export interface IDatabaseSchoolAlternative {
   id?: string;
+  branch?: string;
   name?: string;
   email: string;
   zip_code?: string;

@@ -1,65 +1,43 @@
 import SchoolInformationModal from "../../components/Modals/SchoolInformationModal";
 import { MainSchoolPageContainer, SchoolPageContainer } from "./style";
+import { IDatabaseSchool } from "../../store/models/school/actions";
 import SchoolInformation from "../../components/SchoolInformation";
-import { IToken } from "../../store/models/user/actions";
 import SchoolForm from "../../components/SchoolForm";
 import { useTypedSelector } from "../../store";
 import { topScreen } from "../../assets/utils";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import { useDispatch } from "react-redux";
-import api from "../../assets/axios";
 import * as React from "react";
-
-import {
-  actionDatabaseSchool,
-  IDatabaseSchool,
-} from "../../store/models/school/actions";
 
 const SchoolPage = () => {
   topScreen();
 
-  const [showSchoolInformationModal, setShowSchoolInformationModal] =
-    React.useState(false);
-  const [showFormSchool, setShowFormSchool] = React.useState(false);
-  const databaseSchools: Array<IDatabaseSchool> = useTypedSelector(
-    (state) => state.schools
-  );
+  // const [showSchoolInformationModal, setShowSchoolInformationModal] =
+  //   React.useState(false);
+  // const [showFormSchool, setShowFormSchool] = React.useState(false);
+  // const databaseSchools: Array<IDatabaseSchool> = useTypedSelector(
+  //   (state) => state.schools
+  // );
 
-  const selectedSchool: IDatabaseSchool = useTypedSelector(
-    (state) => state.selectedSchool
-  );
-
-  const token: IToken = useTypedSelector((state) => state.token);
-
-  const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    api
-      .get(`/school`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => dispatch(actionDatabaseSchool(response.data)))
-      .catch((error) => console.log(error));
-  }, [showFormSchool]);
+  // const selectedSchool: IDatabaseSchool = useTypedSelector(
+  //   (state) => state.selectedSchool
+  // );
 
   return (
     <>
       {
-        <SchoolInformationModal
-          key={selectedSchool.id}
-          current={selectedSchool}
-          setShowSchoolInformationModal={setShowSchoolInformationModal}
-          showSchoolInformationModal={showSchoolInformationModal}
-          setShowFormSchool={setShowFormSchool}
-        />
+        // <SchoolInformationModal
+        //   key={selectedSchool.id}
+        //   current={selectedSchool}
+        //   setShowSchoolInformationModal={setShowSchoolInformationModal}
+        //   showSchoolInformationModal={showSchoolInformationModal}
+        //   setShowFormSchool={setShowFormSchool}
+        // />
       }
       <Header />
       <MainSchoolPageContainer>
         <SchoolPageContainer>
-          <SchoolForm
+          {/* <SchoolForm
             setShowFormSchool={setShowFormSchool}
             showFormSchool={showFormSchool}
           />
@@ -74,7 +52,7 @@ const SchoolPage = () => {
                 setShowSchoolInformationModal={setShowSchoolInformationModal}
                 editable
               />
-            ))}
+            ))} */}
         </SchoolPageContainer>
       </MainSchoolPageContainer>
       <Footer />

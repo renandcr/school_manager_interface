@@ -5,12 +5,14 @@ import SchoolInformation from "../../SchoolInformation";
 import { VARIABLES } from "../../../styles/global";
 import CloseIcon from "@mui/icons-material/Close";
 import DefaultButton from "../../DefaultButton";
+import { useHistory } from "react-router-dom";
 import DefaultModal from "../DefaultModal";
 import * as React from "react";
 
 interface ISchoolInformationModal {
   setShowSchoolInformationModal: React.Dispatch<boolean>;
   setShowFormSchool: React.Dispatch<boolean>;
+  setSchoolUpdate: React.Dispatch<boolean>;
   showSchoolInformationModal: boolean;
 }
 
@@ -20,8 +22,11 @@ const SchoolInformationModal: React.FC<
   setShowSchoolInformationModal,
   showSchoolInformationModal,
   setShowFormSchool,
+  setSchoolUpdate,
   current,
 }) => {
+  const history = useHistory();
+
   return (
     <>
       {showSchoolInformationModal && (
@@ -47,20 +52,22 @@ const SchoolInformationModal: React.FC<
           <HorizontalButtonContainer>
             <DefaultButton
               height="47px"
-              onClick={() => {
-                setShowSchoolInformationModal(false);
-                setShowFormSchool(true);
-              }}
+              onClick={() => history.push("/school_page")}
             >
-              {"Editar"}
+              {"Gerenciar"}
             </DefaultButton>
             <DefaultButton
               border={`solid 1px ${VARIABLES.blueColor}`}
               backgroundColor="transparent"
               color={VARIABLES.blueColor}
               height="47px"
+              onClick={() => {
+                setShowSchoolInformationModal(false);
+                setShowFormSchool(true);
+                setSchoolUpdate(true);
+              }}
             >
-              {"Excluir"}
+              {"Editar"}
             </DefaultButton>
           </HorizontalButtonContainer>
         </DefaultModal>

@@ -21,13 +21,17 @@ import {
 } from "../../store/models/school/actions";
 
 interface ISchoolForm {
-  showFormSchool: boolean;
   setShowFormSchool: React.Dispatch<boolean>;
+  setSchoolUpdate: React.Dispatch<boolean>;
+  showFormSchool: boolean;
+  schoolUpdate: boolean;
 }
 
 const SchoolForm: React.FC<ISchoolForm> = ({
-  showFormSchool,
   setShowFormSchool,
+  setSchoolUpdate,
+  showFormSchool,
+  schoolUpdate,
 }) => {
   const selectedSchool: IDatabaseSchool = useTypedSelector(
     (state) => state.selectedSchool
@@ -80,54 +84,73 @@ const SchoolForm: React.FC<ISchoolForm> = ({
       .required("Telefone é obrigatório"),
   });
 
-  const { handleSubmit, register, formState } = useForm<ISchool>({
-    resolver: yupResolver(formSchema),
-  });
+  const { handleSubmit, register, reset, formState, clearErrors } =
+    useForm<ISchool>({
+      resolver: yupResolver(formSchema),
+    });
+
+  React.useEffect(() => {
+    schoolUpdate ? reset(selectedSchool) : reset({});
+  }, [schoolUpdate]);
 
   const handleRequests = (data: ISchool) => {
-    api
-      .patch(`/school/${selectedSchool.id}`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        toast.success("Alteração concluída com sucesso");
-        dispatch(actionUpdateSchool(response.data));
-        setShowFormSchool(false);
-      })
-      .catch((error) => toast.error(error.response.data.detail));
+    schoolUpdate
+      ? api
+          .patch(`/school/${selectedSchool.id}`, data, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            toast.success("Alteração concluída com sucesso");
+            dispatch(actionUpdateSchool(response.data));
+            setShowFormSchool(false);
+            setSchoolUpdate(false);
+          })
+          .catch((error) => toast.error(error.response.data.detail))
+      : api
+          .post(`/school`, data, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then(() => {
+            toast.success("Escola criada com sucesso");
+            setShowFormSchool(false);
+          })
+          .catch((error) => toast.error(error.response.data.detail));
   };
 
   return (
     <>
       {showFormSchool && (
         <SchoolFormContainer onSubmit={handleSubmit(handleRequests)}>
-          <h1>Editar informações</h1>
+          {schoolUpdate ? (
+            <h1>Editar informações</h1>
+          ) : (
+            <h1>Cadastrar Escola</h1>
+          )}
           <TextField
             className="text_field"
             label="Nome"
             type="text"
-            defaultValue={selectedSchool.name}
+            autoFocus
             {...register("name")}
           />
-          {formState.errors.name && <p>{formState.errors.name?.message}</p>}
+          {formState.errors.name && <p>{formState.errors.name.message}</p>}
 
           <TextField
             className="text_field"
             label="E-mail"
-            type="text"
-            defaultValue={selectedSchool.email}
+            type="email"
             {...register("email")}
           />
-          {formState.errors.email && <p>{formState.errors.email?.message}</p>}
+          {formState.errors.email && <p>{formState.errors.email.message}</p>}
 
           <TextField
             className="text_field"
             label="Filial"
             type="text"
-            defaultValue={selectedSchool.branch}
-            autoFocus
             {...register("branch")}
           />
           {formState.errors.branch && <p>{formState.errors.branch?.message}</p>}
@@ -136,7 +159,6 @@ const SchoolForm: React.FC<ISchoolForm> = ({
             className="text_field"
             label="Cep"
             type="text"
-            defaultValue={selectedSchool.zip_code}
             {...register("zip_code")}
           />
           {formState.errors.zip_code && (
@@ -147,34 +169,30 @@ const SchoolForm: React.FC<ISchoolForm> = ({
             className="text_field"
             label="Estado"
             type="text"
-            defaultValue={selectedSchool.state}
             {...register("state")}
           />
-          {formState.errors.state && <p>{formState.errors.state?.message}</p>}
+          {formState.errors.state && <p>{formState.errors.state.message}</p>}
 
           <TextField
             className="text_field"
             label="Cidade"
             type="text"
-            defaultValue={selectedSchool.city}
             {...register("city")}
           />
-          {formState.errors.city && <p>{formState.errors.city?.message}</p>}
+          {formState.errors.city && <p>{formState.errors.city.message}</p>}
 
           <TextField
             className="text_field"
             label="Rua"
             type="text"
-            defaultValue={selectedSchool.street}
             {...register("street")}
           />
-          {formState.errors.street && <p>{formState.errors.street?.message}</p>}
+          {formState.errors.street && <p>{formState.errors.street.message}</p>}
 
           <TextField
             className="text_field"
             label="Bairro"
             type="text"
-            defaultValue={selectedSchool.district}
             {...register("district")}
           />
           {formState.errors.district && (
@@ -185,28 +203,34 @@ const SchoolForm: React.FC<ISchoolForm> = ({
             className="text_field"
             label="Número"
             type="text"
-            defaultValue={selectedSchool.number}
             {...register("number")}
           />
-          {formState.errors.number && <p>{formState.errors.number?.message}</p>}
+          {formState.errors.number && <p>{formState.errors.number.message}</p>}
 
           <TextField
             className="text_field"
             label="Telefone"
             type="text"
-            defaultValue={selectedSchool.phone}
+            key={selectedSchool.phone}
             {...register("phone")}
           />
-          {formState.errors.phone && <p>{formState.errors.phone?.message}</p>}
+          {formState.errors.phone && <p>{formState.errors.phone.message}</p>}
           <HorizontalButtonContainer>
-            <DefaultButton height="55px">{"Salvar alterações"}</DefaultButton>
+            {schoolUpdate ? (
+              <DefaultButton height="55px">{"Salvar alterações"}</DefaultButton>
+            ) : (
+              <DefaultButton height="55px">{"Salvar escola"}</DefaultButton>
+            )}
             <DefaultButton
               border={`solid 1px ${VARIABLES.blueColor}`}
               backgroundColor="transparent"
               color={VARIABLES.blueColor}
               height="55px"
-              onClick={() => {
+              onClick={(e) => {
                 setShowFormSchool(false);
+                setSchoolUpdate(false);
+                e.preventDefault();
+                clearErrors();
                 topScreen();
               }}
             >

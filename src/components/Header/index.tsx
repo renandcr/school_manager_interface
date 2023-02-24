@@ -3,14 +3,10 @@ import { useHistory } from "react-router-dom";
 import * as React from "react";
 
 export interface IHeader {
-  setShowOptionsModal?: React.Dispatch<boolean>;
   hideOptions?: boolean;
 }
 
-const Header: React.FC<IHeader> = ({
-  setShowOptionsModal,
-  hideOptions = false,
-}) => {
+const Header: React.FC<IHeader> = ({ hideOptions = false }) => {
   const history = useHistory();
 
   return (
@@ -24,8 +20,7 @@ const Header: React.FC<IHeader> = ({
         <HeaderNavContainer hideOptions={hideOptions}>
           <nav>
             <ul>
-              <li onClick={() => history.push("/home_page")}>Voltar</li>
-              <li onClick={() => setShowOptionsModal?.(true)}>Gerenciar</li>
+              <li onClick={() => history.push("/home_page")}>Home</li>
             </ul>
           </nav>
         </HeaderNavContainer>
