@@ -1,4 +1,5 @@
 import { HorizontalButtonContainer } from "../DefaultButton/style";
+import { IToken } from "../../store/models/user/actions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VARIABLES } from "../../styles/global";
 import { useTypedSelector } from "../../store";
@@ -31,6 +32,7 @@ const SchoolForm: React.FC<ISchoolForm> = ({
   const selectedSchool: IDatabaseSchool = useTypedSelector(
     (state) => state.selectedSchool
   );
+  const token: IToken = useTypedSelector((state) => state.token);
 
   const dispatch = useDispatch();
 
@@ -84,14 +86,17 @@ const SchoolForm: React.FC<ISchoolForm> = ({
 
   const handleRequests = (data: ISchool) => {
     api
-      .post("/school", data)
-      .then((response) => {
-        // dispatch(actionUpdateSchool(response.data))
-        console.log("response -", response);
-        toast.success("Alteração concluída com sucesso");
+      .patch(`/school/${selectedSchool.id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
-      // .catch((error) => toast.error(error.response.data.detail));
-      .catch((error) => console.log(error));
+      .then((response) => {
+        toast.success("Alteração concluída com sucesso");
+        dispatch(actionUpdateSchool(response.data));
+        setShowFormSchool(false);
+      })
+      .catch((error) => toast.error(error.response.data.detail));
   };
 
   return (

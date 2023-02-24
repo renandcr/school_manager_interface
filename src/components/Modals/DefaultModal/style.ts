@@ -28,7 +28,7 @@ export const CloseModalContainer = styled.div`
     text-decoration: underline;
   }
   .icon_close {
-    font-size: 28px;
+    font-size: 24px;
     transition: all ease-in 500ms;
     cursor: pointer;
     :hover {

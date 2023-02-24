@@ -12,8 +12,8 @@ import {
   UPDATE_SCHOOL,
 } from "./constants";
 
-const initialStateSchools: Array<IDatabaseSchool> = JSON.parse(
-  localStorage.getItem("@database_schools") || JSON.stringify("")
+let initialStateSchools: Array<IDatabaseSchool> = JSON.parse(
+  localStorage.getItem("@databaseSchools") || JSON.stringify("")
 );
 
 export const schoolReducer = (
@@ -22,13 +22,14 @@ export const schoolReducer = (
 ) => {
   switch (action.type) {
     case DATABASE_SCHOOL: {
-      localStorage.setItem("@database_schools", JSON.stringify(action.payload));
+      localStorage.setItem("@databaseSchools", JSON.stringify(action.payload));
+      initialStateSchools = action.payload;
       return action.payload;
     }
 
     case CREATE_SCHOOL: {
       localStorage.setItem(
-        "database_schools",
+        "@databaseSchools",
         JSON.stringify([...state, action.payload])
       );
       return [...state, action.payload];
@@ -38,17 +39,16 @@ export const schoolReducer = (
       const updatedState = state.filter(
         (current) => current.id !== action.payload.id
       );
-      localStorage.setItem("@database_schools", JSON.stringify(updatedState));
+      localStorage.setItem("@databaseSchools", JSON.stringify(updatedState));
       return updatedState;
     }
 
     case UPDATE_SCHOOL: {
-      const updatedState = state.find((current) => {
-        if (current.id === action.payload.id) {
-          return [...state, { ...current, ...action.payload }];
-        }
-      });
-      localStorage.setItem("@database_schools", JSON.stringify(updatedState));
+      const index = state.findIndex(
+        (current) => current.id === action.payload.id
+      );
+      const updatedState = state.splice(index, 1, action.payload);
+      localStorage.setItem("@databaseSchools", JSON.stringify(updatedState));
       return updatedState;
     }
 

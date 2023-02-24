@@ -1,8 +1,8 @@
 import SchoolInformationModal from "../../components/Modals/SchoolInformationModal";
 import { MainSchoolPageContainer, SchoolPageContainer } from "./style";
 import SchoolInformation from "../../components/SchoolInformation";
-import SchoolForm from "../../components/SchoolForm";
 import { IToken } from "../../store/models/user/actions";
+import SchoolForm from "../../components/SchoolForm";
 import { useTypedSelector } from "../../store";
 import { topScreen } from "../../assets/utils";
 import Footer from "../../components/Footer";
@@ -43,7 +43,7 @@ const SchoolPage = () => {
       })
       .then((response) => dispatch(actionDatabaseSchool(response.data)))
       .catch((error) => console.log(error));
-  }, []);
+  }, [showFormSchool]);
 
   return (
     <>
