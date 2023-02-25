@@ -22,6 +22,6 @@ export const HomePageSchoolsContainer = styled.section`
   .schools_container {
     display: flex;
     flex-direction: column;
-    row-gap: 10px;
+    row-gap: 35px;
   }
 `;

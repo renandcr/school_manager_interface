@@ -56,7 +56,7 @@ interface IStudentForm {
   setShowFormStudent: React.Dispatch<boolean>;
 }
 
-const StudentlForm: React.FC<IStudentForm> = ({
+const StudentForm: React.FC<IStudentForm> = ({
   setShowFormStudent,
   showFormStudent,
 }) => {
@@ -225,4 +225,4 @@ const StudentlForm: React.FC<IStudentForm> = ({
   );
 };
 
-export default StudentlForm;
+export default StudentForm;
