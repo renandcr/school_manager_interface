@@ -56,21 +56,29 @@ const SchoolInformation: React.FC<
         <li>
           <span className="email_field">{email}</span>
         </li>
-        <li>
-          <span>{street && `${street}, `}</span>
-          <span>{number}</span>
-        </li>
-        <li>
-          <span>{district}</span>
-        </li>
-        <li>
-          <span>{city && `${city}, `}</span>
-          <span> {state && `${state} - `}</span>
-          <span>{zip_code}</span>
-        </li>
-        <li>
-          <span>{phone}</span>
-        </li>
+        {(street || number) && (
+          <li>
+            {street && <span>{`${street}, `}</span>}
+            {number && <span>{number}</span>}
+          </li>
+        )}
+        {district && (
+          <li>
+            <span>{district}</span>
+          </li>
+        )}
+        {(city || state || zip_code) && (
+          <li>
+            {city && <span>{`${city}, `}</span>}
+            {state && <span> {`${state} - `}</span>}
+            {zip_code && <span>{zip_code}</span>}
+          </li>
+        )}
+        {phone && (
+          <li>
+            <span>{phone}</span>
+          </li>
+        )}
       </SchoolInformationContainer>
     </DefaultTextBox>
   );
