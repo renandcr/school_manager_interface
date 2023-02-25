@@ -1,4 +1,4 @@
-import { VARIABLES } from "../../styles/global";
+import { VARIABLES } from "../../../styles/global";
 import styled from "styled-components";
 
 export const RegistrationFormContainer = styled.form`
@@ -6,8 +6,8 @@ export const RegistrationFormContainer = styled.form`
   flex-direction: column;
   row-gap: 10px;
   width: 98%;
-  max-width: 440px;
-  h1 {
+  max-width: 420px;
+  h2 {
     margin-bottom: 20px;
     font-size: 26px;
     line-height: 30px;
