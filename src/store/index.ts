@@ -3,8 +3,15 @@ import { legacy_createStore as createStore, combineReducers } from "redux";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { tokenReducer } from "./models/user/reducer";
 
+import {
+  selectedStudentReducer,
+  studentReducer,
+} from "./models/student/reducer";
+
 const reducers = combineReducers({
+  selectedStudent: selectedStudentReducer,
   selectedSchool: selectedSchoolReducer,
+  students: studentReducer,
   schools: schoolReducer,
   token: tokenReducer,
 });
