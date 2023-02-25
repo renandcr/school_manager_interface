@@ -6,6 +6,7 @@ export const DefaultButtonContainer = styled.button<IDefaultButton>`
   padding: 5px;
   border-radius: 2px;
   font-weight: 400;
+  min-width: fit-content;
   background-color: ${VARIABLES.blueColor};
   color: #ffffff;
   background-color: ${(props) => props.backgroundColor};
@@ -23,7 +24,6 @@ export const DefaultButtonContainer = styled.button<IDefaultButton>`
 export const HorizontalButtonContainer = styled.div`
   display: flex;
   column-gap: 12px;
-  margin-top: 12px;
   button {
     width: 100%;
   }

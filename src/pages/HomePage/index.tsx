@@ -87,8 +87,8 @@ const HomePage = () => {
             <div>
               {!showFormSchool && (
                 <DefaultButton
-                  height="50px"
-                  width="160px"
+                  height="47px"
+                  width="150px"
                   onClick={() => {
                     setShowFormSchool(true);
                     setSchoolUpdate(false);
