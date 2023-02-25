@@ -24,6 +24,7 @@ export const DefaultButtonContainer = styled.button<IDefaultButton>`
 export const HorizontalButtonContainer = styled.div`
   display: flex;
   column-gap: 12px;
+  margin-top: 12px;
   button {
     width: 100%;
   }

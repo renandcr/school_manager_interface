@@ -1,16 +1,16 @@
-import { HorizontalButtonContainer } from "../DefaultButton/style";
-import { IToken } from "../../store/models/user/actions";
+import { HorizontalButtonContainer } from "../../DefaultButton/style";
+import { IToken } from "../../../store/models/user/actions";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { VARIABLES } from "../../styles/global";
-import { useTypedSelector } from "../../store";
-import { topScreen } from "../../assets/utils";
+import { VARIABLES } from "../../../styles/global";
+import { useTypedSelector } from "../../../store";
+import { topScreen } from "../../../assets/utils";
 import { SchoolFormContainer } from "./style";
-import DefaultButton from "../DefaultButton";
+import DefaultButton from "../../DefaultButton";
 import { TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import api from "../../assets/axios";
+import api from "../../../assets/axios";
 import * as React from "react";
 import * as yup from "yup";
 
@@ -18,7 +18,7 @@ import {
   actionUpdateSchool,
   IDatabaseSchool,
   ISchool,
-} from "../../store/models/school/actions";
+} from "../../../store/models/school/actions";
 
 interface ISchoolForm {
   setShowFormSchool: React.Dispatch<boolean>;
@@ -126,9 +126,9 @@ const SchoolForm: React.FC<ISchoolForm> = ({
       {showFormSchool && (
         <SchoolFormContainer onSubmit={handleSubmit(handleRequests)}>
           {schoolUpdate ? (
-            <h1>Editar informações</h1>
+            <h2>Editar informações</h2>
           ) : (
-            <h1>Cadastrar Escola</h1>
+            <h2>Cadastrar Escola</h2>
           )}
           <TextField
             className="text_field"

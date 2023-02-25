@@ -1,14 +1,14 @@
-import { actionSaveToken } from "../../store/models/user/actions";
+import { actionSaveToken } from "../../../store/models/user/actions";
 import { LoginOptionContainer } from "../RegistrationForm/style";
 import { yupResolver } from "@hookform/resolvers/yup";
-import DefaultButton from "../DefaultButton";
+import DefaultButton from "../../DefaultButton";
 import { LoginFormContainer } from "./style";
 import { useDispatch } from "react-redux";
 import { TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
+import api from "../../../assets/axios";
 import { toast } from "react-toastify";
-import api from "../../assets/axios";
 import * as React from "react";
 import * as yup from "yup";
 
@@ -57,7 +57,7 @@ const LoginForm: React.FC<ILoginForm> = ({
     <>
       {!showRegistrationForm && (
         <LoginFormContainer onSubmit={handleSubmit(handleRequests)}>
-          <h1>Faça o login</h1>
+          <h2>Faça o login</h2>
           <TextField
             className="text_field"
             label="E-mail"

@@ -1,10 +1,10 @@
 import { RegistrationFormContainer, LoginOptionContainer } from "./style";
 import { yupResolver } from "@hookform/resolvers/yup";
-import DefaultButton from "../DefaultButton";
+import DefaultButton from "../../DefaultButton";
 import { useForm } from "react-hook-form";
 import { TextField } from "@mui/material";
 import { toast } from "react-toastify";
-import api from "../../assets/axios";
+import api from "../../../assets/axios";
 import * as React from "react";
 import * as yup from "yup";
 
@@ -18,13 +18,13 @@ interface IUserRegistration {
 }
 
 export interface IRegistrationForm {
-  showRegistrationForm: boolean;
   setShowRegistrationForm: React.Dispatch<boolean>;
+  showRegistrationForm: boolean;
 }
 
 const RegistrationForm: React.FC<IRegistrationForm> = ({
-  showRegistrationForm,
   setShowRegistrationForm,
+  showRegistrationForm,
 }) => {
   const FormSchema = yup.object().shape({
     first_name: yup
