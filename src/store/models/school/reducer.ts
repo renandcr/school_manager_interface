@@ -44,10 +44,11 @@ export const schoolReducer = (
     }
 
     case UPDATE_SCHOOL: {
-      const index = state.findIndex(
+      const schoolIndex = state.findIndex(
         (current) => current.id === action.payload.id
       );
-      const updatedState = state.splice(index, 1, action.payload);
+      if (schoolIndex === -1) return state;
+      const updatedState = state.splice(schoolIndex, 1, action.payload);
       localStorage.setItem("@databaseSchools", JSON.stringify(updatedState));
       return updatedState;
     }

@@ -4,15 +4,10 @@ import DefaultTextBox from "../DefaultTextBox";
 import { useDispatch } from "react-redux";
 import * as React from "react";
 
-export interface IStudentInformation {
-  showStudentInformation?: boolean;
-  editable?: boolean;
-}
-
 export interface IDatabaseStudentAlternative {
   id?: string;
-  first_name: string;
-  last_name: string;
+  first_name?: string;
+  last_name?: string;
   email: string;
   date_of_birth?: string;
   cpf?: string;
@@ -20,6 +15,12 @@ export interface IDatabaseStudentAlternative {
   gender?: string;
   date_joined?: Date;
   school?: string;
+}
+
+export interface IStudentInformation {
+  setShowStudentInformationModal?: React.Dispatch<boolean>;
+  showStudentInformation?: boolean;
+  editable?: boolean;
 }
 
 const StudentInformation: React.FC<
@@ -33,50 +34,47 @@ const StudentInformation: React.FC<
   phone,
   gender,
   editable = false,
-  showStudentInformation,
+  setShowStudentInformationModal,
 }) => {
   const dispatch = useDispatch();
 
   return (
-    <>
-      {showStudentInformation && (
-        <DefaultTextBox>
-          <StudentInformationContainer
-            editable={editable}
-            onClick={() => {
-              dispatch(actionSelectedStudent(email));
-            }}
-          >
-            <li>
-              <h2>{`${first_name} ${last_name}`}</h2>
-            </li>
-            <li>
-              <span className="email_field">{email}</span>
-            </li>
-            {date_of_birth && (
-              <li>
-                <span>{`Nascido em ${date_of_birth}`}</span>
-              </li>
-            )}
-            {cpf && (
-              <li>
-                <span>{`CPF ${cpf}`}</span>
-              </li>
-            )}
-            {phone && (
-              <li>
-                <span>{`Telefone ${phone}`}</span>
-              </li>
-            )}
-            {gender && (
-              <li>
-                <span>{`Gênero ${gender}`}</span>
-              </li>
-            )}
-          </StudentInformationContainer>
-        </DefaultTextBox>
-      )}
-    </>
+    <DefaultTextBox>
+      <StudentInformationContainer
+        editable={editable}
+        onClick={() => {
+          dispatch(actionSelectedStudent(email));
+          setShowStudentInformationModal?.(true);
+        }}
+      >
+        <li>
+          <h2>{`${first_name} ${last_name}`}</h2>
+        </li>
+        <li>
+          <span className="email_field">{email}</span>
+        </li>
+        {date_of_birth && (
+          <li>
+            <span>{`Data de nascimento: ${date_of_birth}`}</span>
+          </li>
+        )}
+        {cpf && (
+          <li>
+            <span>{`CPF: ${cpf}`}</span>
+          </li>
+        )}
+        {phone && (
+          <li>
+            <span>{`Telefone: ${phone}`}</span>
+          </li>
+        )}
+        {gender && (
+          <li>
+            <span>{`Gênero: ${gender}`}</span>
+          </li>
+        )}
+      </StudentInformationContainer>
+    </DefaultTextBox>
   );
 };
 

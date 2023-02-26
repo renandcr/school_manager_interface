@@ -1,5 +1,4 @@
-import { actionDatabaseStudents } from "../../store/models/student/actions";
-import { IDatabaseStudent } from "../../store/models/student/actions";
+import StudentInformationModal from "../../components/Modals/StudentInformationModal";
 import StudentInformation from "../../components/StudentInformation";
 import { IDatabaseSchool } from "../../store/models/school/actions";
 import SchoolInformation from "../../components/SchoolInformation";
@@ -22,12 +21,21 @@ import {
   SchoolContainer,
 } from "./style";
 
+import {
+  actionDatabaseStudents,
+  IDatabaseStudent,
+} from "../../store/models/student/actions";
+
 const SchoolPage = () => {
   topScreen();
 
+  const [showAllStudents, setShowAllStudents] = React.useState(false);
   const [showFormStudent, setShowFormStudent] = React.useState(false);
+  const [showStudentInformationModal, setShowStudentInformationModal] =
+    React.useState(false);
   const [showStudentInformation, setShowStudentInformation] =
     React.useState(false);
+  const [studentUpdate, setStudentUpdate] = React.useState(false);
 
   const token: IToken = useTypedSelector((state) => state.token);
   const students: Array<IDatabaseStudent> = useTypedSelector(
@@ -35,6 +43,9 @@ const SchoolPage = () => {
   );
   const selectedSchool: IDatabaseSchool = useTypedSelector(
     (state) => state.selectedSchool
+  );
+  const selectedStudent: IDatabaseStudent = useTypedSelector(
+    (state) => state.selectedStudent
   );
 
   const dispatch = useDispatch();
@@ -52,12 +63,26 @@ const SchoolPage = () => {
 
   return (
     <>
-      <Header />
+      <StudentInformationModal
+        key={selectedStudent.id}
+        setShowStudentInformationModal={setShowStudentInformationModal}
+        showStudentInformationModal={showStudentInformationModal}
+        setShowFormStudent={setShowFormStudent}
+        setStudentUpdate={setStudentUpdate}
+        current={selectedStudent}
+      />
+      <Header
+        setShowStudentInformation={setShowStudentInformation}
+        setShowAllStudents={setShowAllStudents}
+        showAllStudents={showAllStudents}
+      />
       <MainSchoolPageContainer>
         <SchoolPageContainer>
           <StudentForm
-            showFormStudent={showFormStudent}
             setShowFormStudent={setShowFormStudent}
+            setStudentUpdate={setStudentUpdate}
+            showFormStudent={showFormStudent}
+            studentUpdate={studentUpdate}
           />
           {!showFormStudent && !showStudentInformation && (
             <SchoolContainer>
@@ -90,7 +115,10 @@ const SchoolPage = () => {
                 <DefaultButton
                   height="47px"
                   width="140px"
-                  onClick={() => setShowStudentInformation(true)}
+                  onClick={() => {
+                    setShowStudentInformation(true);
+                    setShowAllStudents(true);
+                  }}
                 >
                   {"Visualizar Alunos"}
                 </DefaultButton>
@@ -106,7 +134,7 @@ const SchoolPage = () => {
               </div>
             </SchoolContainer>
           )}
-          {showStudentInformation && (
+          {showStudentInformation && !showFormStudent && (
             <StudentsContainer>
               <h1>{`${selectedSchool.name} - Alunos`}</h1>
               <div className="students_container">
@@ -117,7 +145,11 @@ const SchoolPage = () => {
                       first_name={current.first_name}
                       last_name={current.last_name}
                       email={current.email}
+                      setShowStudentInformationModal={
+                        setShowStudentInformationModal
+                      }
                       showStudentInformation={showStudentInformation}
+                      editable
                     />
                   ))}
               </div>

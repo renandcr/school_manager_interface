@@ -20,8 +20,8 @@ export interface IDatabaseSchoolAlternative {
 }
 
 export interface ISchoolInformation {
-  editable?: boolean;
   setShowSchoolInformationModal?: React.Dispatch<boolean>;
+  editable?: boolean;
 }
 
 const SchoolInformation: React.FC<

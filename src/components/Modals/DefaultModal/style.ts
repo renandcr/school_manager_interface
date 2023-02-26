@@ -18,6 +18,8 @@ export const DefaultModalContainer = styled.div<IDefaultModal>`
 export const CloseModalContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  border-bottom: ${`solid 1px ${VARIABLES.grayBorder}`};
+  padding-bottom: 10px;
   span {
     font-size: 16px;
     line-height: 26px;
@@ -25,7 +27,6 @@ export const CloseModalContainer = styled.div`
     font-family: ${VARIABLES.fontFive};
     color: ${VARIABLES.grayColor3};
     text-transform: uppercase;
-    text-decoration: underline;
   }
   .icon_close {
     font-size: 24px;
