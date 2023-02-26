@@ -16,6 +16,11 @@ import api from "../../assets/axios";
 import * as React from "react";
 
 import {
+  actionDatabaseCourses,
+  IDatabaseCourse,
+} from "../../store/models/course/actions";
+
+import {
   MainSchoolPageContainer,
   SchoolPageContainer,
   StudentsContainer,
@@ -39,10 +44,14 @@ const SchoolPage = () => {
   const [showStudentInformation, setShowStudentInformation] =
     React.useState(false);
   const [studentUpdate, setStudentUpdate] = React.useState(false);
+  const [courseUpdate, setCourseUpdate] = React.useState(false);
 
   const token: IToken = useTypedSelector((state) => state.token);
   const students: Array<IDatabaseStudent> = useTypedSelector(
     (state) => state.students
+  );
+  const courses: Array<IDatabaseCourse> = useTypedSelector(
+    (state) => state.courses
   );
   const selectedSchool: IDatabaseSchool = useTypedSelector(
     (state) => state.selectedSchool
@@ -64,6 +73,22 @@ const SchoolPage = () => {
       .catch((error) => console.log(error));
   }, [showStudentInformation]);
 
+  React.useEffect(() => {
+    api
+      .get(`/course/get/${selectedSchool.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        dispatch(actionDatabaseCourses(response.data));
+        console.log("response -", response);
+      })
+      .catch((error) => {
+        console.log("error -", error);
+      });
+  }, [courseUpdate]);
+
   return (
     <>
       <StudentInformationModal
@@ -83,7 +108,9 @@ const SchoolPage = () => {
         <SchoolPageContainer>
           <CourseForm
             setShowFormCourse={setShowFormCourse}
+            setCourseUpdate={setCourseUpdate}
             showFormCourse={showFormCourse}
+            courseUpdate={courseUpdate}
           />
           <StudentForm
             setShowFormStudent={setShowFormStudent}
@@ -140,7 +167,11 @@ const SchoolPage = () => {
           )}
           <CoursesContainer>
             <h2>Cursos</h2>
-            <div className="courses_container"></div>
+            <div className="courses_container">
+              {/* {courses.map((current) => (
+
+              ))} */}
+            </div>
             <div className="courses_buttons">
               <DefaultButton height="47px">
                 {"Adicionar novo curso"}

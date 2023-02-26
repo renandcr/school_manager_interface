@@ -15,13 +15,17 @@ import * as React from "react";
 import * as yup from "yup";
 
 interface ICourseForm {
-  showFormCourse: boolean;
   setShowFormCourse: React.Dispatch<boolean>;
+  setCourseUpdate: React.Dispatch<boolean>;
+  showFormCourse: boolean;
+  courseUpdate: boolean;
 }
 
 const CourseForm: React.FC<ICourseForm> = ({
   setShowFormCourse,
+  setCourseUpdate,
   showFormCourse,
+  courseUpdate,
 }) => {
   const token: IToken = useTypedSelector((state) => state.token);
   const selectedSchool: IDatabaseSchool = useTypedSelector(
