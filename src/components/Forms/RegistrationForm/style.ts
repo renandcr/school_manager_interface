@@ -22,6 +22,13 @@ export const RegistrationFormContainer = styled.form`
       }
     }
   }
+  .text_area {
+    div {
+      .MuiInputBase-input {
+        color: ${VARIABLES.grayColor2};
+      }
+    }
+  }
   p {
     margin: -5px 0 5px 0;
     font-size: 12px;

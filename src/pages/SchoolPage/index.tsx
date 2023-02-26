@@ -4,6 +4,7 @@ import { IDatabaseSchool } from "../../store/models/school/actions";
 import SchoolInformation from "../../components/SchoolInformation";
 import StudentForm from "../../components/Forms/StudentForm";
 import DefaultButton from "../../components/DefaultButton";
+import CourseForm from "../../components/Forms/CourseForm";
 import { IToken } from "../../store/models/user/actions";
 import { VARIABLES } from "../../styles/global";
 import { useTypedSelector } from "../../store";
