@@ -58,16 +58,16 @@ interface IStudent {
 }
 
 interface IStudentForm {
-  setShowFormStudent: React.Dispatch<boolean>;
+  setShowStudentForm: React.Dispatch<boolean>;
   setStudentUpdate: React.Dispatch<boolean>;
-  showFormStudent: boolean;
+  showStudentForm: boolean;
   studentUpdate: boolean;
 }
 
 const StudentForm: React.FC<IStudentForm> = ({
-  setShowFormStudent,
+  setShowStudentForm,
   setStudentUpdate,
-  showFormStudent,
+  showStudentForm,
   studentUpdate,
 }) => {
   const dispatch = useDispatch();
@@ -142,7 +142,7 @@ const StudentForm: React.FC<IStudentForm> = ({
           })
           .then(() => {
             toast.success("Aluno matriculado com sucesso");
-            setShowFormStudent(false);
+            setShowStudentForm(false);
           })
           .catch((error) => {
             if (error.response.data.email) {
@@ -162,7 +162,7 @@ const StudentForm: React.FC<IStudentForm> = ({
           .then((response) => {
             toast.success("Atualização concluída com sucesso");
             dispatch(actionUpdateStudent(response.data));
-            setShowFormStudent(false);
+            setShowStudentForm(false);
             setStudentUpdate(false);
           })
           .catch((error) => {
@@ -178,7 +178,7 @@ const StudentForm: React.FC<IStudentForm> = ({
 
   return (
     <>
-      {showFormStudent && (
+      {showStudentForm && (
         <StudentFormContainer onSubmit={handleSubmit(handleRequests)}>
           {studentUpdate ? (
             <h2>Editar informações</h2>
@@ -268,7 +268,7 @@ const StudentForm: React.FC<IStudentForm> = ({
               color={VARIABLES.blueColor}
               height="55px"
               onClick={(e) => {
-                setShowFormStudent(false);
+                setShowStudentForm(false);
                 setStudentUpdate(false);
                 e.preventDefault();
                 clearErrors();

@@ -11,7 +11,7 @@ import * as React from "react";
 
 interface IStudentInformationModal {
   setShowStudentInformationModal: React.Dispatch<boolean>;
-  setShowFormStudent: React.Dispatch<boolean>;
+  setShowStudentForm: React.Dispatch<boolean>;
   setStudentUpdate: React.Dispatch<boolean>;
   showStudentInformationModal: boolean;
 }
@@ -21,7 +21,7 @@ const StudentInformationModal: React.FC<
 > = ({
   setShowStudentInformationModal,
   showStudentInformationModal,
-  setShowFormStudent,
+  setShowStudentForm,
   setStudentUpdate,
   current,
 }) => {
@@ -36,7 +36,6 @@ const StudentInformationModal: React.FC<
             <CloseIcon className="icon_close" />
           </CloseModalContainer>
           <StudentInformation
-            key={current.id}
             first_name={current.first_name}
             last_name={current.last_name}
             email={current.email}
@@ -51,7 +50,7 @@ const StudentInformationModal: React.FC<
               height="47px"
               onClick={() => {
                 setShowStudentInformationModal(false);
-                setShowFormStudent(true);
+                setShowStudentForm(true);
                 setStudentUpdate(true);
               }}
             >

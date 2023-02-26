@@ -6,12 +6,13 @@ import { useDispatch } from "react-redux";
 import * as React from "react";
 
 export interface ICourseInformation {
+  setShowCourseInformationModal?: React.Dispatch<boolean>;
   editable?: boolean;
 }
 
 const CourseInformation: React.FC<
   { current: IDatabaseCourse } & ICourseInformation
-> = ({ current, editable = false }) => {
+> = ({ setShowCourseInformationModal, current, editable = false }) => {
   const dispatch = useDispatch();
 
   return (
@@ -20,6 +21,7 @@ const CourseInformation: React.FC<
         editable={editable}
         onClick={() => {
           dispatch(actionSelectedCourse(current.name));
+          setShowCourseInformationModal?.(true);
         }}
       >
         <li>
