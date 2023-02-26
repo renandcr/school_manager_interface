@@ -1,4 +1,5 @@
 import { schoolReducer, selectedSchoolReducer } from "./models/school/reducer";
+import { courseReducer, selectedCourseReducer } from "./models/course/reducer";
 import { legacy_createStore as createStore, combineReducers } from "redux";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { tokenReducer } from "./models/user/reducer";
@@ -11,8 +12,10 @@ import {
 const reducers = combineReducers({
   selectedStudent: selectedStudentReducer,
   selectedSchool: selectedSchoolReducer,
+  selectedCourse: selectedCourseReducer,
   students: studentReducer,
   schools: schoolReducer,
+  courses: courseReducer,
   token: tokenReducer,
 });
 
