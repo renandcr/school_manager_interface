@@ -36,5 +36,17 @@ export const DefaultTextBoxContainer = styled.div`
         color: ${VARIABLES.yellowColor};
       }
     }
+    .text_area {
+      max-width: 500px;
+      white-space: normal;
+      p {
+        font-size: 18px;
+        line-height: 28px;
+        font-weight: 500;
+        font-family: ${VARIABLES.fontFive};
+        color: ${VARIABLES.grayColor3};
+        max-width: 100%;
+      }
+    }
   }
 `;

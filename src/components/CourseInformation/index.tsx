@@ -25,8 +25,8 @@ const CourseInformation: React.FC<
         <li>
           <h2>{current.name}</h2>
         </li>
-        <li>
-          <span>{current.description}</span>
+        <li className="text_area">
+          <p>{current.description}</p>
         </li>
       </CourseInformationContainer>
     </DefaultTextBox>

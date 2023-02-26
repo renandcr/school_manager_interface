@@ -1,6 +1,5 @@
 import { IDatabaseSchool } from "../../../store/models/school/actions";
 import { HorizontalButtonContainer } from "../../DefaultButton/style";
-import { ICourse } from "../../../store/models/course/actions";
 import { IToken } from "../../../store/models/user/actions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTypedSelector } from "../../../store";
@@ -9,10 +8,16 @@ import DefaultButton from "../../DefaultButton";
 import { CourseFormContainer } from "./style";
 import { TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import api from "../../../assets/axios";
 import { toast } from "react-toastify";
 import * as React from "react";
 import * as yup from "yup";
+
+import {
+  actionCreateCourse,
+  ICourse,
+} from "../../../store/models/course/actions";
 
 interface ICourseForm {
   setShowFormCourse: React.Dispatch<boolean>;
@@ -31,6 +36,8 @@ const CourseForm: React.FC<ICourseForm> = ({
   const selectedSchool: IDatabaseSchool = useTypedSelector(
     (state) => state.selectedSchool
   );
+
+  const dispatch = useDispatch();
 
   const formSchema = yup.object().shape({
     name: yup
@@ -54,8 +61,10 @@ const CourseForm: React.FC<ICourseForm> = ({
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(() => {
+      .then((response) => {
         toast.success("Curso cadastrado com sucesso");
+        dispatch(actionCreateCourse(response.data));
+        setShowFormCourse(false);
       })
       .catch((error) => {
         if (error.response.data.name) {

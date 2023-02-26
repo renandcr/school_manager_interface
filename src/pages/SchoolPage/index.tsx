@@ -2,6 +2,7 @@ import StudentInformationModal from "../../components/Modals/StudentInformationM
 import StudentInformation from "../../components/StudentInformation";
 import { IDatabaseSchool } from "../../store/models/school/actions";
 import SchoolInformation from "../../components/SchoolInformation";
+import CourseInformation from "../../components/CourseInformation";
 import StudentForm from "../../components/Forms/StudentForm";
 import DefaultButton from "../../components/DefaultButton";
 import CourseForm from "../../components/Forms/CourseForm";
@@ -118,7 +119,7 @@ const SchoolPage = () => {
             showFormStudent={showFormStudent}
             studentUpdate={studentUpdate}
           />
-          {!showFormStudent && !showStudentInformation && (
+          {!showFormStudent && !showStudentInformation && !showFormCourse && (
             <SchoolContainer>
               <div className="school-container">
                 {selectedSchool && (
@@ -165,19 +166,28 @@ const SchoolPage = () => {
               </div>
             </SchoolContainer>
           )}
-          <CoursesContainer>
-            <h2>Cursos</h2>
-            <div className="courses_container">
-              {/* {courses.map((current) => (
-
-              ))} */}
-            </div>
-            <div className="courses_buttons">
-              <DefaultButton height="47px">
-                {"Adicionar novo curso"}
-              </DefaultButton>
-            </div>
-          </CoursesContainer>
+          {!showFormStudent && !showStudentInformation && !showFormCourse && (
+            <CoursesContainer>
+              <div className="courses_container">
+                <h1>Cursos</h1>
+                {courses.map((current) => (
+                  <CourseInformation
+                    key={current.id}
+                    current={current}
+                    editable
+                  />
+                ))}
+              </div>
+              <div className="courses_buttons">
+                <DefaultButton
+                  height="47px"
+                  onClick={() => setShowFormCourse(true)}
+                >
+                  {"Adicionar novo curso"}
+                </DefaultButton>
+              </div>
+            </CoursesContainer>
+          )}
           {showStudentInformation && !showFormStudent && (
             <StudentsContainer>
               <h1>{`${selectedSchool.name} - Alunos`}</h1>
