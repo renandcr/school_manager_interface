@@ -1,4 +1,5 @@
 import StudentInformationModal from "../../components/Modals/StudentInformationModal";
+import CourseInformationModal from "../../components/Modals/CourseInformationModal";
 import StudentInformation from "../../components/StudentInformation";
 import { IDatabaseSchool } from "../../store/models/school/actions";
 import SchoolInformation from "../../components/SchoolInformation";
@@ -38,18 +39,24 @@ const SchoolPage = () => {
   topScreen();
 
   const [showAllStudents, setShowAllStudents] = React.useState(false);
-  const [showFormStudent, setShowFormStudent] = React.useState(false);
-  const [showFormCourse, setShowFormCourse] = React.useState(false);
+  const [showStudentForm, setShowStudentForm] = React.useState(false);
   const [showStudentInformationModal, setShowStudentInformationModal] =
     React.useState(false);
+  const [studentUpdate, setStudentUpdate] = React.useState(false);
   const [showStudentInformation, setShowStudentInformation] =
     React.useState(false);
-  const [studentUpdate, setStudentUpdate] = React.useState(false);
+
+  const [showCourseInformationModal, setShowCourseInformationModal] =
+    React.useState(false);
+  const [showCourseForm, setShowCourseForm] = React.useState(false);
   const [courseUpdate, setCourseUpdate] = React.useState(false);
 
   const token: IToken = useTypedSelector((state) => state.token);
   const students: Array<IDatabaseStudent> = useTypedSelector(
     (state) => state.students
+  );
+  const selectedStudent: IDatabaseStudent = useTypedSelector(
+    (state) => state.selectedStudent
   );
   const courses: Array<IDatabaseCourse> = useTypedSelector(
     (state) => state.courses
@@ -57,8 +64,8 @@ const SchoolPage = () => {
   const selectedSchool: IDatabaseSchool = useTypedSelector(
     (state) => state.selectedSchool
   );
-  const selectedStudent: IDatabaseStudent = useTypedSelector(
-    (state) => state.selectedStudent
+  const selectedCourse: IDatabaseCourse = useTypedSelector(
+    (state) => state.selectedCourse
   );
 
   const dispatch = useDispatch();
@@ -81,22 +88,23 @@ const SchoolPage = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => {
-        dispatch(actionDatabaseCourses(response.data));
-        console.log("response -", response);
-      })
-      .catch((error) => {
-        console.log("error -", error);
-      });
+      .then((response) => dispatch(actionDatabaseCourses(response.data)))
+      .catch((error) => console.log(error));
   }, [courseUpdate]);
 
   return (
     <>
+      <CourseInformationModal
+        setShowCourseInformationModal={setShowCourseInformationModal}
+        showCourseInformationModal={showCourseInformationModal}
+        setShowCourseForm={setShowCourseForm}
+        setCourseUpdate={setCourseUpdate}
+        current={selectedCourse}
+      />
       <StudentInformationModal
-        key={selectedStudent.id}
         setShowStudentInformationModal={setShowStudentInformationModal}
         showStudentInformationModal={showStudentInformationModal}
-        setShowFormStudent={setShowFormStudent}
+        setShowStudentForm={setShowStudentForm}
         setStudentUpdate={setStudentUpdate}
         current={selectedStudent}
       />
@@ -108,23 +116,22 @@ const SchoolPage = () => {
       <MainSchoolPageContainer>
         <SchoolPageContainer>
           <CourseForm
-            setShowFormCourse={setShowFormCourse}
+            setShowCourseForm={setShowCourseForm}
             setCourseUpdate={setCourseUpdate}
-            showFormCourse={showFormCourse}
+            showCourseForm={showCourseForm}
             courseUpdate={courseUpdate}
           />
           <StudentForm
-            setShowFormStudent={setShowFormStudent}
+            setShowStudentForm={setShowStudentForm}
             setStudentUpdate={setStudentUpdate}
-            showFormStudent={showFormStudent}
+            showStudentForm={showStudentForm}
             studentUpdate={studentUpdate}
           />
-          {!showFormStudent && !showStudentInformation && !showFormCourse && (
+          {!showStudentForm && !showStudentInformation && !showCourseForm && (
             <SchoolContainer>
               <div className="school-container">
                 {selectedSchool && (
                   <SchoolInformation
-                    key={selectedSchool.id}
                     id={selectedSchool.id}
                     branch={selectedSchool.branch}
                     name={selectedSchool.name}
@@ -151,7 +158,7 @@ const SchoolPage = () => {
                 </DefaultButton>
                 <DefaultButton
                   height="47px"
-                  onClick={() => setShowFormStudent(true)}
+                  onClick={() => setShowStudentForm(true)}
                 >
                   {"Matricular aluno"}
                 </DefaultButton>
@@ -166,7 +173,7 @@ const SchoolPage = () => {
               </div>
             </SchoolContainer>
           )}
-          {!showFormStudent && !showStudentInformation && !showFormCourse && (
+          {!showStudentForm && !showStudentInformation && !showCourseForm && (
             <CoursesContainer>
               <div className="courses_container">
                 <h1>Cursos</h1>
@@ -174,6 +181,9 @@ const SchoolPage = () => {
                   <CourseInformation
                     key={current.id}
                     current={current}
+                    setShowCourseInformationModal={
+                      setShowCourseInformationModal
+                    }
                     editable
                   />
                 ))}
@@ -181,14 +191,14 @@ const SchoolPage = () => {
               <div className="courses_buttons">
                 <DefaultButton
                   height="47px"
-                  onClick={() => setShowFormCourse(true)}
+                  onClick={() => setShowCourseForm(true)}
                 >
                   {"Adicionar novo curso"}
                 </DefaultButton>
               </div>
             </CoursesContainer>
           )}
-          {showStudentInformation && !showFormStudent && (
+          {showStudentInformation && !showStudentForm && (
             <StudentsContainer>
               <h1>{`${selectedSchool.name} - Alunos`}</h1>
               <div className="students_container">

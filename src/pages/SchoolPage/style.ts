@@ -48,6 +48,8 @@ export const StudentsContainer = styled.section`
   .students_container {
     display: flex;
     flex-direction: column;
+    max-width: 100%;
+    width: fit-content;
     gap: 30px;
   }
 `;

@@ -2,8 +2,9 @@ import { IDatabaseSchool } from "../../../store/models/school/actions";
 import { HorizontalButtonContainer } from "../../DefaultButton/style";
 import { IToken } from "../../../store/models/user/actions";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useTypedSelector } from "../../../store";
 import { VARIABLES } from "../../../styles/global";
+import { useTypedSelector } from "../../../store";
+import { topScreen } from "../../../assets/utils";
 import DefaultButton from "../../DefaultButton";
 import { CourseFormContainer } from "./style";
 import { TextField } from "@mui/material";
@@ -16,25 +17,30 @@ import * as yup from "yup";
 
 import {
   actionCreateCourse,
+  actionUpdateCourse,
+  IDatabaseCourse,
   ICourse,
 } from "../../../store/models/course/actions";
 
 interface ICourseForm {
-  setShowFormCourse: React.Dispatch<boolean>;
+  setShowCourseForm: React.Dispatch<boolean>;
   setCourseUpdate: React.Dispatch<boolean>;
-  showFormCourse: boolean;
+  showCourseForm: boolean;
   courseUpdate: boolean;
 }
 
 const CourseForm: React.FC<ICourseForm> = ({
-  setShowFormCourse,
+  setShowCourseForm,
   setCourseUpdate,
-  showFormCourse,
+  showCourseForm,
   courseUpdate,
 }) => {
   const token: IToken = useTypedSelector((state) => state.token);
   const selectedSchool: IDatabaseSchool = useTypedSelector(
     (state) => state.selectedSchool
+  );
+  const selectedCourse: IDatabaseCourse = useTypedSelector(
+    (state) => state.selectedCourse
   );
 
   const dispatch = useDispatch();
@@ -50,36 +56,65 @@ const CourseForm: React.FC<ICourseForm> = ({
       .required("Descrição é obrigatório"),
   });
 
-  const { handleSubmit, register, formState, clearErrors } = useForm<ICourse>({
-    resolver: yupResolver(formSchema),
-  });
+  const { handleSubmit, register, formState, clearErrors, reset } =
+    useForm<ICourse>({
+      resolver: yupResolver(formSchema),
+    });
+
+  React.useEffect(() => {
+    courseUpdate ? reset(selectedCourse) : reset({});
+  }, [courseUpdate]);
 
   const handleRequests = (data: ICourse) => {
-    api
-      .post(`/course/create/${selectedSchool.id}`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        toast.success("Curso cadastrado com sucesso");
-        dispatch(actionCreateCourse(response.data));
-        setShowFormCourse(false);
-      })
-      .catch((error) => {
-        if (error.response.data.name) {
-          return toast.error(error.response.data.name[0]);
-        } else if (error.response.data.detail) {
-          return toast.error(error.response.data.detail);
-        } else return toast.error("Falha ao tentar cadastrar curso");
-      });
+    !courseUpdate
+      ? api
+          .post(`/course/create/${selectedSchool.id}`, data, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            toast.success("Curso cadastrado com sucesso");
+            dispatch(actionCreateCourse(response.data));
+            setShowCourseForm(false);
+          })
+          .catch((error) => {
+            if (error.response.data.name) {
+              return toast.error(error.response.data.name[0]);
+            } else if (error.response.data.detail) {
+              return toast.error(error.response.data.detail);
+            } else return toast.error("Falha ao tentar cadastrar curso");
+          })
+      : api
+          .patch(`/course/${selectedCourse.id}`, data, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            toast.success("Curso atualizado com sucesso");
+            dispatch(actionUpdateCourse(response.data));
+            setShowCourseForm(false);
+            setCourseUpdate(false);
+          })
+          .catch((error) => {
+            if (error.response.data.name)
+              return toast.error(error.response.data.name[0]);
+            else if (error.response.data.detail)
+              return toast.error(error.response.data.detail);
+            else return toast.error("Falha ao tentar atualizar curso");
+          });
   };
 
   return (
     <>
-      {showFormCourse && (
+      {showCourseForm && (
         <CourseFormContainer onSubmit={handleSubmit(handleRequests)}>
-          <h2>Cadastrar curso</h2>
+          {!courseUpdate ? (
+            <h2>Cadastrar curso</h2>
+          ) : (
+            <h2>Editar informações</h2>
+          )}
           <TextField
             className="text_field"
             label="Nome"
@@ -90,7 +125,6 @@ const CourseForm: React.FC<ICourseForm> = ({
           {formState.errors.name && <p>{formState.errors.name?.message}</p>}
 
           <TextField
-            // id="outlined-textarea"
             className="text_field text_area"
             label="Descrição"
             type="text"
@@ -103,16 +137,22 @@ const CourseForm: React.FC<ICourseForm> = ({
             <p>{formState.errors.description?.message}</p>
           )}
           <HorizontalButtonContainer>
-            <DefaultButton height="55px">{"Salvar curso"}</DefaultButton>
+            {!courseUpdate ? (
+              <DefaultButton height="55px">{"Salvar curso"}</DefaultButton>
+            ) : (
+              <DefaultButton height="55px">{"Salvar alterações"}</DefaultButton>
+            )}
             <DefaultButton
               border={`solid 1px ${VARIABLES.blueColor}`}
               backgroundColor="transparent"
               color={VARIABLES.blueColor}
               height="55px"
               onClick={(e) => {
-                setShowFormCourse(false);
+                setShowCourseForm(false);
+                setCourseUpdate(false);
                 e.preventDefault();
                 clearErrors();
+                topScreen();
               }}
             >
               {"Cancelar"}
