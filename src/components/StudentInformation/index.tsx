@@ -17,7 +17,7 @@ export interface IDatabaseStudentAlternative {
   school?: string;
 }
 
-export interface IStudentInformation {
+interface IStudentInformation {
   setShowStudentInformationModal?: React.Dispatch<boolean>;
   showStudentInformation?: boolean;
   editable?: boolean;
