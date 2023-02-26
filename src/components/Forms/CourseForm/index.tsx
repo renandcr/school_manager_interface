@@ -1,5 +1,6 @@
 import { IDatabaseSchool } from "../../../store/models/school/actions";
 import { HorizontalButtonContainer } from "../../DefaultButton/style";
+import { ICourse } from "../../../store/models/course/actions";
 import { IToken } from "../../../store/models/user/actions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTypedSelector } from "../../../store";
@@ -13,12 +14,15 @@ import { toast } from "react-toastify";
 import * as React from "react";
 import * as yup from "yup";
 
-interface ICourse {
-  name: string;
-  description: string;
+interface ICourseForm {
+  showFormCourse: boolean;
+  setShowFormCourse: React.Dispatch<boolean>;
 }
 
-const CourseForm = () => {
+const CourseForm: React.FC<ICourseForm> = ({
+  setShowFormCourse,
+  showFormCourse,
+}) => {
   const token: IToken = useTypedSelector((state) => state.token);
   const selectedSchool: IDatabaseSchool = useTypedSelector(
     (state) => state.selectedSchool
@@ -60,46 +64,49 @@ const CourseForm = () => {
 
   return (
     <>
-      <CourseFormContainer onSubmit={handleSubmit(handleRequests)}>
-        <h2>Cadastrar curso</h2>
-        <TextField
-          className="text_field"
-          label="Nome"
-          type="text"
-          autoFocus
-          {...register("name")}
-        />
-        {formState.errors.name && <p>{formState.errors.name?.message}</p>}
+      {showFormCourse && (
+        <CourseFormContainer onSubmit={handleSubmit(handleRequests)}>
+          <h2>Cadastrar curso</h2>
+          <TextField
+            className="text_field"
+            label="Nome"
+            type="text"
+            autoFocus
+            {...register("name")}
+          />
+          {formState.errors.name && <p>{formState.errors.name?.message}</p>}
 
-        <TextField
-          // id="outlined-textarea"
-          className="text_field text_area"
-          label="Descrição"
-          type="text"
-          placeholder="Destalhes sobre o curso"
-          multiline
-          rows={4}
-          {...register("description")}
-        />
-        {formState.errors.description && (
-          <p>{formState.errors.description?.message}</p>
-        )}
-        <HorizontalButtonContainer>
-          <DefaultButton height="55px">{"Salvar curso"}</DefaultButton>
-          <DefaultButton
-            border={`solid 1px ${VARIABLES.blueColor}`}
-            backgroundColor="transparent"
-            color={VARIABLES.blueColor}
-            height="55px"
-            onClick={(e) => {
-              e.preventDefault();
-              clearErrors();
-            }}
-          >
-            {"Cancelar"}
-          </DefaultButton>
-        </HorizontalButtonContainer>
-      </CourseFormContainer>
+          <TextField
+            // id="outlined-textarea"
+            className="text_field text_area"
+            label="Descrição"
+            type="text"
+            placeholder="Destalhes sobre o curso"
+            multiline
+            rows={4}
+            {...register("description")}
+          />
+          {formState.errors.description && (
+            <p>{formState.errors.description?.message}</p>
+          )}
+          <HorizontalButtonContainer>
+            <DefaultButton height="55px">{"Salvar curso"}</DefaultButton>
+            <DefaultButton
+              border={`solid 1px ${VARIABLES.blueColor}`}
+              backgroundColor="transparent"
+              color={VARIABLES.blueColor}
+              height="55px"
+              onClick={(e) => {
+                setShowFormCourse(false);
+                e.preventDefault();
+                clearErrors();
+              }}
+            >
+              {"Cancelar"}
+            </DefaultButton>
+          </HorizontalButtonContainer>
+        </CourseFormContainer>
+      )}
     </>
   );
 };

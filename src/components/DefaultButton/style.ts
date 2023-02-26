@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { IDefaultButton } from ".";
 
 export const DefaultButtonContainer = styled.button<IDefaultButton>`
-  padding: 5px;
+  padding: 5px 15px 5px 15px;
   border-radius: 2px;
   font-weight: 400;
   min-width: fit-content;
@@ -25,6 +25,7 @@ export const HorizontalButtonContainer = styled.div`
   display: flex;
   column-gap: 12px;
   margin-top: 12px;
+  max-width: 100%;
   button {
     width: 100%;
   }
