@@ -17,10 +17,16 @@ import { StudentFormContainer } from "./style";
 import MenuItem from "@mui/material/MenuItem";
 import { TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import api from "../../../assets/axios";
 import { toast } from "react-toastify";
 import * as React from "react";
 import * as yup from "yup";
+
+import {
+  actionUpdateStudent,
+  IDatabaseStudent,
+} from "../../../store/models/student/actions";
 
 const gender = [
   {
@@ -52,19 +58,26 @@ interface IStudent {
 }
 
 interface IStudentForm {
-  showFormStudent: boolean;
   setShowFormStudent: React.Dispatch<boolean>;
+  setStudentUpdate: React.Dispatch<boolean>;
+  showFormStudent: boolean;
+  studentUpdate: boolean;
 }
 
 const StudentForm: React.FC<IStudentForm> = ({
   setShowFormStudent,
+  setStudentUpdate,
   showFormStudent,
+  studentUpdate,
 }) => {
+  const dispatch = useDispatch();
+  const token: IToken = useTypedSelector((state) => state.token);
+  const selectedStudent: IDatabaseStudent = useTypedSelector(
+    (state) => state.selectedStudent
+  );
   const selectedSchool: IDatabaseSchool = useTypedSelector(
     (state) => state.selectedSchool
   );
-  const [studentUpdate, setStudentUpdate] = React.useState(false);
-  const token: IToken = useTypedSelector((state) => state.token);
 
   const [value, setValue] = React.useState<Dayjs | null>(
     dayjs(`${current_date_YYYY_MM_DD}T21:11:54`)
@@ -107,15 +120,52 @@ const StudentForm: React.FC<IStudentForm> = ({
       resolver: yupResolver(formSchema),
     });
 
+  React.useEffect(() => {
+    studentUpdate ? reset(selectedStudent) : reset({});
+  }, [studentUpdate]);
+
   const handleRequests = (data: IStudent) => {
-    api
-      .post(`/student/create/${selectedSchool.id}`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(() => toast.success("Aluno matriculado com sucesso"))
-      .catch((error) => toast.error(error.response.data.datail));
+    !studentUpdate
+      ? api
+          .post(`/student/create/${selectedSchool.id}`, data, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then(() => {
+            toast.success("Aluno matriculado com sucesso");
+            setShowFormStudent(false);
+          })
+          .catch((error) => {
+            if (error.response.data.email) {
+              return toast.error(error.response.data.email[0]);
+            } else if (error.response.data.cpf[0]) {
+              return toast.error(error.response.data.cpf[0]);
+            } else if (error.response.data.detail) {
+              return toast.error(error.response.data.detail);
+            } else return toast.error("Falha ao tentar cadastrar aluno");
+          })
+      : api
+          .patch(`/student/${selectedStudent.id}`, data, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            toast.success("Atualização concluída com sucesso");
+            dispatch(actionUpdateStudent(response.data));
+            setShowFormStudent(false);
+            setStudentUpdate(false);
+          })
+          .catch((error) => {
+            if (error.response.data.email) {
+              return toast.error(error.response.data.email[0]);
+            } else if (error.response.data.cpf) {
+              return toast.error(error.response.data.cpf[0]);
+            } else if (error.response.data.detail) {
+              return toast.error(error.response.data.detail);
+            } else return toast.error("Falha ao tentar cadastrar aluno");
+          });
   };
 
   return (
@@ -211,6 +261,7 @@ const StudentForm: React.FC<IStudentForm> = ({
               height="55px"
               onClick={(e) => {
                 setShowFormStudent(false);
+                setStudentUpdate(false);
                 e.preventDefault();
                 clearErrors();
                 topScreen();

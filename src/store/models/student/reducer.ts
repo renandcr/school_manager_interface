@@ -39,7 +39,7 @@ export const studentReducer = (
       const studentIndex = state.findIndex(
         (current) => current.id === action.payload.id
       );
-      if (!studentIndex) return state;
+      if (studentIndex === -1) return state;
       state.splice(studentIndex, 1, action.payload);
       localStorage.setItem("@students", JSON.stringify(state));
       return state;

@@ -3,10 +3,18 @@ import { useHistory } from "react-router-dom";
 import * as React from "react";
 
 export interface IHeader {
+  setShowStudentInformation?: React.Dispatch<boolean>;
+  setShowAllStudents?: React.Dispatch<boolean>;
+  showAllStudents?: boolean;
   hideOptions?: boolean;
 }
 
-const Header: React.FC<IHeader> = ({ hideOptions = false }) => {
+const Header: React.FC<IHeader> = ({
+  setShowStudentInformation,
+  setShowAllStudents,
+  showAllStudents,
+  hideOptions = false,
+}) => {
   const history = useHistory();
 
   return (
@@ -20,6 +28,16 @@ const Header: React.FC<IHeader> = ({ hideOptions = false }) => {
         <HeaderNavContainer hideOptions={hideOptions}>
           <nav>
             <ul>
+              {showAllStudents && (
+                <li
+                  onClick={() => {
+                    setShowStudentInformation?.(false);
+                    setShowAllStudents?.(false);
+                  }}
+                >
+                  Voltar
+                </li>
+              )}
               <li onClick={() => history.push("/home_page")}>Home</li>
             </ul>
           </nav>
