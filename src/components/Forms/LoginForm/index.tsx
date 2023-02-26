@@ -1,5 +1,6 @@
 import { actionSaveToken } from "../../../store/models/user/actions";
 import { LoginOptionContainer } from "../RegistrationForm/style";
+import { IUserLogin } from "../../../store/models/user/actions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import DefaultButton from "../../DefaultButton";
 import { LoginFormContainer } from "./style";
@@ -11,11 +12,6 @@ import api from "../../../assets/axios";
 import { toast } from "react-toastify";
 import * as React from "react";
 import * as yup from "yup";
-
-interface IUserLogin {
-  email: string;
-  password: string;
-}
 
 interface ILoginForm {
   showRegistrationForm: boolean;

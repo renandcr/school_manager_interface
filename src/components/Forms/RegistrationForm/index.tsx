@@ -1,21 +1,13 @@
 import { RegistrationFormContainer, LoginOptionContainer } from "./style";
+import { IUser } from "../../../store/models/user/actions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import DefaultButton from "../../DefaultButton";
 import { useForm } from "react-hook-form";
 import { TextField } from "@mui/material";
-import { toast } from "react-toastify";
 import api from "../../../assets/axios";
+import { toast } from "react-toastify";
 import * as React from "react";
 import * as yup from "yup";
-
-interface IUserRegistration {
-  first_name: string;
-  last_name: string;
-  email: string;
-  username: string;
-  password: string;
-  confirm_password?: string;
-}
 
 export interface IRegistrationForm {
   setShowRegistrationForm: React.Dispatch<boolean>;
@@ -62,11 +54,11 @@ const RegistrationForm: React.FC<IRegistrationForm> = ({
       .oneOf([yup.ref("password")], "As senhas não são iguais"),
   });
 
-  const { register, handleSubmit, formState } = useForm<IUserRegistration>({
+  const { register, handleSubmit, formState } = useForm<IUser>({
     resolver: yupResolver(FormSchema),
   });
 
-  const submissionMethod = (data: IUserRegistration) => {
+  const submissionMethod = (data: IUser) => {
     delete data.confirm_password;
     api
       .post("/user", data)

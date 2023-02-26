@@ -89,12 +89,20 @@ const StudentForm: React.FC<IStudentForm> = ({
   const formSchema = yup.object().shape({
     first_name: yup
       .string()
+      .required("Nome é obrigatório")
       .max(50, "Limite de 50 caracteres")
-      .required("Nome é obrigatório"),
+      .matches(
+        /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/,
+        "Não é permitido números nesse campo"
+      ),
     last_name: yup
       .string()
+      .required("Sobrenome é obrigatório")
       .max(50, "Limite de 50 caracteres")
-      .required("Sobrenome é obrigatório"),
+      .matches(
+        /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/,
+        "Não é permitido números nesse campo"
+      ),
     email: yup
       .string()
       .max(75, "Limite de 75 caracteres")
