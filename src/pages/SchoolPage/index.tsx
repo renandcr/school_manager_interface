@@ -19,6 +19,7 @@ import {
   MainSchoolPageContainer,
   SchoolPageContainer,
   StudentsContainer,
+  CoursesContainer,
   SchoolContainer,
 } from "./style";
 
@@ -32,6 +33,7 @@ const SchoolPage = () => {
 
   const [showAllStudents, setShowAllStudents] = React.useState(false);
   const [showFormStudent, setShowFormStudent] = React.useState(false);
+  const [showFormCourse, setShowFormCourse] = React.useState(false);
   const [showStudentInformationModal, setShowStudentInformationModal] =
     React.useState(false);
   const [showStudentInformation, setShowStudentInformation] =
@@ -79,6 +81,10 @@ const SchoolPage = () => {
       />
       <MainSchoolPageContainer>
         <SchoolPageContainer>
+          <CourseForm
+            setShowFormCourse={setShowFormCourse}
+            showFormCourse={showFormCourse}
+          />
           <StudentForm
             setShowFormStudent={setShowFormStudent}
             setStudentUpdate={setStudentUpdate}
@@ -87,7 +93,7 @@ const SchoolPage = () => {
           />
           {!showFormStudent && !showStudentInformation && (
             <SchoolContainer>
-              <div>
+              <div className="school-container">
                 {selectedSchool && (
                   <SchoolInformation
                     key={selectedSchool.id}
@@ -108,14 +114,6 @@ const SchoolPage = () => {
               <div className="school_buttons">
                 <DefaultButton
                   height="47px"
-                  width="135px"
-                  onClick={() => setShowFormStudent(true)}
-                >
-                  {"Matricular aluno"}
-                </DefaultButton>
-                <DefaultButton
-                  height="47px"
-                  width="140px"
                   onClick={() => {
                     setShowStudentInformation(true);
                     setShowAllStudents(true);
@@ -125,7 +123,12 @@ const SchoolPage = () => {
                 </DefaultButton>
                 <DefaultButton
                   height="47px"
-                  width="125px"
+                  onClick={() => setShowFormStudent(true)}
+                >
+                  {"Matricular aluno"}
+                </DefaultButton>
+                <DefaultButton
+                  height="47px"
                   backgroundColor="transparent"
                   color={VARIABLES.blueColor}
                   border={`solid 1px ${VARIABLES.blueColor}`}
@@ -135,6 +138,15 @@ const SchoolPage = () => {
               </div>
             </SchoolContainer>
           )}
+          <CoursesContainer>
+            <h2>Cursos</h2>
+            <div className="courses_container"></div>
+            <div className="courses_buttons">
+              <DefaultButton height="47px">
+                {"Adicionar novo curso"}
+              </DefaultButton>
+            </div>
+          </CoursesContainer>
           {showStudentInformation && !showFormStudent && (
             <StudentsContainer>
               <h1>{`${selectedSchool.name} - Alunos`}</h1>

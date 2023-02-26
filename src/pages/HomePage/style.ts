@@ -19,9 +19,14 @@ export const HomePageSchoolsContainer = styled.section`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  row-gap: 20px;
   .schools_container {
+    max-width: 100%;
     display: flex;
     flex-direction: column;
-    row-gap: 35px;
+    row-gap: 30px;
+  }
+  .buttons_container {
+    max-width: 100%;
   }
 `;

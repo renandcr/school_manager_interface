@@ -21,12 +21,18 @@ export const SchoolContainer = styled.section`
   justify-content: space-between;
   flex-wrap: wrap;
   row-gap: 20px;
+  width: 100%;
+  .school-container {
+    max-width: 100%;
+  }
   .school_buttons {
     display: flex;
     flex-wrap: wrap;
     column-gap: 12px;
     row-gap: 12px;
-    min-width: fit-content;
+    max-width: 100%;
+    /* min-width: fit-content; */
+    /* width: 100%; */
   }
 `;
 
@@ -42,6 +48,24 @@ export const StudentsContainer = styled.section`
     color: ${VARIABLES.blueColor1};
   }
   .students_container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+`;
+
+export const CoursesContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  h2 {
+    font-size: 28px;
+    line-height: 36px;
+    font-weight: 400;
+    font-family: ${VARIABLES.fontOne};
+    color: ${VARIABLES.blueColor1};
+  }
+  .courses_container {
     display: flex;
     flex-direction: column;
     gap: 30px;

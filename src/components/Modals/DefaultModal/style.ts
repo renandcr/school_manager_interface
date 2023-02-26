@@ -5,6 +5,7 @@ import { IDefaultModal } from ".";
 export const DefaultModalContainer = styled.div<IDefaultModal>`
   display: flex;
   flex-direction: column;
+  max-width: 90%;
   row-gap: 12px;
   position: fixed;
   z-index: 999;
@@ -18,6 +19,7 @@ export const DefaultModalContainer = styled.div<IDefaultModal>`
 export const CloseModalContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  max-width: 100%;
   border-bottom: ${`solid 1px ${VARIABLES.grayBorder}`};
   padding-bottom: 10px;
   span {

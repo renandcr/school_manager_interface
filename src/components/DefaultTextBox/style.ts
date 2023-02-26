@@ -2,19 +2,23 @@ import { VARIABLES } from "../../styles/global";
 import styled from "styled-components";
 
 export const DefaultTextBoxContainer = styled.div`
-  width: 100%;
+  max-width: 100%;
   ul {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     row-gap: 12px;
+    max-width: 100%;
     li {
-      width: fit-content;
+      max-width: 100%;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
       h2 {
-        width: fit-content;
+        max-width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         font-size: 20px;
         line-height: 26px;
         font-weight: 600;

@@ -84,7 +84,7 @@ const HomePage = () => {
                   />
                 ))}
             </div>
-            <div>
+            <div className="buttons_container">
               {!showFormSchool && (
                 <DefaultButton
                   height="47px"
