@@ -1,3 +1,5 @@
+import { IDatabaseStudent } from "../student/actions";
+
 import {
   ADD_STUDENT_COURSE,
   DATABASE_COURSE,
@@ -16,7 +18,7 @@ export interface IDatabaseCourse extends ICourse {
   id: string;
   created_at: Date;
   school: string;
-  students?: string;
+  students: Array<IDatabaseStudent>;
   users?: string;
 }
 

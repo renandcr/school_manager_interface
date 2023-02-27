@@ -177,16 +177,17 @@ const SchoolPage = () => {
             <CoursesContainer>
               <div className="courses_container">
                 <h1>Cursos</h1>
-                {courses.map((current) => (
-                  <CourseInformation
-                    key={current.id}
-                    current={current}
-                    setShowCourseInformationModal={
-                      setShowCourseInformationModal
-                    }
-                    editable
-                  />
-                ))}
+                {courses.length > 0 &&
+                  courses.map((current) => (
+                    <CourseInformation
+                      key={current.id}
+                      current={current}
+                      setShowCourseInformationModal={
+                        setShowCourseInformationModal
+                      }
+                      editable
+                    />
+                  ))}
               </div>
               <div className="courses_buttons">
                 <DefaultButton

@@ -1,3 +1,5 @@
+import AddStudentToCourseModal from "../../components/Modals/AddStudentToCourseModal";
+import StudentInformation from "../../components/StudentInformation";
 import { IDatabaseCourse } from "../../store/models/course/actions";
 import CourseInformation from "../../components/CourseInformation";
 import DefaultButton from "../../components/DefaultButton";
@@ -15,13 +17,19 @@ import {
 } from "./style";
 
 const CoursePage = () => {
+  const [showAddStudentModal, setShowAddStudentModal] = React.useState(false);
   const selectedCourse: IDatabaseCourse = useTypedSelector(
     (state) => state.selectedCourse
   );
+  const [coursePage, setCoursePage] = React.useState(true);
 
   return (
     <>
-      <Header />
+      <AddStudentToCourseModal
+        setShowAddStudentModal={setShowAddStudentModal}
+        showAddStudentModal={showAddStudentModal}
+      />
+      <Header coursePage={coursePage} setCoursePage={setCoursePage} />
       <MainCoursePageContainer>
         <CoursePageContainer>
           <CourseContainer>
@@ -29,7 +37,12 @@ const CoursePage = () => {
               <CourseInformation current={selectedCourse} />
             </div>
             <div className="course_buttons">
-              <DefaultButton height="47px">{"Adicionar aluno"}</DefaultButton>
+              <DefaultButton
+                height="47px"
+                onClick={() => setShowAddStudentModal(true)}
+              >
+                {"Adicionar aluno"}
+              </DefaultButton>
               <DefaultButton
                 height="47px"
                 backgroundColor="transparent"
@@ -42,6 +55,17 @@ const CoursePage = () => {
           </CourseContainer>
           <StudentsContainer>
             <h1>Alunos inscritos no curso</h1>
+            <div>
+              {selectedCourse.students.length > 0 &&
+                selectedCourse.students.map((current) => (
+                  <StudentInformation
+                    first_name={current.first_name}
+                    last_name={current.last_name}
+                    email={current.email}
+                    key={current.id}
+                  />
+                ))}
+            </div>
           </StudentsContainer>
         </CoursePageContainer>
       </MainCoursePageContainer>
