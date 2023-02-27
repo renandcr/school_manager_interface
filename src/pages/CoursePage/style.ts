@@ -39,7 +39,7 @@ export const StudentsContainer = styled.section`
   flex-direction: column;
   padding-top: 40px;
   border-top: ${`solid 1px ${VARIABLES.grayBorder}`};
-  gap: 20px;
+  gap: 40px;
   width: 100%;
   h1 {
     font-size: 28px;
@@ -47,5 +47,10 @@ export const StudentsContainer = styled.section`
     font-weight: 400;
     font-family: ${VARIABLES.fontOne};
     color: ${VARIABLES.blueColor1};
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
   }
 `;
