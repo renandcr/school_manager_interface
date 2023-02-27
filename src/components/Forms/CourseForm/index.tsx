@@ -77,6 +77,7 @@ const CourseForm: React.FC<ICourseForm> = ({
             toast.success("Curso cadastrado com sucesso");
             dispatch(actionCreateCourse(response.data));
             setShowCourseForm(false);
+            topScreen();
           })
           .catch((error) => {
             if (error.response.data.name) {
@@ -96,6 +97,7 @@ const CourseForm: React.FC<ICourseForm> = ({
             dispatch(actionUpdateCourse(response.data));
             setShowCourseForm(false);
             setCourseUpdate(false);
+            topScreen();
           })
           .catch((error) => {
             if (error.response.data.name)

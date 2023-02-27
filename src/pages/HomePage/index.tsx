@@ -6,7 +6,6 @@ import DefaultButton from "../../components/DefaultButton";
 import SchoolForm from "../../components/Forms/SchoolForm";
 import { IToken } from "../../store/models/user/actions";
 import { useTypedSelector } from "../../store";
-import { topScreen } from "../../assets/utils";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { useDispatch } from "react-redux";
@@ -20,7 +19,9 @@ import {
 } from "./style";
 
 const HomePage = () => {
-  topScreen();
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const [showSchoolInformationModal, setShowSchoolInformationModal] =
     React.useState(false);

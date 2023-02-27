@@ -1,4 +1,5 @@
 import AddStudentToCourseModal from "../../components/Modals/AddStudentToCourseModal";
+import { IDatabaseStudent } from "../../store/models/student/actions";
 import StudentInformation from "../../components/StudentInformation";
 import { IDatabaseCourse } from "../../store/models/course/actions";
 import CourseInformation from "../../components/CourseInformation";
@@ -18,11 +19,19 @@ import {
 } from "./style";
 
 const CoursePage = () => {
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [showAddStudentModal, setShowAddStudentModal] = React.useState(false);
   const selectedCourse: IDatabaseCourse = useTypedSelector(
     (state) => state.selectedCourse
   );
+  const selectedStudent: IDatabaseStudent = useTypedSelector(
+    (state) => state.selectedStudent
+  );
   const [showWarningModal, setShowWarningModal] = React.useState(false);
+  const [deleteCourse, setDeleteCourse] = React.useState(false);
   const [coursePage, setCoursePage] = React.useState(true);
 
   return (
@@ -34,10 +43,26 @@ const CoursePage = () => {
       <WarningModal
         setShowWarningModal={setShowWarningModal}
         showWarningModal={showWarningModal}
+        setDeleteCourse={setDeleteCourse}
+        deleteCourse={deleteCourse}
       >
-        <span className="warning_red">Tem certeza que deseja continuar?</span>{" "}
-        Você está para remover o curso <span>{selectedCourse.name}</span> e
-        todos os arquivos relacionados a ele. Isso não pode ser desfeito!
+        {deleteCourse ? (
+          <>
+            <span className="warning_red">
+              Tem certeza que deseja continuar?
+            </span>{" "}
+            Esta ação removerá o curso <span>{selectedCourse.name}</span> e
+            todos os arquivos relacionados a ele. Isso não pode ser desfeito!
+          </>
+        ) : (
+          <>
+            Remover{" "}
+            <span>
+              {selectedStudent.first_name + " " + selectedStudent.last_name}
+            </span>{" "}
+            do curso {selectedCourse.name}?
+          </>
+        )}
       </WarningModal>
       <Header coursePage={coursePage} setCoursePage={setCoursePage} />
       <MainCoursePageContainer>
@@ -55,7 +80,10 @@ const CoursePage = () => {
               </DefaultButton>
               <DefaultButton
                 border={`solid 1px ${VARIABLES.blueColor}`}
-                onClick={() => setShowWarningModal(true)}
+                onClick={() => {
+                  setShowWarningModal(true);
+                  setDeleteCourse(true);
+                }}
                 backgroundColor="transparent"
                 color={VARIABLES.blueColor}
                 height="47px"
@@ -74,6 +102,8 @@ const CoursePage = () => {
                     last_name={current.last_name}
                     email={current.email}
                     key={current.id}
+                    setShowWarningModal={setShowWarningModal}
+                    removeOption
                   />
                 ))}
             </div>

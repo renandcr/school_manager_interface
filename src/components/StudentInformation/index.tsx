@@ -17,9 +17,11 @@ export interface IDatabaseStudentAlternative {
   school?: string;
 }
 
-interface IStudentInformation {
+export interface IStudentInformation {
   setShowStudentInformationModal?: React.Dispatch<boolean>;
+  setShowWarningModal?: React.Dispatch<boolean>;
   showStudentInformation?: boolean;
+  removeOption?: boolean;
   editable?: boolean;
 }
 
@@ -34,13 +36,16 @@ const StudentInformation: React.FC<
   phone,
   gender,
   editable = false,
+  removeOption = false,
   setShowStudentInformationModal,
+  setShowWarningModal,
 }) => {
   const dispatch = useDispatch();
 
   return (
     <DefaultTextBox>
       <StudentInformationContainer
+        removeOption={removeOption}
         editable={editable}
         onClick={() => {
           dispatch(actionSelectedStudent(email));
@@ -73,6 +78,12 @@ const StudentInformation: React.FC<
             <span>{`Gênero: ${gender}`}</span>
           </li>
         )}
+        <li
+          className="remove_option"
+          onClick={() => setShowWarningModal?.(true)}
+        >
+          <span>Remover aluno do curso</span>
+        </li>
       </StudentInformationContainer>
     </DefaultTextBox>
   );

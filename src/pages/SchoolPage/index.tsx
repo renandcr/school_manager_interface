@@ -10,7 +10,6 @@ import CourseForm from "../../components/Forms/CourseForm";
 import { IToken } from "../../store/models/user/actions";
 import { VARIABLES } from "../../styles/global";
 import { useTypedSelector } from "../../store";
-import { topScreen } from "../../assets/utils";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useDispatch } from "react-redux";
@@ -36,7 +35,9 @@ import {
 } from "../../store/models/student/actions";
 
 const SchoolPage = () => {
-  topScreen();
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const [showAllStudents, setShowAllStudents] = React.useState(false);
   const [showStudentForm, setShowStudentForm] = React.useState(false);

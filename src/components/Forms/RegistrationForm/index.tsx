@@ -1,6 +1,7 @@
 import { RegistrationFormContainer, LoginOptionContainer } from "./style";
 import { IUser } from "../../../store/models/user/actions";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { topScreen } from "../../../assets/utils";
 import DefaultButton from "../../DefaultButton";
 import { useForm } from "react-hook-form";
 import { TextField } from "@mui/material";
@@ -65,6 +66,7 @@ const RegistrationForm: React.FC<IRegistrationForm> = ({
       .then(() => {
         toast.success("Cadastro realizado com sucesso");
         setShowRegistrationForm(false);
+        topScreen();
       })
       .catch((error) => {
         toast.error(error.response.data.email[0]);
