@@ -22,7 +22,7 @@ export const SchoolContainer = styled.section`
   flex-wrap: wrap;
   row-gap: 20px;
   width: 100%;
-  .school-container {
+  .school_container {
     max-width: 100%;
   }
   .school_buttons {
