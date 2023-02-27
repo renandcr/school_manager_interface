@@ -78,7 +78,7 @@ const SchoolPage = () => {
         },
       })
       .then((response) => dispatch(actionDatabaseStudents(response.data)))
-      .catch((error) => console.log(error));
+      .catch(() => dispatch(actionDatabaseStudents([])));
   }, [showStudentInformation]);
 
   React.useEffect(() => {
@@ -89,7 +89,7 @@ const SchoolPage = () => {
         },
       })
       .then((response) => dispatch(actionDatabaseCourses(response.data)))
-      .catch((error) => console.log(error));
+      .catch(() => dispatch(actionDatabaseCourses([])));
   }, [courseUpdate]);
 
   return (
@@ -129,7 +129,7 @@ const SchoolPage = () => {
           />
           {!showStudentForm && !showStudentInformation && !showCourseForm && (
             <SchoolContainer>
-              <div className="school-container">
+              <div className="school_container">
                 {selectedSchool && (
                   <SchoolInformation
                     id={selectedSchool.id}
