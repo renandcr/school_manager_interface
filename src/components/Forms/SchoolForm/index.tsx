@@ -106,6 +106,7 @@ const SchoolForm: React.FC<ISchoolForm> = ({
             dispatch(actionUpdateSchool(response.data));
             setShowFormSchool(false);
             setSchoolUpdate(false);
+            topScreen();
           })
           .catch((error) => toast.error(error.response.data.detail))
       : api
@@ -117,6 +118,7 @@ const SchoolForm: React.FC<ISchoolForm> = ({
           .then(() => {
             toast.success("Escola criada com sucesso");
             setShowFormSchool(false);
+            topScreen();
           })
           .catch((error) => toast.error(error.response.data.detail));
   };

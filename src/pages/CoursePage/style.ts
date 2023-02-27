@@ -51,6 +51,6 @@ export const StudentsContainer = styled.section`
   div {
     display: flex;
     flex-direction: column;
-    row-gap: 20px;
+    row-gap: 35px;
   }
 `;

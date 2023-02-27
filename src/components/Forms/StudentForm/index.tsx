@@ -143,6 +143,7 @@ const StudentForm: React.FC<IStudentForm> = ({
           .then(() => {
             toast.success("Aluno matriculado com sucesso");
             setShowStudentForm(false);
+            topScreen();
           })
           .catch((error) => {
             if (error.response.data.email) {
@@ -164,6 +165,7 @@ const StudentForm: React.FC<IStudentForm> = ({
             dispatch(actionUpdateStudent(response.data));
             setShowStudentForm(false);
             setStudentUpdate(false);
+            topScreen();
           })
           .catch((error) => {
             if (error.response.data.email) {
