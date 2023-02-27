@@ -2,6 +2,7 @@ import AddStudentToCourseModal from "../../components/Modals/AddStudentToCourseM
 import StudentInformation from "../../components/StudentInformation";
 import { IDatabaseCourse } from "../../store/models/course/actions";
 import CourseInformation from "../../components/CourseInformation";
+import WarningModal from "../../components/Modals/WarningModal";
 import DefaultButton from "../../components/DefaultButton";
 import { VARIABLES } from "../../styles/global";
 import { useTypedSelector } from "../../store";
@@ -21,6 +22,7 @@ const CoursePage = () => {
   const selectedCourse: IDatabaseCourse = useTypedSelector(
     (state) => state.selectedCourse
   );
+  const [showWarningModal, setShowWarningModal] = React.useState(false);
   const [coursePage, setCoursePage] = React.useState(true);
 
   return (
@@ -29,6 +31,14 @@ const CoursePage = () => {
         setShowAddStudentModal={setShowAddStudentModal}
         showAddStudentModal={showAddStudentModal}
       />
+      <WarningModal
+        setShowWarningModal={setShowWarningModal}
+        showWarningModal={showWarningModal}
+      >
+        <span className="warning_red">Tem certeza que deseja continuar?</span>{" "}
+        Você está para remover o curso <span>{selectedCourse.name}</span> e
+        todos os arquivos relacionados a ele. Isso não pode ser desfeito!
+      </WarningModal>
       <Header coursePage={coursePage} setCoursePage={setCoursePage} />
       <MainCoursePageContainer>
         <CoursePageContainer>
@@ -44,10 +54,11 @@ const CoursePage = () => {
                 {"Adicionar aluno"}
               </DefaultButton>
               <DefaultButton
-                height="47px"
+                border={`solid 1px ${VARIABLES.blueColor}`}
+                onClick={() => setShowWarningModal(true)}
                 backgroundColor="transparent"
                 color={VARIABLES.blueColor}
-                border={`solid 1px ${VARIABLES.blueColor}`}
+                height="47px"
               >
                 {"Excluir curso"}
               </DefaultButton>
