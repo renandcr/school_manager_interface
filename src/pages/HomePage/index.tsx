@@ -64,6 +64,7 @@ const HomePage = () => {
         animate={{ opacity: 1, transition: { duration: 1 } }}
       >
         <HomePageContainer>
+          <h1>Instituição de Ensino Critóvão Colombo</h1>
           <SchoolForm
             setShowFormSchool={setShowFormSchool}
             setSchoolUpdate={setSchoolUpdate}

@@ -63,13 +63,14 @@ export const CoursesContainer = styled(motion.section)`
 export const StudentsContainer = styled(motion.section)`
   display: flex;
   flex-direction: column;
-  gap: 50px;
   h1 {
     font-size: 28px;
     line-height: 36px;
     font-weight: 400;
     font-family: ${VARIABLES.fontOne};
     color: ${VARIABLES.blueColor1};
+    border-bottom: ${`solid 1px ${VARIABLES.grayBorder}`};
+    padding-bottom: 50px;
   }
   .students_container {
     display: flex;
@@ -77,5 +78,6 @@ export const StudentsContainer = styled(motion.section)`
     max-width: 100%;
     width: fit-content;
     gap: 30px;
+    padding-top: 40px;
   }
 `;
