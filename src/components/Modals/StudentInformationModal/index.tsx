@@ -3,7 +3,6 @@ import { HorizontalButtonContainer } from "../../DefaultButton/style";
 import { CloseModalContainer } from "../DefaultModal/style";
 import StudentInformation from "../../StudentInformation";
 import { dateHandler } from "../../../assets/utils";
-import { VARIABLES } from "../../../styles/global";
 import CloseIcon from "@mui/icons-material/Close";
 import DefaultButton from "../../DefaultButton";
 import DefaultModal from "../DefaultModal";
@@ -61,15 +60,15 @@ const StudentInformationModal: React.FC<
               {"Editar"}
             </DefaultButton>
             <DefaultButton
-              border={`solid 1px ${VARIABLES.blueColor}`}
               onClick={() => {
                 setShowWarningModalOnSchoolPage?.(true);
                 setShowStudentInformationModal(false);
                 setDeleteStudent?.(true);
               }}
               backgroundColor="transparent"
-              color={VARIABLES.blueColor}
+              border="solid 1px red"
               height="47px"
+              color="red"
             >
               {"Excluir aluno"}
             </DefaultButton>

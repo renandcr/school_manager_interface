@@ -49,6 +49,7 @@ export const HeaderNavContainer = styled.div<IHeader>`
         line-height: 24px;
         font-weight: 400;
         border: solid 1px transparent;
+        color: ${VARIABLES.grayColor2};
         transition: all ease-in 500ms;
         cursor: pointer;
         :hover {

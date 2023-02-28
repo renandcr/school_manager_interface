@@ -9,8 +9,8 @@ import StudentForm from "../../components/Forms/StudentForm";
 import DefaultButton from "../../components/DefaultButton";
 import CourseForm from "../../components/Forms/CourseForm";
 import { IToken } from "../../store/models/user/actions";
-import { VARIABLES } from "../../styles/global";
 import { useTypedSelector } from "../../store";
+import { topScreen } from "../../assets/utils";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useDispatch } from "react-redux";
@@ -54,6 +54,7 @@ const SchoolPage = () => {
     React.useState(false);
   const [showCourseForm, setShowCourseForm] = React.useState(false);
   const [deleteStudent, setDeleteStudent] = React.useState(false);
+  const [deleteSchool, setDeleteSchool] = React.useState(false);
   const [courseUpdate, setCourseUpdate] = React.useState(false);
 
   const token: IToken = useTypedSelector((state) => state.token);
@@ -102,15 +103,28 @@ const SchoolPage = () => {
       {showWarningModalOnSchoolPage && (
         <WarningModal
           setShowWarningModalOnSchoolPage={setShowWarningModalOnSchoolPage}
+          setDeleteStudent={setDeleteStudent}
+          setDeleteSchool={setDeleteSchool}
           deleteStudent={deleteStudent}
+          deleteSchool={deleteSchool}
         >
-          <>
-            Excluir todos os registros de{" "}
-            <span>
-              {selectedStudent.first_name + " " + selectedStudent.last_name}
-            </span>
-            ?
-          </>
+          {deleteStudent ? (
+            <>
+              Excluir todos os registros de{" "}
+              <span>
+                {selectedStudent.first_name + " " + selectedStudent.last_name}
+              </span>
+              ?
+            </>
+          ) : (
+            <>
+              <span className="warning_red">
+                Tem certeza que deseja continuar?
+              </span>{" "}
+              Esta ação removerá a <span>{selectedSchool.name}</span> e todos os
+              registros relacionados a ela. Isso não pode ser desfeito!
+            </>
+          )}
         </WarningModal>
       )}
       <CourseInformationModal
@@ -179,15 +193,22 @@ const SchoolPage = () => {
                 </DefaultButton>
                 <DefaultButton
                   height="47px"
-                  onClick={() => setShowStudentForm(true)}
+                  onClick={() => {
+                    setShowStudentForm(true);
+                    topScreen();
+                  }}
                 >
                   {"Matricular aluno"}
                 </DefaultButton>
                 <DefaultButton
-                  height="47px"
+                  onClick={() => {
+                    setShowWarningModalOnSchoolPage(true);
+                    setDeleteSchool(true);
+                  }}
                   backgroundColor="transparent"
-                  color={VARIABLES.blueColor}
-                  border={`solid 1px ${VARIABLES.blueColor}`}
+                  border={`solid 1px red`}
+                  height="47px"
+                  color="red"
                 >
                   {"Excluir escola"}
                 </DefaultButton>
@@ -213,7 +234,10 @@ const SchoolPage = () => {
               <div className="courses_buttons">
                 <DefaultButton
                   height="47px"
-                  onClick={() => setShowCourseForm(true)}
+                  onClick={() => {
+                    setShowCourseForm(true);
+                    topScreen();
+                  }}
                 >
                   {"Adicionar novo curso"}
                 </DefaultButton>
