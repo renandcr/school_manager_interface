@@ -26,8 +26,8 @@ This project has an API developed in Python with the help of the Django framewor
 
 ### Index
 
-- [⚙️ Features](#️-features)
-- [🛠️ Technologies used](#️-technologies-used)
+- [Features](#️-features)
+- [Technologies used](#️-technologies-used)
 - [Auxiliary tools](#auxiliary-tools)
 - [Author](#author)
 - [License](#license)
