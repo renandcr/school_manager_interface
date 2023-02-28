@@ -1,46 +1,93 @@
-# Getting Started with Create React App
+<h1 style="text-align: center; color: #132A43">School Manager CX - INTERFACE</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Project description
 
-## Available Scripts
+This project has an API developed in Python with the help of the Django framework, and an interface developed in React.js. School Manager CX is a school management platform where you can add new schools, enroll students, add courses and add students to those courses. [Click here to check out the API repository.](https://github.com/renandcr/school_manager_api)
 
-In the project directory, you can run:
+<br>
 
-### `yarn start`
+![yarn version](https://img.shields.io/badge/yarn-1.22.19-green)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/renandcr/school_manager_interface)
+![GitHub language count](https://img.shields.io/github/languages/count/renandcr/school_manager_interface)
+![GitHub top language](https://img.shields.io/github/languages/top/renandcr/school_manager_interface)
+![GitHub repo file count](https://img.shields.io/github/directory-file-count/renandcr/school_manager_interface)
+![GitHub repo size](https://img.shields.io/github/repo-size/renandcr/school_manager_interface)
+![GitHub](https://img.shields.io/github/license/renandcr/school_manager_interface)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<br>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 🎥 [Check out the project presentation video]()
 
-### `yarn test`
+<br>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Project status 🚀 under development!
 
-### `yarn build`
+<br>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Index
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- [⚙️ Features](#️-features)
+- [🛠️ Technologies used](#️-technologies-used)
+- [Auxiliary tools](#auxiliary-tools)
+- [Author](#author)
+- [License](#license)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<br>
 
-### `yarn eject`
+## ⚙️ Features
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. Create new schools
+2. Enroll a student in a school
+3. Create new courses
+4. Add student to a given course
+5. Edit Student Information
+6. Remove the student from the course
+7. Delete student from school
+8. Edit a school's information
+9. Delete school
+10. Edit course information
+11. Delete course
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<br>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 🛠️ Technologies used
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- [React](https://reactjs.org/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Styled Components](https://styled-components.com/)
+- [Redux](https://redux.js.org/)
+- [Axios](https://axios-http.com/ptbr/)
+- [React Toastify](https://fkhadra.github.io/react-toastify/introduction)
+- [Framer Motion](https://www.framer.com/motion/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [React Hook Form](https://react-hook-form.com/)
+- [Material UI](https://mui.com/)
+- [React Router Dom](https://reactrouter.com/en/main)
 
-## Learn More
+## Auxiliary tools
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- [Project Trello](https://trello.com/invite/b/ZhPBaw28/ATTI49e717feb94b1f616a16667ac4a286d0FB2C48B5/school-manager-cx)
+- [Insomnia](https://insomnia.rest/)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<br>
+
+## Author
+
+<h4><img alt="Profile picture" src="src/assets/images/profile_photo.JPG" style="width: 100px; border-radius: 50px"/></h4>
+Renan Ribeiro 🚀
+
+<br>
+
+<br>
+
+Made with ❤️ by Renan Ribeiro 👋 Get in touch!
+
+![GMAIL](https://img.shields.io/badge/renandcribeiro@gmail.com-D14836?style=flat-square&logo=gmail&logoColor=white)
+<a href="https://www.linkedin.com/in/renandcr">
+<img src="https://img.shields.io/badge/Renan-0077B5?style=flat-square&logo=linkedin&logoColor=white"/></a>
+
+<br>
+
+## License
+
+Licensed under [MIT](https://github.com/renandcr/school_manager_interface/blob/development/LICENSE.md).
