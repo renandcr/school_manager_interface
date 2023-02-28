@@ -5,7 +5,6 @@ import {
 } from "./actions";
 
 import {
-  ADD_STUDENT_COURSE,
   SELECTED_COURSE,
   DATABASE_COURSE,
   CREATE_COURSE,
@@ -49,9 +48,6 @@ export const courseReducer = (
       );
       localStorage.setItem("@courses", JSON.stringify(updatedState));
       return updatedState;
-    }
-    case ADD_STUDENT_COURSE: {
-      return state;
     }
 
     default:

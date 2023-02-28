@@ -4,6 +4,7 @@ import StudentInformation from "../../components/StudentInformation";
 import { IDatabaseSchool } from "../../store/models/school/actions";
 import SchoolInformation from "../../components/SchoolInformation";
 import CourseInformation from "../../components/CourseInformation";
+import WarningModal from "../../components/Modals/WarningModal";
 import StudentForm from "../../components/Forms/StudentForm";
 import DefaultButton from "../../components/DefaultButton";
 import CourseForm from "../../components/Forms/CourseForm";
@@ -49,7 +50,10 @@ const SchoolPage = () => {
 
   const [showCourseInformationModal, setShowCourseInformationModal] =
     React.useState(false);
+  const [showWarningModalOnSchoolPage, setShowWarningModalOnSchoolPage] =
+    React.useState(false);
   const [showCourseForm, setShowCourseForm] = React.useState(false);
+  const [deleteStudent, setDeleteStudent] = React.useState(false);
   const [courseUpdate, setCourseUpdate] = React.useState(false);
 
   const token: IToken = useTypedSelector((state) => state.token);
@@ -91,10 +95,24 @@ const SchoolPage = () => {
       })
       .then((response) => dispatch(actionDatabaseCourses(response.data)))
       .catch(() => dispatch(actionDatabaseCourses([])));
-  }, [courseUpdate]);
+  }, [courseUpdate, showStudentInformation]);
 
   return (
     <>
+      {showWarningModalOnSchoolPage && (
+        <WarningModal
+          setShowWarningModalOnSchoolPage={setShowWarningModalOnSchoolPage}
+          deleteStudent={deleteStudent}
+        >
+          <>
+            Excluir todos os registros de{" "}
+            <span>
+              {selectedStudent.first_name + " " + selectedStudent.last_name}
+            </span>
+            ?
+          </>
+        </WarningModal>
+      )}
       <CourseInformationModal
         setShowCourseInformationModal={setShowCourseInformationModal}
         showCourseInformationModal={showCourseInformationModal}
@@ -103,10 +121,12 @@ const SchoolPage = () => {
         current={selectedCourse}
       />
       <StudentInformationModal
+        setShowWarningModalOnSchoolPage={setShowWarningModalOnSchoolPage}
         setShowStudentInformationModal={setShowStudentInformationModal}
         showStudentInformationModal={showStudentInformationModal}
         setShowStudentForm={setShowStudentForm}
         setStudentUpdate={setStudentUpdate}
+        setDeleteStudent={setDeleteStudent}
         current={selectedStudent}
       />
       <Header

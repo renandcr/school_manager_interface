@@ -1,7 +1,6 @@
 import { IDatabaseStudent } from "../student/actions";
 
 import {
-  ADD_STUDENT_COURSE,
   DATABASE_COURSE,
   SELECTED_COURSE,
   CREATE_COURSE,
@@ -64,12 +63,5 @@ export const actionSelectedCourse = (name: string) => {
   return {
     type: SELECTED_COURSE,
     payload: name,
-  };
-};
-
-export const actionAddStudentToCourse = (email: string) => {
-  return {
-    type: ADD_STUDENT_COURSE,
-    payload: email,
   };
 };
