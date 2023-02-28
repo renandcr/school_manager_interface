@@ -5,7 +5,6 @@ import { IDatabaseCourse } from "../../store/models/course/actions";
 import CourseInformation from "../../components/CourseInformation";
 import WarningModal from "../../components/Modals/WarningModal";
 import DefaultButton from "../../components/DefaultButton";
-import { VARIABLES } from "../../styles/global";
 import { useTypedSelector } from "../../store";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -56,7 +55,7 @@ const CoursePage = () => {
                 Tem certeza que deseja continuar?
               </span>{" "}
               Esta ação removerá o curso <span>{selectedCourse.name}</span> e
-              todos os arquivos relacionados a ele. Isso não pode ser desfeito!
+              todos os registros relacionados a ele. Isso não pode ser desfeito!
             </>
           ) : (
             <>
@@ -84,14 +83,14 @@ const CoursePage = () => {
                 {"Adicionar aluno"}
               </DefaultButton>
               <DefaultButton
-                border={`solid 1px ${VARIABLES.blueColor}`}
                 onClick={() => {
                   setShowWarningModalOnCoursePage(true);
                   setDeleteCourse(true);
                 }}
                 backgroundColor="transparent"
-                color={VARIABLES.blueColor}
+                border="solid 1px red"
                 height="47px"
+                color="red"
               >
                 {"Excluir curso"}
               </DefaultButton>

@@ -1,6 +1,5 @@
 import { HorizontalButtonContainer } from "../../DefaultButton/style";
 import { IToken } from "../../../store/models/user/actions";
-import { VARIABLES } from "../../../styles/global";
 import { useTypedSelector } from "../../../store";
 import { WarningModalContainer } from "./style";
 import DefaultButton from "../../DefaultButton";
@@ -23,15 +22,22 @@ import {
   IDatabaseStudent,
 } from "../../../store/models/student/actions";
 
+import {
+  actionDeleteSchool,
+  IDatabaseSchool,
+} from "../../../store/models/school/actions";
+
 interface IWarningModal {
   setShowWarningModalOnCoursePage?: React.Dispatch<boolean>;
   setShowWarningModalOnSchoolPage?: React.Dispatch<boolean>;
   setRemoveStudentFromCourse?: React.Dispatch<boolean>;
   setDeleteStudent?: React.Dispatch<boolean>;
   setDeleteCourse?: React.Dispatch<boolean>;
+  setDeleteSchool?: React.Dispatch<boolean>;
   removeStudentFromCourse?: boolean;
   children: React.ReactNode;
   deleteStudent?: boolean;
+  deleteSchool?: boolean;
   deleteCourse?: boolean;
 }
 
@@ -42,8 +48,10 @@ const WarningModal: React.FC<IWarningModal> = ({
   removeStudentFromCourse,
   setDeleteStudent,
   setDeleteCourse,
+  setDeleteSchool,
   deleteStudent,
   deleteCourse,
+  deleteSchool,
   children,
 }) => {
   const token: IToken = useTypedSelector((state) => state.token);
@@ -53,11 +61,14 @@ const WarningModal: React.FC<IWarningModal> = ({
   const selectedStudent: IDatabaseStudent = useTypedSelector(
     (state) => state.selectedStudent
   );
+  const selectedSchool: IDatabaseSchool = useTypedSelector(
+    (state) => state.selectedSchool
+  );
 
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const deleteCourseFunction = () => {
+  const deletionRequests = () => {
     deleteStudent &&
       api
         .delete(`/student/${selectedStudent.id}`, {
@@ -125,6 +136,24 @@ const WarningModal: React.FC<IWarningModal> = ({
             return toast.error(error.response.data.detail);
           else return toast.error("Falha ao tentar remover aluno do curso");
         });
+
+    deleteSchool &&
+      api
+        .delete(`/school/${selectedSchool.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(() => {
+          dispatch(actionDeleteSchool(selectedSchool));
+          toast.success("Escola excluída com sucesso");
+          history.push("/home_page");
+        })
+        .catch((error) => {
+          if (error.response.data.detail) {
+            return toast.error(error.response.data.detail);
+          } else return toast.error("Falha ao tentar excluir escola");
+        });
   };
 
   return (
@@ -141,16 +170,17 @@ const WarningModal: React.FC<IWarningModal> = ({
                 setRemoveStudentFromCourse?.(false);
                 setDeleteStudent?.(false);
                 setDeleteCourse?.(false);
+                setDeleteSchool?.(false);
               }}
             >
               {"Cancelar"}
             </DefaultButton>
             <DefaultButton
-              border={`solid 1px ${VARIABLES.blueColor}`}
-              onClick={() => deleteCourseFunction()}
+              onClick={() => deletionRequests()}
               backgroundColor="transparent"
-              color={VARIABLES.blueColor}
+              border="solid 1px red"
               height="47px"
+              color="red"
             >
               {"Continuar"}
             </DefaultButton>
