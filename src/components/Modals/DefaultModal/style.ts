@@ -1,8 +1,9 @@
 import { VARIABLES } from "../../../styles/global";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import { IDefaultModal } from ".";
 
-export const DefaultModalContainer = styled.div<IDefaultModal>`
+export const DefaultModalContainer = styled(motion.div)<IDefaultModal>`
   display: flex;
   flex-direction: column;
   max-width: 90%;
@@ -12,7 +13,7 @@ export const DefaultModalContainer = styled.div<IDefaultModal>`
   padding: 20px;
   border-radius: 2px;
   background-color: ${VARIABLES.grayColor7};
-  background-color: ${(props) => props.backgroundColor};
+  background-color: ${(props) => props.backgroundcolor};
   border: ${(props) => props.border};
 `;
 

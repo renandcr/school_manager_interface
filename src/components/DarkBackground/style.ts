@@ -1,7 +1,8 @@
 import { VARIABLES } from "../../styles/global";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-export const DarkBackgroundContainer = styled.div`
+export const DarkBackgroundContainer = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;

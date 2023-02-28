@@ -7,7 +7,7 @@ export interface IDefaultButton
   height?: string;
   width?: string;
   border?: string;
-  backgroundColor?: string;
+  backgroundcolor?: string;
   color?: string;
 }
 
@@ -16,7 +16,7 @@ const DefaultButton: React.FC<IDefaultButton> = ({
   height,
   width,
   border,
-  backgroundColor,
+  backgroundcolor,
   color,
   ...rest
 }) => {
@@ -25,7 +25,7 @@ const DefaultButton: React.FC<IDefaultButton> = ({
       height={height}
       width={width}
       border={border}
-      backgroundColor={backgroundColor}
+      backgroundcolor={backgroundcolor}
       color={color}
       {...rest}
     >

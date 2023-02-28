@@ -76,7 +76,11 @@ const RegistrationForm: React.FC<IRegistrationForm> = ({
   return (
     <>
       {showRegistrationForm && (
-        <RegistrationFormContainer onSubmit={handleSubmit(submissionMethod)}>
+        <RegistrationFormContainer
+          onSubmit={handleSubmit(submissionMethod)}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, transition: { duration: 1 } }}
+        >
           <h1>Cadastre seus dados</h1>
           <TextField
             className="text_field"
@@ -139,7 +143,12 @@ const RegistrationForm: React.FC<IRegistrationForm> = ({
           )}
           <LoginOptionContainer>
             <span>Já possui conta?</span>
-            <span onClick={() => setShowRegistrationForm(false)}>
+            <span
+              onClick={() => {
+                setShowRegistrationForm(false);
+                topScreen();
+              }}
+            >
               Faça o login
             </span>
           </LoginOptionContainer>

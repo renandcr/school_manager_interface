@@ -59,7 +59,10 @@ const HomePage = () => {
         setShowFormSchool={setShowFormSchool}
         setSchoolUpdate={setSchoolUpdate}
       />
-      <MainHomePageContainer>
+      <MainHomePageContainer
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, transition: { duration: 1 } }}
+      >
         <HomePageContainer>
           <SchoolForm
             setShowFormSchool={setShowFormSchool}

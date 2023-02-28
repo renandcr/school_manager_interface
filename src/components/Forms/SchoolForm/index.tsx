@@ -126,7 +126,11 @@ const SchoolForm: React.FC<ISchoolForm> = ({
   return (
     <>
       {showFormSchool && (
-        <SchoolFormContainer onSubmit={handleSubmit(handleRequests)}>
+        <SchoolFormContainer
+          onSubmit={handleSubmit(handleRequests)}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, transition: { duration: 1 } }}
+        >
           {schoolUpdate ? (
             <h2>Editar informações</h2>
           ) : (
@@ -225,7 +229,7 @@ const SchoolForm: React.FC<ISchoolForm> = ({
             )}
             <DefaultButton
               border={`solid 1px ${VARIABLES.blueColor}`}
-              backgroundColor="transparent"
+              backgroundcolor="transparent"
               color={VARIABLES.blueColor}
               height="55px"
               onClick={(e) => {

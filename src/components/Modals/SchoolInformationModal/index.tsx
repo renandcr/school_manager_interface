@@ -5,6 +5,7 @@ import SchoolInformation from "../../SchoolInformation";
 import { VARIABLES } from "../../../styles/global";
 import CloseIcon from "@mui/icons-material/Close";
 import DefaultButton from "../../DefaultButton";
+import { AnimatePresence } from "framer-motion";
 import { useHistory } from "react-router-dom";
 import DefaultModal from "../DefaultModal";
 import * as React from "react";
@@ -28,9 +29,9 @@ const SchoolInformationModal: React.FC<
   const history = useHistory();
 
   return (
-    <>
+    <AnimatePresence>
       {showSchoolInformationModal && (
-        <DefaultModal>
+        <DefaultModal key="school_information_modal">
           <CloseModalContainer
             onClick={() => setShowSchoolInformationModal(false)}
           >
@@ -58,7 +59,7 @@ const SchoolInformationModal: React.FC<
             </DefaultButton>
             <DefaultButton
               border={`solid 1px ${VARIABLES.blueColor}`}
-              backgroundColor="transparent"
+              backgroundcolor="transparent"
               color={VARIABLES.blueColor}
               height="47px"
               onClick={() => {
@@ -72,7 +73,7 @@ const SchoolInformationModal: React.FC<
           </HorizontalButtonContainer>
         </DefaultModal>
       )}
-    </>
+    </AnimatePresence>
   );
 };
 

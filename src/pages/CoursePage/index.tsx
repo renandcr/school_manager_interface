@@ -69,7 +69,10 @@ const CoursePage = () => {
         </WarningModal>
       )}
       <Header coursePage={coursePage} setCoursePage={setCoursePage} />
-      <MainCoursePageContainer>
+      <MainCoursePageContainer
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, transition: { duration: 1 } }}
+      >
         <CoursePageContainer>
           <CourseContainer>
             <div className="course_container">
@@ -87,7 +90,7 @@ const CoursePage = () => {
                   setShowWarningModalOnCoursePage(true);
                   setDeleteCourse(true);
                 }}
-                backgroundColor="transparent"
+                backgroundcolor="transparent"
                 border="solid 1px red"
                 height="47px"
                 color="red"

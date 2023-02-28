@@ -9,7 +9,7 @@ export const DefaultButtonContainer = styled.button<IDefaultButton>`
   min-width: fit-content;
   background-color: ${VARIABLES.blueColor};
   color: #ffffff;
-  background-color: ${(props) => props.backgroundColor};
+  background-color: ${(props) => props.backgroundcolor};
   border: ${(props) => props.border};
   height: ${(props) => props.height};
   color: ${(props) => props.color};

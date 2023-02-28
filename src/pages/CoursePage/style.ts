@@ -1,7 +1,8 @@
 import { VARIABLES } from "../../styles/global";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-export const MainCoursePageContainer = styled.main`
+export const MainCoursePageContainer = styled(motion.main)`
   display: flex;
   flex-direction: column;
   align-items: center;

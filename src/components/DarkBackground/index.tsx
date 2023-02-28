@@ -8,9 +8,15 @@ interface IDarkBackground {
 
 const DarkBackground: React.FC<IDarkBackground> = ({ children, ...rest }) => {
   return (
-    <>
-      <DarkBackgroundContainer {...rest}>{children}</DarkBackgroundContainer>
-    </>
+    <DarkBackgroundContainer
+      key="dark_background"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      {...rest}
+    >
+      {children}
+    </DarkBackgroundContainer>
   );
 };
 

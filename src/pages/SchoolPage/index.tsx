@@ -148,7 +148,10 @@ const SchoolPage = () => {
         setShowAllStudents={setShowAllStudents}
         showAllStudents={showAllStudents}
       />
-      <MainSchoolPageContainer>
+      <MainSchoolPageContainer
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, transition: { duration: 1 } }}
+      >
         <SchoolPageContainer>
           <CourseForm
             setShowCourseForm={setShowCourseForm}
@@ -163,7 +166,10 @@ const SchoolPage = () => {
             studentUpdate={studentUpdate}
           />
           {!showStudentForm && !showStudentInformation && !showCourseForm && (
-            <SchoolContainer>
+            <SchoolContainer
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, transition: { duration: 1 } }}
+            >
               <div className="school_container">
                 {selectedSchool && (
                   <SchoolInformation
@@ -205,7 +211,7 @@ const SchoolPage = () => {
                     setShowWarningModalOnSchoolPage(true);
                     setDeleteSchool(true);
                   }}
-                  backgroundColor="transparent"
+                  backgroundcolor="transparent"
                   border={`solid 1px red`}
                   height="47px"
                   color="red"
@@ -216,20 +222,29 @@ const SchoolPage = () => {
             </SchoolContainer>
           )}
           {!showStudentForm && !showStudentInformation && !showCourseForm && (
-            <CoursesContainer>
+            <CoursesContainer
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, transition: { duration: 1 } }}
+            >
               <div className="courses_container">
                 <h1>Cursos</h1>
                 {courses.length > 0 &&
-                  courses.map((current) => (
-                    <CourseInformation
-                      key={current.id}
-                      current={current}
-                      setShowCourseInformationModal={
-                        setShowCourseInformationModal
-                      }
-                      editable
-                    />
-                  ))}
+                  courses
+                    .sort((a, b) => {
+                      if (a.name < b.name) return -1;
+                      else if (a.name > b.name) return 1;
+                      return 0;
+                    })
+                    .map((current) => (
+                      <CourseInformation
+                        key={current.id}
+                        current={current}
+                        setShowCourseInformationModal={
+                          setShowCourseInformationModal
+                        }
+                        editable
+                      />
+                    ))}
               </div>
               <div className="courses_buttons">
                 <DefaultButton
@@ -245,23 +260,32 @@ const SchoolPage = () => {
             </CoursesContainer>
           )}
           {showStudentInformation && !showStudentForm && (
-            <StudentsContainer>
+            <StudentsContainer
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, transition: { duration: 1 } }}
+            >
               <h1>{`${selectedSchool.name} - Alunos`}</h1>
               <div className="students_container">
                 {students.length > 0 &&
-                  students.map((current) => (
-                    <StudentInformation
-                      key={current.id}
-                      first_name={current.first_name}
-                      last_name={current.last_name}
-                      email={current.email}
-                      setShowStudentInformationModal={
-                        setShowStudentInformationModal
-                      }
-                      showStudentInformation={showStudentInformation}
-                      editable
-                    />
-                  ))}
+                  students
+                    .sort((a, b) => {
+                      if (a.first_name < b.first_name) return -1;
+                      else if (a.first_name > b.first_name) return 1;
+                      return 0;
+                    })
+                    .map((current) => (
+                      <StudentInformation
+                        key={current.id}
+                        first_name={current.first_name}
+                        last_name={current.last_name}
+                        email={current.email}
+                        setShowStudentInformationModal={
+                          setShowStudentInformationModal
+                        }
+                        showStudentInformation={showStudentInformation}
+                        editable
+                      />
+                    ))}
               </div>
             </StudentsContainer>
           )}

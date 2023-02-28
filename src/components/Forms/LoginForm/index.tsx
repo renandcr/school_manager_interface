@@ -46,7 +46,6 @@ const LoginForm: React.FC<ILoginForm> = ({
         dispatch(actionSaveToken(response.data.access));
         toast.success("Login realizado com sucesso");
         history.push("/home_page");
-        topScreen();
       })
       .catch((error) => toast.error(error.response.data.detail));
   };
@@ -54,7 +53,11 @@ const LoginForm: React.FC<ILoginForm> = ({
   return (
     <>
       {!showRegistrationForm && (
-        <LoginFormContainer onSubmit={handleSubmit(handleRequests)}>
+        <LoginFormContainer
+          onSubmit={handleSubmit(handleRequests)}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, transition: { duration: 1 } }}
+        >
           <h2>Faça o login</h2>
           <TextField
             className="text_field"
@@ -76,7 +79,12 @@ const LoginForm: React.FC<ILoginForm> = ({
           )}
           <LoginOptionContainer>
             <span>Ainda não possui conta?</span>
-            <span onClick={() => setShowRegistrationForm(true)}>
+            <span
+              onClick={() => {
+                setShowRegistrationForm(true);
+                topScreen();
+              }}
+            >
               Cadastre-se
             </span>
           </LoginOptionContainer>

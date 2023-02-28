@@ -35,10 +35,8 @@ export const FooterContainer = styled.footer`
 
 export const FooterLogoContainer = styled(LogoContainer)`
   justify-content: center;
-  a {
-    span {
-      font-size: 18px;
-    }
+  span {
+    font-size: 18px;
   }
 
   @media only screen and (min-width: 768px) {
