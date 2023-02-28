@@ -10,8 +10,10 @@ import DefaultModal from "../DefaultModal";
 import * as React from "react";
 
 interface IStudentInformationModal {
+  setShowWarningModalOnSchoolPage?: React.Dispatch<boolean>;
   setShowStudentInformationModal: React.Dispatch<boolean>;
   setShowStudentForm: React.Dispatch<boolean>;
+  setDeleteStudent?: React.Dispatch<boolean>;
   setStudentUpdate: React.Dispatch<boolean>;
   showStudentInformationModal: boolean;
 }
@@ -19,10 +21,12 @@ interface IStudentInformationModal {
 const StudentInformationModal: React.FC<
   { current: IDatabaseStudent } & IStudentInformationModal
 > = ({
+  setShowWarningModalOnSchoolPage,
   setShowStudentInformationModal,
   showStudentInformationModal,
   setShowStudentForm,
   setStudentUpdate,
+  setDeleteStudent,
   current,
 }) => {
   return (
@@ -58,6 +62,11 @@ const StudentInformationModal: React.FC<
             </DefaultButton>
             <DefaultButton
               border={`solid 1px ${VARIABLES.blueColor}`}
+              onClick={() => {
+                setShowWarningModalOnSchoolPage?.(true);
+                setShowStudentInformationModal(false);
+                setDeleteStudent?.(true);
+              }}
               backgroundColor="transparent"
               color={VARIABLES.blueColor}
               height="47px"

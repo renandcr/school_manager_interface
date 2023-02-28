@@ -18,8 +18,9 @@ export interface IDatabaseStudentAlternative {
 }
 
 export interface IStudentInformation {
+  setShowWarningModalOnCoursePage?: React.Dispatch<boolean>;
   setShowStudentInformationModal?: React.Dispatch<boolean>;
-  setShowWarningModal?: React.Dispatch<boolean>;
+  setRemoveStudentFromCourse?: React.Dispatch<boolean>;
   showStudentInformation?: boolean;
   removeOption?: boolean;
   editable?: boolean;
@@ -37,8 +38,9 @@ const StudentInformation: React.FC<
   gender,
   editable = false,
   removeOption = false,
+  setShowWarningModalOnCoursePage,
   setShowStudentInformationModal,
-  setShowWarningModal,
+  setRemoveStudentFromCourse,
 }) => {
   const dispatch = useDispatch();
 
@@ -80,7 +82,10 @@ const StudentInformation: React.FC<
         )}
         <li
           className="remove_option"
-          onClick={() => setShowWarningModal?.(true)}
+          onClick={() => {
+            setShowWarningModalOnCoursePage?.(true);
+            setRemoveStudentFromCourse?.(true);
+          }}
         >
           <span>Remover aluno do curso</span>
         </li>
