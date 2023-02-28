@@ -111,7 +111,11 @@ const CourseForm: React.FC<ICourseForm> = ({
   return (
     <>
       {showCourseForm && (
-        <CourseFormContainer onSubmit={handleSubmit(handleRequests)}>
+        <CourseFormContainer
+          onSubmit={handleSubmit(handleRequests)}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, transition: { duration: 1 } }}
+        >
           {!courseUpdate ? (
             <h2>Cadastrar curso</h2>
           ) : (
@@ -146,7 +150,7 @@ const CourseForm: React.FC<ICourseForm> = ({
             )}
             <DefaultButton
               border={`solid 1px ${VARIABLES.blueColor}`}
-              backgroundColor="transparent"
+              backgroundcolor="transparent"
               color={VARIABLES.blueColor}
               height="55px"
               onClick={(e) => {

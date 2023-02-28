@@ -5,9 +5,7 @@ const Footer = () => {
   return (
     <FooterContainer>
       <FooterLogoContainer>
-        <a href="">
-          <span>School Manager CX</span>
-        </a>
+        <span>School Manager CX</span>
       </FooterLogoContainer>
       <div className="middle_box">
         <span>&copy; Developed by Renan Ribeiro</span>

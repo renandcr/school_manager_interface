@@ -181,7 +181,11 @@ const StudentForm: React.FC<IStudentForm> = ({
   return (
     <>
       {showStudentForm && (
-        <StudentFormContainer onSubmit={handleSubmit(handleRequests)}>
+        <StudentFormContainer
+          onSubmit={handleSubmit(handleRequests)}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, transition: { duration: 1 } }}
+        >
           {studentUpdate ? (
             <h2>Editar informações</h2>
           ) : (
@@ -266,7 +270,7 @@ const StudentForm: React.FC<IStudentForm> = ({
             )}
             <DefaultButton
               border={`solid 1px ${VARIABLES.blueColor}`}
-              backgroundColor="transparent"
+              backgroundcolor="transparent"
               color={VARIABLES.blueColor}
               height="55px"
               onClick={(e) => {

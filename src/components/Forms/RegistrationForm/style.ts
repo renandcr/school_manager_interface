@@ -1,7 +1,8 @@
 import { VARIABLES } from "../../../styles/global";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-export const RegistrationFormContainer = styled.form`
+export const RegistrationFormContainer = styled(motion.form)`
   display: flex;
   flex-direction: column;
   row-gap: 10px;
@@ -41,7 +42,7 @@ export const RegistrationFormContainer = styled.form`
 export const LoginOptionContainer = styled.div`
   display: flex;
   justify-content: space-around;
-  margin: 10px 0 5px 0;
+  margin: 1px 0 5px 0;
   span {
     font-size: 14px;
     line-height: 18px;

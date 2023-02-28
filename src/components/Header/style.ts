@@ -1,8 +1,9 @@
 import { VARIABLES } from "../../styles/global";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import { IHeader } from ".";
 
-export const HeaderContainer = styled.header`
+export const HeaderContainer = styled(motion.header)`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,22 +19,19 @@ export const HeaderContainer = styled.header`
     width: 90%;
     max-width: 1400px;
 
-    @media only screen and (min-width: 500px) {
+    @media only screen and (min-width: 570px) {
       flex-direction: row;
     }
   }
 `;
 
 export const LogoContainer = styled.div`
-  a {
-    text-decoration: none;
-    span {
-      font-size: 24px;
-      line-height: 31px;
-      font-weight: 700;
-      font-family: ${VARIABLES.fontFour};
-      color: ${VARIABLES.blueColor};
-    }
+  span {
+    font-size: 24px;
+    line-height: 31px;
+    font-weight: 700;
+    font-family: ${VARIABLES.fontFour};
+    color: ${VARIABLES.blueColor};
   }
 `;
 

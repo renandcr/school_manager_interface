@@ -4,6 +4,7 @@ import { AddStudentToCourseContainer } from "./style";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTypedSelector } from "../../../store";
 import DefaultButton from "../../DefaultButton";
+import { AnimatePresence } from "framer-motion";
 import DefaultModal from "../DefaultModal";
 import { useDispatch } from "react-redux";
 import api from "../../../assets/axios";
@@ -58,9 +59,9 @@ const AddStudentToCourseModal: React.FC<IAddStudentToCourseModal> = ({
   };
 
   return (
-    <>
+    <AnimatePresence>
       {showAddStudentModal && (
-        <DefaultModal>
+        <DefaultModal key="add_student_modal">
           <AddStudentToCourseContainer>
             <CloseModalContainer onClick={() => setShowAddStudentModal(false)}>
               <span>{selectedCourse.name}</span>
@@ -87,7 +88,7 @@ const AddStudentToCourseModal: React.FC<IAddStudentToCourseModal> = ({
           </AddStudentToCourseContainer>
         </DefaultModal>
       )}
-    </>
+    </AnimatePresence>
   );
 };
 

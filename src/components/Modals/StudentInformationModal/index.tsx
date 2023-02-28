@@ -4,6 +4,7 @@ import { CloseModalContainer } from "../DefaultModal/style";
 import StudentInformation from "../../StudentInformation";
 import { dateHandler } from "../../../assets/utils";
 import CloseIcon from "@mui/icons-material/Close";
+import { AnimatePresence } from "framer-motion";
 import DefaultButton from "../../DefaultButton";
 import DefaultModal from "../DefaultModal";
 import * as React from "react";
@@ -29,9 +30,9 @@ const StudentInformationModal: React.FC<
   current,
 }) => {
   return (
-    <>
+    <AnimatePresence>
       {showStudentInformationModal && (
-        <DefaultModal>
+        <DefaultModal key="student_information_modal">
           <CloseModalContainer
             onClick={() => setShowStudentInformationModal(false)}
           >
@@ -65,7 +66,7 @@ const StudentInformationModal: React.FC<
                 setShowStudentInformationModal(false);
                 setDeleteStudent?.(true);
               }}
-              backgroundColor="transparent"
+              backgroundcolor="transparent"
               border="solid 1px red"
               height="47px"
               color="red"
@@ -75,7 +76,7 @@ const StudentInformationModal: React.FC<
           </HorizontalButtonContainer>
         </DefaultModal>
       )}
-    </>
+    </AnimatePresence>
   );
 };
 

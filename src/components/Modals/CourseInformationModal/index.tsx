@@ -6,6 +6,7 @@ import { dateHandler } from "../../../assets/utils";
 import { VARIABLES } from "../../../styles/global";
 import CloseIcon from "@mui/icons-material/Close";
 import DefaultButton from "../../DefaultButton";
+import { AnimatePresence } from "framer-motion";
 import { useHistory } from "react-router-dom";
 import DefaultModal from "../DefaultModal";
 import * as React from "react";
@@ -29,9 +30,9 @@ const CourseInformationModal: React.FC<
   const history = useHistory();
 
   return (
-    <>
+    <AnimatePresence>
       {showCourseInformationModal && (
-        <DefaultModal>
+        <DefaultModal key="course_information_modal">
           <CloseModalContainer
             onClick={() => setShowCourseInformationModal(false)}
           >
@@ -51,7 +52,7 @@ const CourseInformationModal: React.FC<
             </DefaultButton>
             <DefaultButton
               border={`solid 1px ${VARIABLES.blueColor}`}
-              backgroundColor="transparent"
+              backgroundcolor="transparent"
               color={VARIABLES.blueColor}
               height="47px"
               onClick={() => {
@@ -65,7 +66,7 @@ const CourseInformationModal: React.FC<
           </HorizontalButtonContainer>
         </DefaultModal>
       )}
-    </>
+    </AnimatePresence>
   );
 };
 

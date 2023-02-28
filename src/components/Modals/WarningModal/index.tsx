@@ -3,6 +3,7 @@ import { IToken } from "../../../store/models/user/actions";
 import { useTypedSelector } from "../../../store";
 import { WarningModalContainer } from "./style";
 import DefaultButton from "../../DefaultButton";
+import { AnimatePresence } from "framer-motion";
 import { useHistory } from "react-router-dom";
 import DefaultModal from "../DefaultModal";
 import { useDispatch } from "react-redux";
@@ -157,8 +158,8 @@ const WarningModal: React.FC<IWarningModal> = ({
   };
 
   return (
-    <>
-      <DefaultModal>
+    <AnimatePresence>
+      <DefaultModal key="warning_modal">
         <WarningModalContainer>
           <p>{children}</p>
           <HorizontalButtonContainer>
@@ -177,7 +178,7 @@ const WarningModal: React.FC<IWarningModal> = ({
             </DefaultButton>
             <DefaultButton
               onClick={() => deletionRequests()}
-              backgroundColor="transparent"
+              backgroundcolor="transparent"
               border="solid 1px red"
               height="47px"
               color="red"
@@ -187,7 +188,7 @@ const WarningModal: React.FC<IWarningModal> = ({
           </HorizontalButtonContainer>
         </WarningModalContainer>
       </DefaultModal>
-    </>
+    </AnimatePresence>
   );
 };
 

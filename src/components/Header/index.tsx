@@ -22,12 +22,13 @@ const Header: React.FC<IHeader> = ({
   const history = useHistory();
 
   return (
-    <HeaderContainer>
+    <HeaderContainer
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 1 } }}
+    >
       <div className="header_box_one">
         <LogoContainer>
-          <a href="">
-            <span>School Manager CX</span>
-          </a>
+          <span>School Manager CX</span>
         </LogoContainer>
         <HeaderNavContainer hideOptions={hideOptions}>
           <nav>
@@ -46,6 +47,14 @@ const Header: React.FC<IHeader> = ({
                 </li>
               )}
               <li onClick={() => history.push("/home_page")}>Home</li>
+              <li
+                onClick={() => {
+                  history.push("/");
+                  localStorage.clear();
+                }}
+              >
+                Sair
+              </li>
             </ul>
           </nav>
         </HeaderNavContainer>

@@ -13,7 +13,7 @@ import {
 } from "./constants";
 
 let initialStateSchools: Array<IDatabaseSchool> = JSON.parse(
-  localStorage.getItem("@databaseSchools") || JSON.stringify("")
+  localStorage.getItem("@schools") || JSON.stringify("")
 );
 
 export const schoolReducer = (
@@ -22,14 +22,14 @@ export const schoolReducer = (
 ) => {
   switch (action.type) {
     case DATABASE_SCHOOL: {
-      localStorage.setItem("@databaseSchools", JSON.stringify(action.payload));
+      localStorage.setItem("@schools", JSON.stringify(action.payload));
       initialStateSchools = action.payload;
       return action.payload;
     }
 
     case CREATE_SCHOOL: {
       localStorage.setItem(
-        "@databaseSchools",
+        "@schools",
         JSON.stringify([...state, action.payload])
       );
       return [...state, action.payload];
@@ -39,7 +39,7 @@ export const schoolReducer = (
       const updatedState = state.filter(
         (current) => current.id !== action.payload.id
       );
-      localStorage.setItem("@databaseSchools", JSON.stringify(updatedState));
+      localStorage.setItem("@schools", JSON.stringify(updatedState));
       return updatedState;
     }
 
@@ -49,7 +49,7 @@ export const schoolReducer = (
       );
       if (schoolIndex === -1) return state;
       const updatedState = state.splice(schoolIndex, 1, action.payload);
-      localStorage.setItem("@databaseSchools", JSON.stringify(updatedState));
+      localStorage.setItem("@schools", JSON.stringify(updatedState));
       return updatedState;
     }
 
