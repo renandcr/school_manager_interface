@@ -50,21 +50,21 @@ const CoursePage = () => {
           deleteCourse={deleteCourse}
         >
           {deleteCourse ? (
-            <>
+            <p>
               <span className="warning_red">
                 Tem certeza que deseja continuar?
               </span>{" "}
               Esta ação removerá o curso <span>{selectedCourse.name}</span> e
               todos os registros relacionados a ele. Isso não pode ser desfeito!
-            </>
+            </p>
           ) : (
-            <>
+            <p>
               Remover{" "}
               <span>
                 {selectedStudent.first_name + " " + selectedStudent.last_name}
               </span>{" "}
               do curso {selectedCourse.name}?
-            </>
+            </p>
           )}
         </WarningModal>
       )}

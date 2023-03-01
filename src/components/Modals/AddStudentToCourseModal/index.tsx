@@ -63,9 +63,12 @@ const AddStudentToCourseModal: React.FC<IAddStudentToCourseModal> = ({
       {showAddStudentModal && (
         <DefaultModal key="add_student_modal">
           <AddStudentToCourseContainer>
-            <CloseModalContainer onClick={() => setShowAddStudentModal(false)}>
+            <CloseModalContainer>
               <span>{selectedCourse.name}</span>
-              <CloseIcon className="icon_close" />
+              <CloseIcon
+                onClick={() => setShowAddStudentModal(false)}
+                className="icon_close"
+              />
             </CloseModalContainer>
             <p>
               Insira o e-mail do aluno para adicioná-lo ao curso{" "}

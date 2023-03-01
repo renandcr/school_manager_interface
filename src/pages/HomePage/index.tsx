@@ -17,19 +17,17 @@ import {
   MainHomePageContainer,
   HomePageContainer,
 } from "./style";
-import { topScreen } from "../../assets/utils";
 
 const HomePage = () => {
-  React.useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const [showSchoolInformationModal, setShowSchoolInformationModal] =
     React.useState(false);
   const [showFormSchool, setShowFormSchool] = React.useState(false);
   const token: IToken = useTypedSelector((state) => state.token);
   const [schoolUpdate, setSchoolUpdate] = React.useState(false);
-  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [showFormSchool]);
 
   const databaseSchools: Array<IDatabaseSchool> = useTypedSelector(
     (state) => state.schools
@@ -37,6 +35,7 @@ const HomePage = () => {
   const selectedSchool: IDatabaseSchool = useTypedSelector(
     (state) => state.selectedSchool
   );
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     api
@@ -100,7 +99,6 @@ const HomePage = () => {
                       onClick={() => {
                         setShowFormSchool(true);
                         setSchoolUpdate(false);
-                        topScreen();
                       }}
                     >
                       {"Adicionar escola"}

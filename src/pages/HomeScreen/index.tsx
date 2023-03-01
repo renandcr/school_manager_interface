@@ -6,11 +6,11 @@ import Footer from "../../components/Footer";
 import * as React from "react";
 
 const HomeScreen = () => {
+  const [showRegistrationForm, setShowRegistrationForm] = React.useState(false);
+
   React.useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
-
-  const [showRegistrationForm, setShowRegistrationForm] = React.useState(false);
+  }, [showRegistrationForm]);
 
   return (
     <>

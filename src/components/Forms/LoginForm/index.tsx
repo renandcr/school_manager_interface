@@ -2,7 +2,6 @@ import { actionSaveToken } from "../../../store/models/user/actions";
 import { LoginOptionContainer } from "../RegistrationForm/style";
 import { IUserLogin } from "../../../store/models/user/actions";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { topScreen } from "../../../assets/utils";
 import DefaultButton from "../../DefaultButton";
 import { LoginFormContainer } from "./style";
 import { useDispatch } from "react-redux";
@@ -82,7 +81,6 @@ const LoginForm: React.FC<ILoginForm> = ({
             <span
               onClick={() => {
                 setShowRegistrationForm(true);
-                topScreen();
               }}
             >
               Cadastre-se

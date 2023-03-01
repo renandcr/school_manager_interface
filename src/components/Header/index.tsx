@@ -4,17 +4,17 @@ import * as React from "react";
 
 export interface IHeader {
   setShowStudentInformation?: React.Dispatch<boolean>;
-  setShowAllStudents?: React.Dispatch<boolean>;
   setCoursePage?: React.Dispatch<boolean>;
-  showAllStudents?: boolean;
-  coursePage?: boolean;
+  showStudentInformation?: boolean;
+  studentUpdate?: boolean;
   hideOptions?: boolean;
+  coursePage?: boolean;
 }
 
 const Header: React.FC<IHeader> = ({
   setShowStudentInformation,
-  setShowAllStudents,
-  showAllStudents,
+  showStudentInformation,
+  studentUpdate,
   setCoursePage,
   coursePage,
   hideOptions = false,
@@ -33,14 +33,20 @@ const Header: React.FC<IHeader> = ({
         <HeaderNavContainer hideOptions={hideOptions}>
           <nav>
             <ul>
-              {(showAllStudents || coursePage) && (
+              {coursePage && (
                 <li
                   onClick={() => {
-                    coursePage
-                      ? history.push("/school_page")
-                      : setShowStudentInformation?.(false);
-                    setShowAllStudents?.(false);
                     setCoursePage?.(false);
+                    history.push("/school_page");
+                  }}
+                >
+                  Voltar
+                </li>
+              )}
+              {showStudentInformation && !studentUpdate && (
+                <li
+                  onClick={() => {
+                    setShowStudentInformation?.(false);
                   }}
                 >
                   Voltar
