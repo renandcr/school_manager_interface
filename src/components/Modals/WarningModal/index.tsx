@@ -3,7 +3,6 @@ import { IToken } from "../../../store/models/user/actions";
 import { useTypedSelector } from "../../../store";
 import { WarningModalContainer } from "./style";
 import DefaultButton from "../../DefaultButton";
-import { AnimatePresence } from "framer-motion";
 import { useHistory } from "react-router-dom";
 import DefaultModal from "../DefaultModal";
 import { useDispatch } from "react-redux";
@@ -81,7 +80,7 @@ const WarningModal: React.FC<IWarningModal> = ({
           toast.success(
             `${
               selectedStudent.first_name + " " + selectedStudent.last_name
-            } excluído com sucesso`
+            } excluído(a) com sucesso`
           );
           dispatch(actionDeleteStudent(selectedStudent));
           setShowWarningModalOnSchoolPage?.(false);
@@ -129,7 +128,7 @@ const WarningModal: React.FC<IWarningModal> = ({
           toast.success(
             `${
               selectedStudent.first_name + " " + selectedStudent.last_name
-            } removido com sucesso`
+            } removido(a) com sucesso`
           );
         })
         .catch((error) => {
@@ -158,37 +157,35 @@ const WarningModal: React.FC<IWarningModal> = ({
   };
 
   return (
-    <AnimatePresence>
-      <DefaultModal key="warning_modal">
-        <WarningModalContainer>
-          <p>{children}</p>
-          <HorizontalButtonContainer>
-            <DefaultButton
-              height="47px"
-              onClick={() => {
-                setShowWarningModalOnCoursePage?.(false);
-                setShowWarningModalOnSchoolPage?.(false);
-                setRemoveStudentFromCourse?.(false);
-                setDeleteStudent?.(false);
-                setDeleteCourse?.(false);
-                setDeleteSchool?.(false);
-              }}
-            >
-              {"Cancelar"}
-            </DefaultButton>
-            <DefaultButton
-              onClick={() => deletionRequests()}
-              backgroundcolor="transparent"
-              border="solid 1px red"
-              height="47px"
-              color="red"
-            >
-              {"Continuar"}
-            </DefaultButton>
-          </HorizontalButtonContainer>
-        </WarningModalContainer>
-      </DefaultModal>
-    </AnimatePresence>
+    <DefaultModal key="warning_modal">
+      <WarningModalContainer>
+        {children}
+        <HorizontalButtonContainer>
+          <DefaultButton
+            height="47px"
+            onClick={() => {
+              setShowWarningModalOnCoursePage?.(false);
+              setShowWarningModalOnSchoolPage?.(false);
+              setRemoveStudentFromCourse?.(false);
+              setDeleteStudent?.(false);
+              setDeleteCourse?.(false);
+              setDeleteSchool?.(false);
+            }}
+          >
+            {"Cancelar"}
+          </DefaultButton>
+          <DefaultButton
+            onClick={() => deletionRequests()}
+            backgroundcolor="transparent"
+            border="solid 1px red"
+            height="47px"
+            color="red"
+          >
+            {"Continuar"}
+          </DefaultButton>
+        </HorizontalButtonContainer>
+      </WarningModalContainer>
+    </DefaultModal>
   );
 };
 

@@ -32,11 +32,12 @@ const SchoolInformationModal: React.FC<
     <AnimatePresence>
       {showSchoolInformationModal && (
         <DefaultModal key="school_information_modal">
-          <CloseModalContainer
-            onClick={() => setShowSchoolInformationModal(false)}
-          >
+          <CloseModalContainer>
             <span>Filial {current.branch}</span>
-            <CloseIcon className="icon_close" />
+            <CloseIcon
+              onClick={() => setShowSchoolInformationModal(false)}
+              className="icon_close"
+            />
           </CloseModalContainer>
           <SchoolInformation
             key={current.id}

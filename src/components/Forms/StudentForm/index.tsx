@@ -11,7 +11,6 @@ import { IToken } from "../../../store/models/user/actions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VARIABLES } from "../../../styles/global";
 import { useTypedSelector } from "../../../store";
-import { topScreen } from "../../../assets/utils";
 import DefaultButton from "../../DefaultButton";
 import { StudentFormContainer } from "./style";
 import MenuItem from "@mui/material/MenuItem";
@@ -60,14 +59,12 @@ interface IStudent {
 interface IStudentForm {
   setShowStudentForm: React.Dispatch<boolean>;
   setStudentUpdate: React.Dispatch<boolean>;
-  showStudentForm: boolean;
   studentUpdate: boolean;
 }
 
 const StudentForm: React.FC<IStudentForm> = ({
   setShowStudentForm,
   setStudentUpdate,
-  showStudentForm,
   studentUpdate,
 }) => {
   const dispatch = useDispatch();
@@ -130,7 +127,7 @@ const StudentForm: React.FC<IStudentForm> = ({
 
   React.useEffect(() => {
     studentUpdate ? reset(selectedStudent) : reset({});
-  }, [studentUpdate]);
+  }, []);
 
   const handleRequests = (data: IStudent) => {
     !studentUpdate
@@ -143,7 +140,6 @@ const StudentForm: React.FC<IStudentForm> = ({
           .then(() => {
             toast.success("Aluno matriculado com sucesso");
             setShowStudentForm(false);
-            topScreen();
           })
           .catch((error) => {
             if (error.response.data.email) {
@@ -165,7 +161,6 @@ const StudentForm: React.FC<IStudentForm> = ({
             dispatch(actionUpdateStudent(response.data));
             setShowStudentForm(false);
             setStudentUpdate(false);
-            topScreen();
           })
           .catch((error) => {
             if (error.response.data.email) {
@@ -179,115 +174,106 @@ const StudentForm: React.FC<IStudentForm> = ({
   };
 
   return (
-    <>
-      {showStudentForm && (
-        <StudentFormContainer
-          onSubmit={handleSubmit(handleRequests)}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: { duration: 1 } }}
-        >
-          {studentUpdate ? (
-            <h2>Editar informações</h2>
-          ) : (
-            <h2>Cadastrar Aluno</h2>
-          )}
-          <TextField
-            className="text_field"
-            label="Nome"
-            type="text"
-            autoFocus
-            {...register("first_name")}
-          />
-          {formState.errors.first_name && (
-            <p>{formState.errors.first_name.message}</p>
-          )}
-
-          <TextField
-            className="text_field"
-            label="Sobrenome"
-            type="text"
-            {...register("last_name")}
-          />
-          {formState.errors.last_name && (
-            <p>{formState.errors.last_name?.message}</p>
-          )}
-
-          <TextField
-            className="text_field"
-            label="E-mail"
-            type="email"
-            {...register("email")}
-          />
-          {formState.errors.email && <p>{formState.errors.email.message}</p>}
-
-          <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={"pt"}>
-            <MobileDatePicker
-              label="Data de nascimnento"
-              inputFormat="DD/MM/YYYY"
-              value={value}
-              onChange={handleChange}
-              renderInput={(params) => (
-                <TextField {...params} {...register("date_of_birth")} />
-              )}
-            />
-          </LocalizationProvider>
-
-          <TextField
-            className="text_field"
-            label="CPF"
-            type="text"
-            {...register("cpf")}
-          />
-
-          {formState.errors.cpf && <p>{formState.errors.cpf.message}</p>}
-          <TextField
-            className="text_field"
-            label="Telefone"
-            type="text"
-            {...register("phone")}
-          />
-          {formState.errors.phone && <p>{formState.errors.phone.message}</p>}
-
-          <TextField
-            className="text_field"
-            select
-            label="Gênero"
-            defaultValue="outros"
-            {...register("gender")}
-          >
-            {gender.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-          {formState.errors.gender && <p>{formState.errors.gender.message}</p>}
-
-          <HorizontalButtonContainer>
-            {studentUpdate ? (
-              <DefaultButton height="55px">{"Salvar alterações"}</DefaultButton>
-            ) : (
-              <DefaultButton height="55px">{"Salvar aluno"}</DefaultButton>
-            )}
-            <DefaultButton
-              border={`solid 1px ${VARIABLES.blueColor}`}
-              backgroundcolor="transparent"
-              color={VARIABLES.blueColor}
-              height="55px"
-              onClick={(e) => {
-                setShowStudentForm(false);
-                setStudentUpdate(false);
-                e.preventDefault();
-                clearErrors();
-                topScreen();
-              }}
-            >
-              {"Cancelar"}
-            </DefaultButton>
-          </HorizontalButtonContainer>
-        </StudentFormContainer>
+    <StudentFormContainer
+      onSubmit={handleSubmit(handleRequests)}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 1 } }}
+    >
+      {studentUpdate ? <h2>Editar informações</h2> : <h2>Cadastrar Aluno</h2>}
+      <TextField
+        className="text_field"
+        label="Nome"
+        type="text"
+        autoFocus
+        {...register("first_name")}
+      />
+      {formState.errors.first_name && (
+        <p>{formState.errors.first_name.message}</p>
       )}
-    </>
+
+      <TextField
+        className="text_field"
+        label="Sobrenome"
+        type="text"
+        {...register("last_name")}
+      />
+      {formState.errors.last_name && (
+        <p>{formState.errors.last_name?.message}</p>
+      )}
+
+      <TextField
+        className="text_field"
+        label="E-mail"
+        type="email"
+        {...register("email")}
+      />
+      {formState.errors.email && <p>{formState.errors.email.message}</p>}
+
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={"pt"}>
+        <MobileDatePicker
+          label="Data de nascimento"
+          inputFormat="DD/MM/YYYY"
+          value={value}
+          onChange={handleChange}
+          renderInput={(params) => (
+            <TextField {...params} {...register("date_of_birth")} />
+          )}
+        />
+      </LocalizationProvider>
+
+      <TextField
+        className="text_field"
+        label="CPF"
+        type="text"
+        {...register("cpf")}
+      />
+
+      {formState.errors.cpf && <p>{formState.errors.cpf.message}</p>}
+      <TextField
+        className="text_field"
+        label="Telefone"
+        type="text"
+        {...register("phone")}
+      />
+      {formState.errors.phone && <p>{formState.errors.phone.message}</p>}
+
+      <TextField
+        className="text_field"
+        select
+        label="Gênero"
+        defaultValue="outros"
+        {...register("gender")}
+      >
+        {gender.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </TextField>
+      {formState.errors.gender && <p>{formState.errors.gender.message}</p>}
+
+      <HorizontalButtonContainer>
+        {studentUpdate ? (
+          <DefaultButton height="55px">{"Salvar alterações"}</DefaultButton>
+        ) : (
+          <DefaultButton height="55px">{"Salvar aluno"}</DefaultButton>
+        )}
+        <DefaultButton
+          border={`solid 1px ${VARIABLES.blueColor}`}
+          backgroundcolor="transparent"
+          color={VARIABLES.blueColor}
+          height="55px"
+          onClick={(e) => {
+            setShowStudentForm(false);
+            setStudentUpdate(false);
+            e.preventDefault();
+            clearErrors();
+          }}
+        >
+          {"Cancelar"}
+        </DefaultButton>
+      </HorizontalButtonContainer>
+    </StudentFormContainer>
   );
 };
 

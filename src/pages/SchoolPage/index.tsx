@@ -9,8 +9,8 @@ import StudentForm from "../../components/Forms/StudentForm";
 import DefaultButton from "../../components/DefaultButton";
 import CourseForm from "../../components/Forms/CourseForm";
 import { IToken } from "../../store/models/user/actions";
+import { AnimatePresence } from "framer-motion";
 import { useTypedSelector } from "../../store";
-import { topScreen } from "../../assets/utils";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useDispatch } from "react-redux";
@@ -36,11 +36,6 @@ import {
 } from "../../store/models/student/actions";
 
 const SchoolPage = () => {
-  React.useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  const [showAllStudents, setShowAllStudents] = React.useState(false);
   const [showStudentForm, setShowStudentForm] = React.useState(false);
   const [showStudentInformationModal, setShowStudentInformationModal] =
     React.useState(false);
@@ -48,14 +43,18 @@ const SchoolPage = () => {
   const [showStudentInformation, setShowStudentInformation] =
     React.useState(false);
 
-  const [showCourseInformationModal, setShowCourseInformationModal] =
-    React.useState(false);
   const [showWarningModalOnSchoolPage, setShowWarningModalOnSchoolPage] =
+    React.useState(false);
+  const [showCourseInformationModal, setShowCourseInformationModal] =
     React.useState(false);
   const [showCourseForm, setShowCourseForm] = React.useState(false);
   const [deleteStudent, setDeleteStudent] = React.useState(false);
   const [deleteSchool, setDeleteSchool] = React.useState(false);
   const [courseUpdate, setCourseUpdate] = React.useState(false);
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [showCourseForm, showStudentInformation, showStudentForm]);
 
   const token: IToken = useTypedSelector((state) => state.token);
   const students: Array<IDatabaseStudent> = useTypedSelector(
@@ -100,72 +99,78 @@ const SchoolPage = () => {
 
   return (
     <>
-      {showWarningModalOnSchoolPage && (
-        <WarningModal
-          setShowWarningModalOnSchoolPage={setShowWarningModalOnSchoolPage}
-          setDeleteStudent={setDeleteStudent}
-          setDeleteSchool={setDeleteSchool}
-          deleteStudent={deleteStudent}
-          deleteSchool={deleteSchool}
-        >
-          {deleteStudent ? (
-            <>
-              Excluir todos os registros de{" "}
-              <span>
-                {selectedStudent.first_name + " " + selectedStudent.last_name}
-              </span>
-              ?
-            </>
-          ) : (
-            <>
-              <span className="warning_red">
-                Tem certeza que deseja continuar?
-              </span>{" "}
-              Esta ação removerá a <span>{selectedSchool.name}</span> e todos os
-              registros relacionados a ela. Isso não pode ser desfeito!
-            </>
-          )}
-        </WarningModal>
-      )}
-      <CourseInformationModal
-        setShowCourseInformationModal={setShowCourseInformationModal}
-        showCourseInformationModal={showCourseInformationModal}
-        setShowCourseForm={setShowCourseForm}
-        setCourseUpdate={setCourseUpdate}
-        current={selectedCourse}
-      />
-      <StudentInformationModal
-        setShowWarningModalOnSchoolPage={setShowWarningModalOnSchoolPage}
-        setShowStudentInformationModal={setShowStudentInformationModal}
-        showStudentInformationModal={showStudentInformationModal}
-        setShowStudentForm={setShowStudentForm}
-        setStudentUpdate={setStudentUpdate}
-        setDeleteStudent={setDeleteStudent}
-        current={selectedStudent}
-      />
+      <AnimatePresence>
+        {showWarningModalOnSchoolPage && (
+          <WarningModal
+            setShowWarningModalOnSchoolPage={setShowWarningModalOnSchoolPage}
+            setDeleteStudent={setDeleteStudent}
+            setDeleteSchool={setDeleteSchool}
+            deleteStudent={deleteStudent}
+            deleteSchool={deleteSchool}
+          >
+            {deleteStudent ? (
+              <p>
+                Excluir todos os registros de{" "}
+                <span>
+                  {selectedStudent.first_name + " " + selectedStudent.last_name}
+                </span>
+                ?
+              </p>
+            ) : (
+              <p>
+                <span className="warning_red">
+                  Tem certeza que deseja continuar?
+                </span>{" "}
+                Esta ação removerá a <span>{selectedSchool.name}</span> e todos
+                os registros relacionados a ela. Isso não pode ser desfeito!
+              </p>
+            )}
+          </WarningModal>
+        )}
+        {showCourseInformationModal && (
+          <CourseInformationModal
+            setShowCourseInformationModal={setShowCourseInformationModal}
+            setShowCourseForm={setShowCourseForm}
+            setCourseUpdate={setCourseUpdate}
+            current={selectedCourse}
+          />
+        )}
+        {showStudentInformationModal && (
+          <StudentInformationModal
+            setShowWarningModalOnSchoolPage={setShowWarningModalOnSchoolPage}
+            setShowStudentInformationModal={setShowStudentInformationModal}
+            setShowStudentForm={setShowStudentForm}
+            setStudentUpdate={setStudentUpdate}
+            setDeleteStudent={setDeleteStudent}
+            current={selectedStudent}
+          />
+        )}
+      </AnimatePresence>
       <Header
         setShowStudentInformation={setShowStudentInformation}
-        setShowAllStudents={setShowAllStudents}
-        showAllStudents={showAllStudents}
+        showStudentInformation={showStudentInformation}
+        studentUpdate={studentUpdate}
       />
       <MainSchoolPageContainer
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: 1 } }}
       >
         <SchoolPageContainer>
-          <CourseForm
-            setShowCourseForm={setShowCourseForm}
-            setCourseUpdate={setCourseUpdate}
-            showCourseForm={showCourseForm}
-            courseUpdate={courseUpdate}
-          />
-          <StudentForm
-            setShowStudentForm={setShowStudentForm}
-            setStudentUpdate={setStudentUpdate}
-            showStudentForm={showStudentForm}
-            studentUpdate={studentUpdate}
-          />
-          {!showStudentForm && !showStudentInformation && !showCourseForm && (
+          {showCourseForm && (
+            <CourseForm
+              setShowCourseForm={setShowCourseForm}
+              setCourseUpdate={setCourseUpdate}
+              courseUpdate={courseUpdate}
+            />
+          )}
+          {showStudentForm && (
+            <StudentForm
+              setShowStudentForm={setShowStudentForm}
+              setStudentUpdate={setStudentUpdate}
+              studentUpdate={studentUpdate}
+            />
+          )}
+          {!showStudentInformation && !showStudentForm && !showCourseForm && (
             <SchoolContainer
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, transition: { duration: 1 } }}
@@ -192,7 +197,6 @@ const SchoolPage = () => {
                   height="47px"
                   onClick={() => {
                     setShowStudentInformation(true);
-                    setShowAllStudents(true);
                   }}
                 >
                   {"Visualizar Alunos"}
@@ -201,7 +205,6 @@ const SchoolPage = () => {
                   height="47px"
                   onClick={() => {
                     setShowStudentForm(true);
-                    topScreen();
                   }}
                 >
                   {"Matricular aluno"}
@@ -221,7 +224,7 @@ const SchoolPage = () => {
               </div>
             </SchoolContainer>
           )}
-          {!showStudentForm && !showStudentInformation && !showCourseForm && (
+          {!showStudentInformation && !showStudentForm && !showCourseForm && (
             <CoursesContainer
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, transition: { duration: 1 } }}
@@ -251,7 +254,6 @@ const SchoolPage = () => {
                   height="47px"
                   onClick={() => {
                     setShowCourseForm(true);
-                    topScreen();
                   }}
                 >
                   {"Adicionar novo curso"}
@@ -279,10 +281,10 @@ const SchoolPage = () => {
                         first_name={current.first_name}
                         last_name={current.last_name}
                         email={current.email}
+                        showStudentInformation={showStudentInformation}
                         setShowStudentInformationModal={
                           setShowStudentInformationModal
                         }
-                        showStudentInformation={showStudentInformation}
                         editable
                       />
                     ))}

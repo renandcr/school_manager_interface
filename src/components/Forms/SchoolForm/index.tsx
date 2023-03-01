@@ -3,7 +3,6 @@ import { IToken } from "../../../store/models/user/actions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VARIABLES } from "../../../styles/global";
 import { useTypedSelector } from "../../../store";
-import { topScreen } from "../../../assets/utils";
 import { SchoolFormContainer } from "./style";
 import DefaultButton from "../../DefaultButton";
 import { TextField } from "@mui/material";
@@ -91,7 +90,7 @@ const SchoolForm: React.FC<ISchoolForm> = ({
 
   React.useEffect(() => {
     schoolUpdate ? reset(selectedSchool) : reset({});
-  }, [schoolUpdate]);
+  }, [showFormSchool]);
 
   const handleRequests = (data: ISchool) => {
     schoolUpdate
@@ -106,7 +105,6 @@ const SchoolForm: React.FC<ISchoolForm> = ({
             dispatch(actionUpdateSchool(response.data));
             setShowFormSchool(false);
             setSchoolUpdate(false);
-            topScreen();
           })
           .catch((error) => toast.error(error.response.data.detail))
       : api
@@ -118,7 +116,6 @@ const SchoolForm: React.FC<ISchoolForm> = ({
           .then(() => {
             toast.success("Escola criada com sucesso");
             setShowFormSchool(false);
-            topScreen();
           })
           .catch((error) => toast.error(error.response.data.detail));
   };
@@ -237,7 +234,6 @@ const SchoolForm: React.FC<ISchoolForm> = ({
                 setSchoolUpdate(false);
                 e.preventDefault();
                 clearErrors();
-                topScreen();
               }}
             >
               {"Cancelar"}
