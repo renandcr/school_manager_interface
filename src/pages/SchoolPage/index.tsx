@@ -96,7 +96,7 @@ const SchoolPage = () => {
       })
       .then((response) => dispatch(actionDatabaseCourses(response.data)))
       .catch(() => dispatch(actionDatabaseCourses([])));
-  }, [courseUpdate, showStudentInformation]);
+  }, [courseUpdate, showStudentInformation, showCourseForm]);
 
   return (
     <>

@@ -48,6 +48,7 @@ export const CoursesContainer = styled(motion.section)`
     max-width: 100%;
     gap: 30px;
     h1 {
+      margin-bottom: 20px;
       font-size: 28px;
       line-height: 36px;
       font-weight: 400;

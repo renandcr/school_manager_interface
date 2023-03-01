@@ -17,6 +17,7 @@ import {
   MainHomePageContainer,
   HomePageContainer,
 } from "./style";
+import { topScreen } from "../../assets/utils";
 
 const HomePage = () => {
   React.useEffect(() => {
@@ -64,46 +65,51 @@ const HomePage = () => {
         animate={{ opacity: 1, transition: { duration: 1 } }}
       >
         <HomePageContainer>
-          <h1>Instituição de Ensino Critóvão Colombo</h1>
           <SchoolForm
             setShowFormSchool={setShowFormSchool}
             setSchoolUpdate={setSchoolUpdate}
             showFormSchool={showFormSchool}
             schoolUpdate={schoolUpdate}
           />
-          <HomePageSchoolsContainer>
-            <div className="schools_container">
-              {databaseSchools.length > 0 &&
-                !showFormSchool &&
-                databaseSchools.map((current) => (
-                  <SchoolInformation
-                    key={current.id}
-                    id={current.id}
-                    branch={current.branch}
-                    name={current.name}
-                    email={current.email}
-                    setShowSchoolInformationModal={
-                      setShowSchoolInformationModal
-                    }
-                    editable
-                  />
-                ))}
-            </div>
-            <div className="buttons_container">
-              {!showFormSchool && (
-                <DefaultButton
-                  height="47px"
-                  width="150px"
-                  onClick={() => {
-                    setShowFormSchool(true);
-                    setSchoolUpdate(false);
-                  }}
-                >
-                  {"Adicionar escola"}
-                </DefaultButton>
-              )}
-            </div>
-          </HomePageSchoolsContainer>
+          {!showFormSchool && (
+            <>
+              <h1>Instituição de Ensino Cristóvão Colombo</h1>
+              <HomePageSchoolsContainer>
+                <div className="schools_container">
+                  {databaseSchools.length > 0 &&
+                    !showFormSchool &&
+                    databaseSchools.map((current) => (
+                      <SchoolInformation
+                        key={current.id}
+                        id={current.id}
+                        branch={current.branch}
+                        name={current.name}
+                        email={current.email}
+                        setShowSchoolInformationModal={
+                          setShowSchoolInformationModal
+                        }
+                        editable
+                      />
+                    ))}
+                </div>
+                <div className="buttons_container">
+                  {!showFormSchool && (
+                    <DefaultButton
+                      height="47px"
+                      width="150px"
+                      onClick={() => {
+                        setShowFormSchool(true);
+                        setSchoolUpdate(false);
+                        topScreen();
+                      }}
+                    >
+                      {"Adicionar escola"}
+                    </DefaultButton>
+                  )}
+                </div>
+              </HomePageSchoolsContainer>
+            </>
+          )}
         </HomePageContainer>
       </MainHomePageContainer>
       <Footer />

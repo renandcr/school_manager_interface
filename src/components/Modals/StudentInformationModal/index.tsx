@@ -4,6 +4,7 @@ import { CloseModalContainer } from "../DefaultModal/style";
 import StudentInformation from "../../StudentInformation";
 import { dateHandler } from "../../../assets/utils";
 import CloseIcon from "@mui/icons-material/Close";
+import { topScreen } from "../../../assets/utils";
 import { AnimatePresence } from "framer-motion";
 import DefaultButton from "../../DefaultButton";
 import DefaultModal from "../DefaultModal";
@@ -56,6 +57,7 @@ const StudentInformationModal: React.FC<
                 setShowStudentInformationModal(false);
                 setShowStudentForm(true);
                 setStudentUpdate(true);
+                topScreen();
               }}
             >
               {"Editar"}

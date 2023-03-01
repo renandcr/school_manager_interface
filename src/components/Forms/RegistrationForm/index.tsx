@@ -3,12 +3,40 @@ import { IUser } from "../../../store/models/user/actions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { topScreen } from "../../../assets/utils";
 import DefaultButton from "../../DefaultButton";
+import MenuItem from "@mui/material/MenuItem";
 import { useForm } from "react-hook-form";
 import { TextField } from "@mui/material";
 import api from "../../../assets/axios";
 import { toast } from "react-toastify";
 import * as React from "react";
 import * as yup from "yup";
+
+const role = [
+  {
+    value: "diretor(a)",
+    label: "Diretor(a)",
+  },
+  {
+    value: "psicólogo(a)",
+    label: "Psicólogo(a)",
+  },
+  {
+    value: "instrutor(a) de ensino",
+    label: "Instrutor(a) de ensino",
+  },
+  {
+    value: "monitor(a) de ensino",
+    label: "Monitor(a) de ensino",
+  },
+  {
+    value: "secretário(a)",
+    label: "Secretário(a)",
+  },
+  {
+    value: "outros",
+    label: "Outros",
+  },
+];
 
 export interface IRegistrationForm {
   setShowRegistrationForm: React.Dispatch<boolean>;
@@ -44,6 +72,10 @@ const RegistrationForm: React.FC<IRegistrationForm> = ({
     username: yup
       .string()
       .required("Username é obrigatório")
+      .max(50, "Limite de 50 caracteres"),
+    role: yup
+      .string()
+      .required("Cargo é obrigatório")
       .max(50, "Limite de 50 caracteres"),
     password: yup
       .string()
@@ -81,7 +113,7 @@ const RegistrationForm: React.FC<IRegistrationForm> = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { duration: 1 } }}
         >
-          <h1>Cadastre seus dados</h1>
+          <h2>Cadastre seus dados</h2>
           <TextField
             className="text_field"
             label="Nome"
@@ -121,6 +153,21 @@ const RegistrationForm: React.FC<IRegistrationForm> = ({
           {formState.errors?.username && (
             <p>{formState.errors.username?.message}</p>
           )}
+
+          <TextField
+            className="text_field"
+            select
+            label="Cargo"
+            defaultValue="outros"
+            {...register("role")}
+          >
+            {role.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+          {formState.errors?.role && <p>{formState.errors.role?.message}</p>}
 
           <TextField
             className="text_field"
