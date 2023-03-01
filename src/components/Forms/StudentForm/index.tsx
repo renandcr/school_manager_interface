@@ -249,6 +249,7 @@ const StudentForm: React.FC<IStudentForm> = ({
           {formState.errors.phone && <p>{formState.errors.phone.message}</p>}
 
           <TextField
+            className="text_field"
             select
             label="Gênero"
             defaultValue="outros"

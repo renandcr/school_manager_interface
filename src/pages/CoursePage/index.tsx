@@ -103,19 +103,25 @@ const CoursePage = () => {
             <h1>Alunos inscritos no curso</h1>
             <div>
               {selectedCourse.students.length > 0 &&
-                selectedCourse.students.map((current) => (
-                  <StudentInformation
-                    first_name={current.first_name}
-                    last_name={current.last_name}
-                    email={current.email}
-                    key={current.id}
-                    setRemoveStudentFromCourse={setRemoveStudentFromCourse}
-                    setShowWarningModalOnCoursePage={
-                      setShowWarningModalOnCoursePage
-                    }
-                    removeOption
-                  />
-                ))}
+                selectedCourse.students
+                  .sort((a, b) => {
+                    if (a.first_name < b.first_name) return -1;
+                    if (a.first_name > b.first_name) return 1;
+                    return 0;
+                  })
+                  .map((current) => (
+                    <StudentInformation
+                      first_name={current.first_name}
+                      last_name={current.last_name}
+                      email={current.email}
+                      key={current.id}
+                      setRemoveStudentFromCourse={setRemoveStudentFromCourse}
+                      setShowWarningModalOnCoursePage={
+                        setShowWarningModalOnCoursePage
+                      }
+                      removeOption
+                    />
+                  ))}
             </div>
           </StudentsContainer>
         </CoursePageContainer>

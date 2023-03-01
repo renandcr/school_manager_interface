@@ -2,7 +2,17 @@
 
 ### Project description
 
-This project has an API developed in Python with the help of the Django framework, and an interface developed in React.js. As the name suggests, this is an app to be used by a school for student management. [Click here to check out the API repository.](https://github.com/renandcr/school_manager_api)
+This project has an API developed in Python with the help of the Django framework, and an interface developed in React.js. School Manager CX is a school management platform where you can add new schools, enroll students, add courses and add students to those courses. [Click here to check out the API repository.](https://github.com/renandcr/school_manager_api)
+
+<br>
+
+![yarn version](https://img.shields.io/badge/yarn-1.22.19-green)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/renandcr/school_manager_interface)
+![GitHub language count](https://img.shields.io/github/languages/count/renandcr/school_manager_interface)
+![GitHub top language](https://img.shields.io/github/languages/top/renandcr/school_manager_interface)
+![GitHub repo file count](https://img.shields.io/github/directory-file-count/renandcr/school_manager_interface)
+![GitHub repo size](https://img.shields.io/github/repo-size/renandcr/school_manager_interface)
+![GitHub](https://img.shields.io/github/license/renandcr/school_manager_interface)
 
 <br>
 
@@ -16,8 +26,8 @@ This project has an API developed in Python with the help of the Django framewor
 
 ### Index
 
-- [⚙️ Features](#️-features)
-- [🛠️ Technologies used](#️-technologies-used)
+- [Features](#️-features)
+- [Technologies used](#️-technologies-used)
 - [Auxiliary tools](#auxiliary-tools)
 - [Author](#author)
 - [License](#license)
@@ -26,8 +36,17 @@ This project has an API developed in Python with the help of the Django framewor
 
 ## ⚙️ Features
 
-1.
-2. ...
+1. Create new schools
+2. Enroll a student in a school
+3. Create new courses
+4. Add student to a given course
+5. Edit Student Information
+6. Remove the student from the course
+7. Delete student from school
+8. Edit a school's information
+9. Delete school
+10. Edit course information
+11. Delete course
 
 <br>
 
@@ -43,10 +62,12 @@ This project has an API developed in Python with the help of the Django framewor
 - [React Icons](https://react-icons.github.io/react-icons/)
 - [React Hook Form](https://react-hook-form.com/)
 - [Material UI](https://mui.com/)
+- [React Router Dom](https://reactrouter.com/en/main)
 
 ## Auxiliary tools
 
 - [Project Trello](https://trello.com/invite/b/ZhPBaw28/ATTI49e717feb94b1f616a16667ac4a286d0FB2C48B5/school-manager-cx)
+- [Insomnia](https://insomnia.rest/)
 
 <br>
 
@@ -69,4 +90,4 @@ Made with ❤️ by Renan Ribeiro 👋 Get in touch!
 
 ## License
 
-Licensed under [MIT]().
+Licensed under [MIT](https://github.com/renandcr/school_manager_interface/blob/development/LICENSE.md).
