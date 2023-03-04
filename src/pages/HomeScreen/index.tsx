@@ -20,14 +20,14 @@ const HomeScreen = () => {
         animate={{ opacity: 1, transition: { duration: 1 } }}
       >
         <HomeScreenContainer>
-          <RegistrationForm
-            showRegistrationForm={showRegistrationForm}
-            setShowRegistrationForm={setShowRegistrationForm}
-          />
-          <LoginForm
-            showRegistrationForm={showRegistrationForm}
-            setShowRegistrationForm={setShowRegistrationForm}
-          />
+          {showRegistrationForm && (
+            <RegistrationForm
+              setShowRegistrationForm={setShowRegistrationForm}
+            />
+          )}
+          {!showRegistrationForm && (
+            <LoginForm setShowRegistrationForm={setShowRegistrationForm} />
+          )}
         </HomeScreenContainer>
       </MainHomeScreenContainer>
       <Footer />
