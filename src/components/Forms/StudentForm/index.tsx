@@ -138,7 +138,7 @@ const StudentForm: React.FC<IStudentForm> = ({
             },
           })
           .then(() => {
-            toast.success("Aluno matriculado com sucesso");
+            toast.success("Aluno cadastrado com sucesso");
             setShowStudentForm(false);
           })
           .catch((error) => {
@@ -169,7 +169,7 @@ const StudentForm: React.FC<IStudentForm> = ({
               return toast.error(error.response.data.cpf[0]);
             } else if (error.response.data.detail) {
               return toast.error(error.response.data.detail);
-            } else return toast.error("Falha ao tentar cadastrar aluno");
+            } else return toast.error("Falha ao tentar atualizar aluno");
           });
   };
 

@@ -68,7 +68,7 @@ const SchoolInformation: React.FC<
           </li>
         )}
         {(city || state || zip_code) && (
-          <li>
+          <li className="upper">
             {city && <span>{`${city}, `}</span>}
             {state && <span> {`${state} - `}</span>}
             {zip_code && <span>{zip_code}</span>}
