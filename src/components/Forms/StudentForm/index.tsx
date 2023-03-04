@@ -144,7 +144,7 @@ const StudentForm: React.FC<IStudentForm> = ({
           .catch((error) => {
             if (error.response.data.email) {
               return toast.error(error.response.data.email[0]);
-            } else if (error.response.data.cpf[0]) {
+            } else if (error.response.data.cpf) {
               return toast.error(error.response.data.cpf[0]);
             } else if (error.response.data.detail) {
               return toast.error(error.response.data.detail);

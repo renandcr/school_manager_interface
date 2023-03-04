@@ -5,6 +5,7 @@ import { IDatabaseCourse } from "../../store/models/course/actions";
 import CourseInformation from "../../components/CourseInformation";
 import WarningModal from "../../components/Modals/WarningModal";
 import DefaultButton from "../../components/DefaultButton";
+import { AnimatePresence } from "framer-motion";
 import { useTypedSelector } from "../../store";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -38,36 +39,40 @@ const CoursePage = () => {
 
   return (
     <>
-      <AddStudentToCourseModal
-        setShowAddStudentModal={setShowAddStudentModal}
-        showAddStudentModal={showAddStudentModal}
-      />
-      {showWarningModalOnCoursePage && (
-        <WarningModal
-          setShowWarningModalOnCoursePage={setShowWarningModalOnCoursePage}
-          removeStudentFromCourse={removeStudentFromCourse}
-          setDeleteCourse={setDeleteCourse}
-          deleteCourse={deleteCourse}
-        >
-          {deleteCourse ? (
-            <p>
-              <span className="warning_red">
-                Tem certeza que deseja continuar?
-              </span>{" "}
-              Esta ação removerá o curso <span>{selectedCourse.name}</span> e
-              todos os registros relacionados a ele. Isso não pode ser desfeito!
-            </p>
-          ) : (
-            <p>
-              Remover{" "}
-              <span>
-                {selectedStudent.first_name + " " + selectedStudent.last_name}
-              </span>{" "}
-              do curso {selectedCourse.name}?
-            </p>
-          )}
-        </WarningModal>
-      )}
+      <AnimatePresence>
+        {showAddStudentModal && (
+          <AddStudentToCourseModal
+            setShowAddStudentModal={setShowAddStudentModal}
+          />
+        )}
+        {showWarningModalOnCoursePage && (
+          <WarningModal
+            setShowWarningModalOnCoursePage={setShowWarningModalOnCoursePage}
+            removeStudentFromCourse={removeStudentFromCourse}
+            setDeleteCourse={setDeleteCourse}
+            deleteCourse={deleteCourse}
+          >
+            {deleteCourse ? (
+              <p>
+                <span className="warning_red">
+                  Tem certeza que deseja continuar?
+                </span>{" "}
+                Esta ação removerá o curso <span>{selectedCourse.name}</span> e
+                todos os registros relacionados a ele. Isso não pode ser
+                desfeito!
+              </p>
+            ) : (
+              <p>
+                Remover{" "}
+                <span>
+                  {selectedStudent.first_name + " " + selectedStudent.last_name}
+                </span>{" "}
+                do curso {selectedCourse.name}?
+              </p>
+            )}
+          </WarningModal>
+        )}
+      </AnimatePresence>
       <Header coursePage={coursePage} setCoursePage={setCoursePage} />
       <MainCoursePageContainer
         initial={{ opacity: 0 }}

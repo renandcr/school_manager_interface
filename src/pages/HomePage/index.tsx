@@ -5,6 +5,7 @@ import SchoolInformation from "../../components/SchoolInformation";
 import DefaultButton from "../../components/DefaultButton";
 import SchoolForm from "../../components/Forms/SchoolForm";
 import { IToken } from "../../store/models/user/actions";
+import { AnimatePresence } from "framer-motion";
 import { useTypedSelector } from "../../store";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -51,25 +52,29 @@ const HomePage = () => {
   return (
     <>
       <Header />
-      <SchoolInformationModal
-        key={selectedSchool.id}
-        current={selectedSchool}
-        setShowSchoolInformationModal={setShowSchoolInformationModal}
-        showSchoolInformationModal={showSchoolInformationModal}
-        setShowFormSchool={setShowFormSchool}
-        setSchoolUpdate={setSchoolUpdate}
-      />
+      <AnimatePresence>
+        {showSchoolInformationModal && (
+          <SchoolInformationModal
+            key={selectedSchool.id}
+            current={selectedSchool}
+            setShowSchoolInformationModal={setShowSchoolInformationModal}
+            setShowFormSchool={setShowFormSchool}
+            setSchoolUpdate={setSchoolUpdate}
+          />
+        )}
+      </AnimatePresence>
       <MainHomePageContainer
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: 1 } }}
       >
         <HomePageContainer>
-          <SchoolForm
-            setShowFormSchool={setShowFormSchool}
-            setSchoolUpdate={setSchoolUpdate}
-            showFormSchool={showFormSchool}
-            schoolUpdate={schoolUpdate}
-          />
+          {showFormSchool && (
+            <SchoolForm
+              setShowFormSchool={setShowFormSchool}
+              setSchoolUpdate={setSchoolUpdate}
+              schoolUpdate={schoolUpdate}
+            />
+          )}
           {!showFormSchool && (
             <>
               <h1>Instituição de Ensino Cristóvão Colombo</h1>

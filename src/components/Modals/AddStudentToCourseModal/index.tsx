@@ -4,7 +4,6 @@ import { AddStudentToCourseContainer } from "./style";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTypedSelector } from "../../../store";
 import DefaultButton from "../../DefaultButton";
-import { AnimatePresence } from "framer-motion";
 import DefaultModal from "../DefaultModal";
 import { useDispatch } from "react-redux";
 import api from "../../../assets/axios";
@@ -19,12 +18,10 @@ import {
 
 interface IAddStudentToCourseModal {
   setShowAddStudentModal: React.Dispatch<boolean>;
-  showAddStudentModal: boolean;
 }
 
 const AddStudentToCourseModal: React.FC<IAddStudentToCourseModal> = ({
   setShowAddStudentModal,
-  showAddStudentModal,
 }) => {
   const selectedCourse: IDatabaseCourse = useTypedSelector(
     (state) => state.selectedCourse
@@ -59,39 +56,35 @@ const AddStudentToCourseModal: React.FC<IAddStudentToCourseModal> = ({
   };
 
   return (
-    <AnimatePresence>
-      {showAddStudentModal && (
-        <DefaultModal key="add_student_modal">
-          <AddStudentToCourseContainer>
-            <CloseModalContainer>
-              <span>{selectedCourse.name}</span>
-              <CloseIcon
-                onClick={() => setShowAddStudentModal(false)}
-                className="icon_close"
-              />
-            </CloseModalContainer>
-            <p>
-              Insira o e-mail do aluno para adicioná-lo ao curso{" "}
-              <span>{selectedCourse.name}.</span>
-            </p>
-            <div className="add_input_container">
-              <input
-                type="text"
-                placeholder="Insira o e-mail do aluno"
-                autoFocus
-                onChange={(e) => setStudentEmail(e.target.value)}
-              />
-            </div>
-            <DefaultButton
-              height="47px"
-              onClick={() => addStudentToCourse(studentEmail)}
-            >
-              {"Adicionar aluno ao curso"}
-            </DefaultButton>
-          </AddStudentToCourseContainer>
-        </DefaultModal>
-      )}
-    </AnimatePresence>
+    <DefaultModal key="add_student_modal">
+      <AddStudentToCourseContainer>
+        <CloseModalContainer>
+          <span>{selectedCourse.name}</span>
+          <CloseIcon
+            onClick={() => setShowAddStudentModal(false)}
+            className="icon_close"
+          />
+        </CloseModalContainer>
+        <p>
+          Insira o e-mail do aluno para adicioná-lo ao curso{" "}
+          <span>{selectedCourse.name}.</span>
+        </p>
+        <div className="add_input_container">
+          <input
+            type="text"
+            placeholder="Insira o e-mail do aluno"
+            autoFocus
+            onChange={(e) => setStudentEmail(e.target.value)}
+          />
+        </div>
+        <DefaultButton
+          height="47px"
+          onClick={() => addStudentToCourse(studentEmail)}
+        >
+          {"Adicionar aluno ao curso"}
+        </DefaultButton>
+      </AddStudentToCourseContainer>
+    </DefaultModal>
   );
 };
 

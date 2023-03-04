@@ -39,12 +39,10 @@ const role = [
 
 export interface IRegistrationForm {
   setShowRegistrationForm: React.Dispatch<boolean>;
-  showRegistrationForm: boolean;
 }
 
 const RegistrationForm: React.FC<IRegistrationForm> = ({
   setShowRegistrationForm,
-  showRegistrationForm,
 }) => {
   const FormSchema = yup.object().shape({
     first_name: yup
@@ -99,107 +97,109 @@ const RegistrationForm: React.FC<IRegistrationForm> = ({
         setShowRegistrationForm(false);
       })
       .catch((error) => {
-        toast.error(error.response.data.email[0]);
+        if (error.response.data.email) {
+          return toast.error(error.response.data.email[0]);
+        } else if (error.response.data.cpf) {
+          return toast.error(error.response.data.cpf[0]);
+        } else if (error.response.data.detail) {
+          return toast.error(error.response.data.detail);
+        } else return toast.error("Falha ao tentar realizar cadastro");
       });
   };
 
   return (
-    <>
-      {showRegistrationForm && (
-        <RegistrationFormContainer
-          onSubmit={handleSubmit(submissionMethod)}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: { duration: 1 } }}
-        >
-          <h2>Cadastre seus dados</h2>
-          <TextField
-            className="text_field"
-            label="Nome"
-            type="text"
-            autoFocus
-            {...register("first_name")}
-          />
-          {formState.errors?.first_name && (
-            <p>{formState.errors.first_name?.message}</p>
-          )}
-
-          <TextField
-            className="text_field"
-            label="Sobrenome"
-            type="text"
-            {...register("last_name")}
-          />
-          {formState.errors?.last_name && (
-            <p>{formState.errors.last_name?.message}</p>
-          )}
-
-          <TextField
-            className="text_field"
-            label="E-mail"
-            type="text"
-            {...register("email")}
-          />
-          {formState.errors?.email && <p>{formState.errors.email?.message}</p>}
-
-          <TextField
-            className="text_field"
-            label="Username"
-            type="text"
-            placeholder="Nome que será exibido"
-            {...register("username")}
-          />
-          {formState.errors?.username && (
-            <p>{formState.errors.username?.message}</p>
-          )}
-
-          <TextField
-            className="text_field"
-            select
-            label="Cargo"
-            defaultValue="outros"
-            {...register("role")}
-          >
-            {role.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-          {formState.errors?.role && <p>{formState.errors.role?.message}</p>}
-
-          <TextField
-            className="text_field"
-            label="Senha"
-            type="password"
-            {...register("password")}
-          />
-          {formState.errors?.password && (
-            <p>{formState.errors.password?.message}</p>
-          )}
-
-          <TextField
-            className="text_field"
-            label="Confirmar senha"
-            type="password"
-            {...register("confirm_password")}
-          />
-          {formState.errors?.confirm_password && (
-            <p>{formState.errors.confirm_password?.message}</p>
-          )}
-          <LoginOptionContainer>
-            <span>Já possui conta?</span>
-            <span
-              onClick={() => {
-                setShowRegistrationForm(false);
-              }}
-            >
-              Faça o login
-            </span>
-          </LoginOptionContainer>
-          <DefaultButton height="55px">{"Cadastrar"}</DefaultButton>
-        </RegistrationFormContainer>
+    <RegistrationFormContainer
+      onSubmit={handleSubmit(submissionMethod)}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 1 } }}
+    >
+      <h2>Cadastre seus dados</h2>
+      <TextField
+        className="text_field"
+        label="Nome"
+        type="text"
+        autoFocus
+        {...register("first_name")}
+      />
+      {formState.errors?.first_name && (
+        <p>{formState.errors.first_name?.message}</p>
       )}
-    </>
+
+      <TextField
+        className="text_field"
+        label="Sobrenome"
+        type="text"
+        {...register("last_name")}
+      />
+      {formState.errors?.last_name && (
+        <p>{formState.errors.last_name?.message}</p>
+      )}
+
+      <TextField
+        className="text_field"
+        label="E-mail"
+        type="text"
+        {...register("email")}
+      />
+      {formState.errors?.email && <p>{formState.errors.email?.message}</p>}
+
+      <TextField
+        className="text_field"
+        label="Username"
+        type="text"
+        placeholder="Nome que será exibido"
+        {...register("username")}
+      />
+      {formState.errors?.username && (
+        <p>{formState.errors.username?.message}</p>
+      )}
+
+      <TextField
+        className="text_field"
+        select
+        label="Cargo"
+        defaultValue="outros"
+        {...register("role")}
+      >
+        {role.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </TextField>
+      {formState.errors?.role && <p>{formState.errors.role?.message}</p>}
+
+      <TextField
+        className="text_field"
+        label="Senha"
+        type="password"
+        {...register("password")}
+      />
+      {formState.errors?.password && (
+        <p>{formState.errors.password?.message}</p>
+      )}
+
+      <TextField
+        className="text_field"
+        label="Confirmar senha"
+        type="password"
+        {...register("confirm_password")}
+      />
+      {formState.errors?.confirm_password && (
+        <p>{formState.errors.confirm_password?.message}</p>
+      )}
+      <LoginOptionContainer>
+        <span>Já possui conta?</span>
+        <span
+          onClick={() => {
+            setShowRegistrationForm(false);
+          }}
+        >
+          Faça o login
+        </span>
+      </LoginOptionContainer>
+      <DefaultButton height="55px">{"Cadastrar"}</DefaultButton>
+    </RegistrationFormContainer>
   );
 };
 
