@@ -54,10 +54,12 @@ const SchoolForm: React.FC<ISchoolForm> = ({
     zip_code: yup
       .string()
       .max(8, "Limite de 8 caracteres")
+      .min(8, "Mínimo de 8 caracteres")
       .required("Cep é obrigatório"),
     state: yup
       .string()
       .max(2, "Limite de 2 caracteres")
+      .min(2, "Mínimo de 2 caracteres")
       .required("Estado é obrigatório"),
     city: yup
       .string()
@@ -99,7 +101,7 @@ const SchoolForm: React.FC<ISchoolForm> = ({
             },
           })
           .then((response) => {
-            toast.success("Alteração concluída com sucesso");
+            toast.success("Atualização concluída com sucesso");
             dispatch(actionUpdateSchool(response.data));
             setShowFormSchool(false);
             setSchoolUpdate(false);
@@ -107,6 +109,10 @@ const SchoolForm: React.FC<ISchoolForm> = ({
           .catch((error) => {
             if (error.response.data.name) {
               return toast.error(error.response.data.name[0]);
+            } else if (error.response.data.branch) {
+              return toast.error(error.response.data.branch[0]);
+            } else if (error.response.data.email) {
+              return toast.error(error.response.data.email[0]);
             } else if (error.response.data.detail) {
               return toast.error(error.response.data.detail);
             } else return toast.error("Falha ao tentar atualizar escola");
@@ -118,12 +124,16 @@ const SchoolForm: React.FC<ISchoolForm> = ({
             },
           })
           .then(() => {
-            toast.success("Escola criada com sucesso");
+            toast.success("Escola cadastrada com sucesso");
             setShowFormSchool(false);
           })
           .catch((error) => {
             if (error.response.data.name) {
               return toast.error(error.response.data.name[0]);
+            } else if (error.response.data.branch) {
+              return toast.error(error.response.data.branch[0]);
+            } else if (error.response.data.email) {
+              return toast.error(error.response.data.email[0]);
             } else if (error.response.data.detail) {
               return toast.error(error.response.data.detail);
             } else return toast.error("Falha ao tentar cadastrar escola");

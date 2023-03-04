@@ -27,7 +27,7 @@ const LoginForm: React.FC<ILoginForm> = ({ setShowRegistrationForm }) => {
       .max(75, "Limite de 75 caracteres")
       .email("Tipo de e-mail inválido")
       .required("E-mail é obrigatório"),
-    password: yup.string().required("Password é obrigatório"),
+    password: yup.string().required("Senha é obrigatório"),
   });
 
   const { handleSubmit, register, formState } = useForm<IUserLogin>({

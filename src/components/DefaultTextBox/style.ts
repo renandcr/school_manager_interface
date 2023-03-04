@@ -36,6 +36,12 @@ export const DefaultTextBoxContainer = styled.div`
         color: ${VARIABLES.yellowColor};
       }
     }
+    .upper {
+      text-transform: uppercase;
+      span {
+        font-size: 16px;
+      }
+    }
     .text_area {
       max-width: 500px;
       white-space: normal;
