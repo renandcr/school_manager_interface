@@ -169,6 +169,8 @@ const SchoolPage = () => {
       <Header
         setShowStudentInformation={setShowStudentInformation}
         showStudentInformation={showStudentInformation}
+        setShowUserInformation={setShowUserInformation}
+        showUserInformation={showUserInformation}
         studentUpdate={studentUpdate}
       />
       <MainSchoolPageContainer
@@ -190,97 +192,119 @@ const SchoolPage = () => {
               studentUpdate={studentUpdate}
             />
           )}
-          {!showStudentInformation && !showStudentForm && !showCourseForm && (
-            <SchoolContainer
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, transition: { duration: 1 } }}
-            >
-              <div className="school_container">
-                {selectedSchool && (
-                  <SchoolInformation
-                    id={selectedSchool.id}
-                    branch={selectedSchool.branch}
-                    name={selectedSchool.name}
-                    email={selectedSchool.email}
-                    zip_code={selectedSchool.zip_code}
-                    state={selectedSchool.state}
-                    city={selectedSchool.city}
-                    street={selectedSchool.street}
-                    district={selectedSchool.district}
-                    number={selectedSchool.number}
-                    phone={selectedSchool.phone}
-                  />
-                )}
-              </div>
-              <div className="school_buttons">
-                <DefaultButton
-                  height="47px"
-                  onClick={() => {
-                    setShowStudentInformation(true);
-                  }}
-                >
-                  {"Visualizar Alunos"}
-                </DefaultButton>
-                <DefaultButton
-                  height="47px"
-                  onClick={() => {
-                    setShowStudentForm(true);
-                  }}
-                >
-                  {"Matricular aluno"}
-                </DefaultButton>
-                <DefaultButton
-                  onClick={() => {
-                    setShowWarningModalOnSchoolPage(true);
-                    setDeleteSchool(true);
-                  }}
-                  backgroundcolor="transparent"
-                  border={`solid 1px red`}
-                  height="47px"
-                  color="red"
-                >
-                  {"Excluir escola"}
-                </DefaultButton>
-              </div>
-            </SchoolContainer>
-          )}
-          {!showStudentInformation && !showStudentForm && !showCourseForm && (
-            <CoursesContainer
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, transition: { duration: 1 } }}
-            >
-              <div className="courses_container">
-                <h1>Cursos</h1>
-                {courses.length > 0 &&
-                  courses
-                    .sort((a, b) => {
-                      if (a.name < b.name) return -1;
-                      else if (a.name > b.name) return 1;
-                      return 0;
-                    })
-                    .map((current) => (
-                      <CourseInformation
-                        key={current.id}
-                        current={current}
-                        setShowCourseInformationModal={
-                          setShowCourseInformationModal
-                        }
-                        editable
-                      />
-                    ))}
-              </div>
-              <div className="courses_buttons">
-                <DefaultButton
-                  height="47px"
-                  onClick={() => {
-                    setShowCourseForm(true);
-                  }}
-                >
-                  {"Adicionar novo curso"}
-                </DefaultButton>
-              </div>
-            </CoursesContainer>
-          )}
+          {!showStudentInformation &&
+            !showStudentForm &&
+            !showCourseForm &&
+            !showUserInformation && (
+              <SchoolContainer
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1, transition: { duration: 1 } }}
+              >
+                <div className="school_container">
+                  {selectedSchool && (
+                    <SchoolInformation
+                      id={selectedSchool.id}
+                      branch={selectedSchool.branch}
+                      name={selectedSchool.name}
+                      email={selectedSchool.email}
+                      zip_code={selectedSchool.zip_code}
+                      state={selectedSchool.state}
+                      city={selectedSchool.city}
+                      street={selectedSchool.street}
+                      district={selectedSchool.district}
+                      number={selectedSchool.number}
+                      phone={selectedSchool.phone}
+                    />
+                  )}
+                </div>
+                <div className="school_buttons">
+                  <DefaultButton
+                    height="47px"
+                    onClick={() => {
+                      setShowStudentInformation(true);
+                    }}
+                  >
+                    {"Visualizar alunos"}
+                  </DefaultButton>
+                  <DefaultButton
+                    height="47px"
+                    onClick={() => {
+                      setShowUserInformation(true);
+                    }}
+                  >
+                    {"Visualizar funcionários"}
+                  </DefaultButton>
+                  <DefaultButton
+                    height="47px"
+                    onClick={() => {
+                      setShowStudentForm(true);
+                    }}
+                  >
+                    {"Matricular aluno"}
+                  </DefaultButton>
+                  <DefaultButton
+                    height="47px"
+                    onClick={() => {
+                      // setShowStudentInformation(true);
+                    }}
+                  >
+                    {"Cadastrar funcionário"}
+                  </DefaultButton>
+                  <DefaultButton
+                    onClick={() => {
+                      setShowWarningModalOnSchoolPage(true);
+                      setDeleteSchool(true);
+                    }}
+                    backgroundcolor="transparent"
+                    border={`solid 1px red`}
+                    height="47px"
+                    color="red"
+                  >
+                    {"Excluir escola"}
+                  </DefaultButton>
+                </div>
+              </SchoolContainer>
+            )}
+          {!showStudentInformation &&
+            !showStudentForm &&
+            !showCourseForm &&
+            !showUserInformation && (
+              <CoursesContainer
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1, transition: { duration: 1 } }}
+              >
+                <div className="courses_container">
+                  <h1>Cursos</h1>
+                  {courses.length > 0 &&
+                    courses
+                      .sort((a, b) => {
+                        if (a.name < b.name) return -1;
+                        else if (a.name > b.name) return 1;
+                        return 0;
+                      })
+                      .map((current) => (
+                        <CourseInformation
+                          key={current.id}
+                          current={current}
+                          setShowCourseInformationModal={
+                            setShowCourseInformationModal
+                          }
+                          editable
+                        />
+                      ))}
+                </div>
+                <div className="courses_buttons">
+                  <DefaultButton
+                    height="47px"
+                    onClick={() => {
+                      setShowCourseForm(true);
+                    }}
+                  >
+                    {"Adicionar novo curso"}
+                  </DefaultButton>
+                </div>
+              </CoursesContainer>
+            )}
           {showStudentInformation && !showStudentForm && (
             <StudentsContainer
               initial={{ opacity: 0 }}
@@ -312,7 +336,10 @@ const SchoolPage = () => {
             </StudentsContainer>
           )}
           {showUserInformation && (
-            <UsersContainer>
+            <UsersContainer
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, transition: { duration: 1 } }}
+            >
               <h1>{`${selectedSchool.name} - Funcionários`}</h1>
               <div className="model_container">
                 {users.length > 0 &&
