@@ -109,6 +109,7 @@ const StudentForm: React.FC<IStudentForm> = ({
     cpf: yup
       .string()
       .max(11, "Limite de 11 caracteres")
+      .min(11, "Mínimo de 11 caracteres")
       .required("CPF é obrigatório"),
     phone: yup
       .string()
