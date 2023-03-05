@@ -4,8 +4,10 @@ import * as React from "react";
 
 export interface IHeader {
   setShowStudentInformation?: React.Dispatch<boolean>;
+  setShowUserInformation?: React.Dispatch<boolean>;
   setCoursePage?: React.Dispatch<boolean>;
   showStudentInformation?: boolean;
+  showUserInformation?: boolean;
   studentUpdate?: boolean;
   hideOptions?: boolean;
   coursePage?: boolean;
@@ -14,8 +16,10 @@ export interface IHeader {
 const Header: React.FC<IHeader> = ({
   setShowStudentInformation,
   showStudentInformation,
-  studentUpdate,
+  setShowUserInformation,
+  showUserInformation,
   setCoursePage,
+  studentUpdate,
   coursePage,
   hideOptions = false,
 }) => {
@@ -47,6 +51,15 @@ const Header: React.FC<IHeader> = ({
                 <li
                   onClick={() => {
                     setShowStudentInformation?.(false);
+                  }}
+                >
+                  Voltar
+                </li>
+              )}
+              {showUserInformation && (
+                <li
+                  onClick={() => {
+                    setShowUserInformation?.(false);
                   }}
                 >
                   Voltar

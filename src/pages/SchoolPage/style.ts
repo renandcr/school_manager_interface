@@ -29,9 +29,16 @@ export const SchoolContainer = styled(motion.section)`
   .school_buttons {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
     column-gap: 12px;
     row-gap: 12px;
+    height: fit-content;
     max-width: 100%;
+
+    @media only screen and (min-width: 880px) {
+      max-width: 50%;
+      justify-content: flex-end;
+    }
   }
 `;
 
