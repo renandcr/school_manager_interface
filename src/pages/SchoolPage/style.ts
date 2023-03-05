@@ -73,7 +73,7 @@ export const StudentsContainer = styled(motion.section)`
     border-bottom: ${`solid 1px ${VARIABLES.grayBorder}`};
     padding-bottom: 50px;
   }
-  .students_container {
+  .model_container {
     display: flex;
     flex-direction: column;
     max-width: 100%;
@@ -82,3 +82,5 @@ export const StudentsContainer = styled(motion.section)`
     padding-top: 40px;
   }
 `;
+
+export const UsersContainer = styled(StudentsContainer)``;

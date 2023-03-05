@@ -5,10 +5,10 @@ import { IDatabaseSchool } from "../../store/models/school/actions";
 import SchoolInformation from "../../components/SchoolInformation";
 import CourseInformation from "../../components/CourseInformation";
 import WarningModal from "../../components/Modals/WarningModal";
+import UserInformation from "../../components/UserInformation";
 import StudentForm from "../../components/Forms/StudentForm";
 import DefaultButton from "../../components/DefaultButton";
 import CourseForm from "../../components/Forms/CourseForm";
-import { IToken } from "../../store/models/user/actions";
 import { AnimatePresence } from "framer-motion";
 import { useTypedSelector } from "../../store";
 import Footer from "../../components/Footer";
@@ -16,6 +16,12 @@ import Header from "../../components/Header";
 import { useDispatch } from "react-redux";
 import api from "../../assets/axios";
 import * as React from "react";
+
+import {
+  actionDatabaseUsers,
+  IDatabaseUser,
+  IToken,
+} from "../../store/models/user/actions";
 
 import {
   actionDatabaseCourses,
@@ -28,6 +34,7 @@ import {
   StudentsContainer,
   CoursesContainer,
   SchoolContainer,
+  UsersContainer,
 } from "./style";
 
 import {
@@ -36,6 +43,7 @@ import {
 } from "../../store/models/student/actions";
 
 const SchoolPage = () => {
+  const [showUserInformation, setShowUserInformation] = React.useState(false);
   const [showStudentForm, setShowStudentForm] = React.useState(false);
   const [showStudentInformationModal, setShowStudentInformationModal] =
     React.useState(false);
@@ -56,6 +64,7 @@ const SchoolPage = () => {
     window.scrollTo(0, 0);
   }, [showCourseForm, showStudentInformation, showStudentForm]);
 
+  const users: Array<IDatabaseUser> = useTypedSelector((state) => state.users);
   const token: IToken = useTypedSelector((state) => state.token);
   const students: Array<IDatabaseStudent> = useTypedSelector(
     (state) => state.students
@@ -96,6 +105,17 @@ const SchoolPage = () => {
       .then((response) => dispatch(actionDatabaseCourses(response.data)))
       .catch(() => dispatch(actionDatabaseCourses([])));
   }, [courseUpdate, showStudentInformation, showCourseForm]);
+
+  React.useEffect(() => {
+    api
+      .get(`/user/get/${selectedSchool.id}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => dispatch(actionDatabaseUsers(response.data)))
+      .catch(() => dispatch(actionDatabaseUsers([])));
+  }, [showUserInformation]);
 
   return (
     <>
@@ -267,7 +287,7 @@ const SchoolPage = () => {
               animate={{ opacity: 1, transition: { duration: 1 } }}
             >
               <h1>{`${selectedSchool.name} - Alunos`}</h1>
-              <div className="students_container">
+              <div className="model_container">
                 {students.length > 0 &&
                   students
                     .sort((a, b) => {
@@ -290,6 +310,24 @@ const SchoolPage = () => {
                     ))}
               </div>
             </StudentsContainer>
+          )}
+          {showUserInformation && (
+            <UsersContainer>
+              <h1>{`${selectedSchool.name} - Funcionários`}</h1>
+              <div className="model_container">
+                {users.length > 0 &&
+                  users.map((current) => (
+                    <UserInformation
+                      key={current.id}
+                      first_name={current.first_name}
+                      last_name={current.last_name}
+                      email={current.email}
+                      role={current.role}
+                      editable
+                    />
+                  ))}
+              </div>
+            </UsersContainer>
           )}
         </SchoolPageContainer>
       </MainSchoolPageContainer>

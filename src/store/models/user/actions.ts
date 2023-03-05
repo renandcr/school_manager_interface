@@ -17,8 +17,13 @@ export interface IUser {
   confirm_password?: string;
 }
 
-export interface IDatabaseUser extends IUser {
+export interface IDatabaseUser {
   id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  username: string;
+  role: string;
   date_joined: Date;
   school?: string;
 }
