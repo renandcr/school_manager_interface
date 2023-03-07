@@ -1,6 +1,7 @@
+import { actionSelectedUser } from "../../store/models/user/actions";
 import { UserInformationContainer } from "./style";
-import { dateHandler } from "../../assets/utils";
 import DefaultTextBox from "../DefaultTextBox";
+import { useDispatch } from "react-redux";
 import * as React from "react";
 
 interface IDatabaseUserAlternative {
@@ -9,13 +10,14 @@ interface IDatabaseUserAlternative {
   last_name: string;
   email: string;
   username?: string;
-  role: string;
+  role?: string;
   date_joined?: Date;
   school?: string;
 }
 
 interface IUserInformation {
-  editable: boolean;
+  setShowUserInformationModal?: React.Dispatch<boolean>;
+  editable?: boolean;
 }
 
 const UserInformation: React.FC<
@@ -26,12 +28,20 @@ const UserInformation: React.FC<
   email,
   username,
   role,
-  date_joined,
+  setShowUserInformationModal,
   editable = false,
 }) => {
+  const dispatch = useDispatch();
+
   return (
     <DefaultTextBox>
-      <UserInformationContainer editable={editable}>
+      <UserInformationContainer
+        onClick={() => {
+          setShowUserInformationModal?.(true);
+          dispatch(actionSelectedUser(email));
+        }}
+        editable={editable}
+      >
         <li>
           <h2>{`${first_name} ${last_name}`}</h2>
         </li>
@@ -39,15 +49,10 @@ const UserInformation: React.FC<
           <span className="email_field">{email}</span>
         </li>
         <li>
-          <span>{`Cargo: ${role}`}</span>
+          <span>{role && `Cargo: ${role}`}</span>
         </li>
         <li>
           <span>{username && `Username: ${username}`}</span>
-        </li>
-        <li>
-          <span>
-            {date_joined && `Desde ${dateHandler(new Date(date_joined))}`}
-          </span>
         </li>
       </UserInformationContainer>
     </DefaultTextBox>

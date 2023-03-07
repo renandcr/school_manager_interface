@@ -242,7 +242,7 @@ const StudentForm: React.FC<IStudentForm> = ({
         className="text_field"
         select
         label="Gênero"
-        defaultValue="outros"
+        defaultValue={studentUpdate ? selectedStudent.gender : "outros"}
         {...register("gender")}
       >
         {gender.map((option) => (

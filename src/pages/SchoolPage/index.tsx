@@ -1,5 +1,7 @@
 import StudentInformationModal from "../../components/Modals/StudentInformationModal";
 import CourseInformationModal from "../../components/Modals/CourseInformationModal";
+import UserInformationModal from "../../components/Modals/UserInformationModal";
+import RegistrationForm from "../../components/Forms/RegistrationForm";
 import StudentInformation from "../../components/StudentInformation";
 import { IDatabaseSchool } from "../../store/models/school/actions";
 import SchoolInformation from "../../components/SchoolInformation";
@@ -43,26 +45,41 @@ import {
 } from "../../store/models/student/actions";
 
 const SchoolPage = () => {
+  const [showWarningModalOnSchoolPage, setShowWarningModalOnSchoolPage] =
+    React.useState(false);
+  const [deleteSchool, setDeleteSchool] = React.useState(false);
+
   const [showUserInformation, setShowUserInformation] = React.useState(false);
+  const [showUserInformationModal, setShowUserInformationModal] =
+    React.useState(false);
+  const [deleteUser, setDeleteUser] = React.useState(false);
+  const [userUpdate, setUserUpdate] = React.useState(false);
+  const [
+    showRegistrationFormOnSchoolPage,
+    setShowRegistrationFormOnSchoolPage,
+  ] = React.useState(false);
+
   const [showStudentForm, setShowStudentForm] = React.useState(false);
   const [showStudentInformationModal, setShowStudentInformationModal] =
     React.useState(false);
   const [studentUpdate, setStudentUpdate] = React.useState(false);
+  const [deleteStudent, setDeleteStudent] = React.useState(false);
   const [showStudentInformation, setShowStudentInformation] =
     React.useState(false);
 
-  const [showWarningModalOnSchoolPage, setShowWarningModalOnSchoolPage] =
-    React.useState(false);
   const [showCourseInformationModal, setShowCourseInformationModal] =
     React.useState(false);
   const [showCourseForm, setShowCourseForm] = React.useState(false);
-  const [deleteStudent, setDeleteStudent] = React.useState(false);
-  const [deleteSchool, setDeleteSchool] = React.useState(false);
   const [courseUpdate, setCourseUpdate] = React.useState(false);
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
-  }, [showCourseForm, showStudentInformation, showStudentForm]);
+  }, [
+    showRegistrationFormOnSchoolPage,
+    showStudentInformation,
+    showStudentForm,
+    showCourseForm,
+  ]);
 
   const users: Array<IDatabaseUser> = useTypedSelector((state) => state.users);
   const token: IToken = useTypedSelector((state) => state.token);
@@ -80,6 +97,9 @@ const SchoolPage = () => {
   );
   const selectedCourse: IDatabaseCourse = useTypedSelector(
     (state) => state.selectedCourse
+  );
+  const selectedUser: IDatabaseUser = useTypedSelector(
+    (state) => state.selectedUser
   );
 
   const dispatch = useDispatch();
@@ -115,7 +135,7 @@ const SchoolPage = () => {
       })
       .then((response) => dispatch(actionDatabaseUsers(response.data)))
       .catch(() => dispatch(actionDatabaseUsers([])));
-  }, [showUserInformation]);
+  }, [showRegistrationFormOnSchoolPage, showUserInformation]);
 
   return (
     <>
@@ -126,23 +146,35 @@ const SchoolPage = () => {
             setDeleteStudent={setDeleteStudent}
             setDeleteSchool={setDeleteSchool}
             deleteStudent={deleteStudent}
+            setDeleteUser={setDeleteUser}
             deleteSchool={deleteSchool}
+            deleteUser={deleteUser}
           >
-            {deleteStudent ? (
+            {deleteStudent && (
               <p>
                 Excluir todos os registros de{" "}
                 <span>
                   {selectedStudent.first_name + " " + selectedStudent.last_name}
+                  ?
                 </span>
-                ?
               </p>
-            ) : (
+            )}
+
+            {deleteSchool && (
               <p>
                 <span className="warning_red">
                   Tem certeza que deseja continuar?
                 </span>{" "}
                 Esta ação removerá a <span>{selectedSchool.name}</span> e todos
                 os registros relacionados a ela. Isso não pode ser desfeito!
+              </p>
+            )}
+            {deleteUser && (
+              <p>
+                Excluir todos os registros de{" "}
+                <span>
+                  {selectedUser.first_name + " " + selectedUser.last_name}?
+                </span>
               </p>
             )}
           </WarningModal>
@@ -163,6 +195,18 @@ const SchoolPage = () => {
             setStudentUpdate={setStudentUpdate}
             setDeleteStudent={setDeleteStudent}
             current={selectedStudent}
+          />
+        )}
+        {showUserInformationModal && (
+          <UserInformationModal
+            setShowWarningModalOnSchoolPage={setShowWarningModalOnSchoolPage}
+            setShowUserInformationModal={setShowUserInformationModal}
+            setShowRegistrationFormOnSchoolPage={
+              setShowRegistrationFormOnSchoolPage
+            }
+            setUserUpdate={setUserUpdate}
+            setDeleteUser={setDeleteUser}
+            current={selectedUser}
           />
         )}
       </AnimatePresence>
@@ -192,10 +236,23 @@ const SchoolPage = () => {
               studentUpdate={studentUpdate}
             />
           )}
-          {!showStudentInformation &&
+          {showRegistrationFormOnSchoolPage && (
+            <RegistrationForm
+              setShowRegistrationFormOnSchoolPage={
+                setShowRegistrationFormOnSchoolPage
+              }
+              showRegistrationFormOnSchoolPage={
+                showRegistrationFormOnSchoolPage
+              }
+              setUserUpdate={setUserUpdate}
+              userUpdate={userUpdate}
+            />
+          )}
+          {!showRegistrationFormOnSchoolPage &&
+            !showStudentInformation &&
+            !showUserInformation &&
             !showStudentForm &&
-            !showCourseForm &&
-            !showUserInformation && (
+            !showCourseForm && (
               <SchoolContainer
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1, transition: { duration: 1 } }}
@@ -245,7 +302,7 @@ const SchoolPage = () => {
                   <DefaultButton
                     height="47px"
                     onClick={() => {
-                      // setShowStudentInformation(true);
+                      setShowRegistrationFormOnSchoolPage(true);
                     }}
                   >
                     {"Cadastrar funcionário"}
@@ -265,10 +322,11 @@ const SchoolPage = () => {
                 </div>
               </SchoolContainer>
             )}
-          {!showStudentInformation &&
+          {!showRegistrationFormOnSchoolPage &&
+            !showStudentInformation &&
+            !showUserInformation &&
             !showStudentForm &&
-            !showCourseForm &&
-            !showUserInformation && (
+            !showCourseForm && (
               <CoursesContainer
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1, transition: { duration: 1 } }}
@@ -335,7 +393,7 @@ const SchoolPage = () => {
               </div>
             </StudentsContainer>
           )}
-          {showUserInformation && (
+          {showUserInformation && !showRegistrationFormOnSchoolPage && (
             <UsersContainer
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, transition: { duration: 1 } }}
@@ -349,7 +407,7 @@ const SchoolPage = () => {
                       first_name={current.first_name}
                       last_name={current.last_name}
                       email={current.email}
-                      role={current.role}
+                      setShowUserInformationModal={setShowUserInformationModal}
                       editable
                     />
                   ))}
