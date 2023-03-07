@@ -66,8 +66,8 @@ export const selectedUserReducer = (
         (current) => current.email === action.payload
       );
       if (!selectedUser) return state;
-      localStorage.setItem("@selectedUser", JSON.stringify(state));
-      return state;
+      localStorage.setItem("@selectedUser", JSON.stringify(selectedUser));
+      return selectedUser;
     }
 
     default:

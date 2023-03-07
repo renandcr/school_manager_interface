@@ -13,7 +13,7 @@ export interface IUser {
   email: string;
   username: string;
   role: string;
-  password: string;
+  password?: string;
   confirm_password?: string;
 }
 

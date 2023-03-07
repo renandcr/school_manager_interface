@@ -1,5 +1,4 @@
 import { HorizontalButtonContainer } from "../../DefaultButton/style";
-import { IToken } from "../../../store/models/user/actions";
 import { useTypedSelector } from "../../../store";
 import { WarningModalContainer } from "./style";
 import DefaultButton from "../../DefaultButton";
@@ -18,6 +17,12 @@ import {
 } from "../../../store/models/course/actions";
 
 import {
+  actionDeleteUser,
+  IDatabaseUser,
+  IToken,
+} from "../../../store/models/user/actions";
+
+import {
   actionDeleteStudent,
   IDatabaseStudent,
 } from "../../../store/models/student/actions";
@@ -34,11 +39,13 @@ interface IWarningModal {
   setDeleteStudent?: React.Dispatch<boolean>;
   setDeleteCourse?: React.Dispatch<boolean>;
   setDeleteSchool?: React.Dispatch<boolean>;
+  setDeleteUser?: React.Dispatch<boolean>;
   removeStudentFromCourse?: boolean;
   children: React.ReactNode;
   deleteStudent?: boolean;
   deleteSchool?: boolean;
   deleteCourse?: boolean;
+  deleteUser?: boolean;
 }
 
 const WarningModal: React.FC<IWarningModal> = ({
@@ -49,9 +56,11 @@ const WarningModal: React.FC<IWarningModal> = ({
   setDeleteStudent,
   setDeleteCourse,
   setDeleteSchool,
+  setDeleteUser,
   deleteStudent,
   deleteCourse,
   deleteSchool,
+  deleteUser,
   children,
 }) => {
   const token: IToken = useTypedSelector((state) => state.token);
@@ -63,6 +72,9 @@ const WarningModal: React.FC<IWarningModal> = ({
   );
   const selectedSchool: IDatabaseSchool = useTypedSelector(
     (state) => state.selectedSchool
+  );
+  const selectedUser: IDatabaseUser = useTypedSelector(
+    (state) => state.selectedUser
   );
 
   const dispatch = useDispatch();
@@ -154,6 +166,28 @@ const WarningModal: React.FC<IWarningModal> = ({
             return toast.error(error.response.data.detail);
           } else return toast.error("Falha ao tentar excluir escola");
         });
+
+    deleteUser &&
+      api
+        .delete(`/user/${selectedUser.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(() => {
+          toast.success(
+            `${
+              selectedUser.first_name + " " + selectedUser.last_name
+            } excluído(a) com sucesso`
+          );
+          setShowWarningModalOnSchoolPage?.(false);
+          dispatch(actionDeleteUser(selectedUser));
+        })
+        .catch((error) => {
+          if (error.response.data.detail) {
+            return toast.error(error.response.data.detail);
+          } else return toast.error("Falha ao tentar excluir funcionário");
+        });
   };
 
   return (
@@ -170,6 +204,7 @@ const WarningModal: React.FC<IWarningModal> = ({
               setDeleteStudent?.(false);
               setDeleteCourse?.(false);
               setDeleteSchool?.(false);
+              setDeleteUser?.(false);
             }}
           >
             {"Cancelar"}
