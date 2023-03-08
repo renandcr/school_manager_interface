@@ -48,12 +48,16 @@ const UserInformation: React.FC<
         <li>
           <span className="email_field">{email}</span>
         </li>
-        <li>
-          <span>{role && `Cargo: ${role}`}</span>
-        </li>
-        <li>
-          <span>{username && `Username: ${username}`}</span>
-        </li>
+        {role && (
+          <li>
+            <span>{`Cargo: ${role}`}</span>
+          </li>
+        )}
+        {username && (
+          <li>
+            <span>{`Username: ${username}`}</span>
+          </li>
+        )}
       </UserInformationContainer>
     </DefaultTextBox>
   );
