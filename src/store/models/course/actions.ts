@@ -1,4 +1,5 @@
 import { IDatabaseStudent } from "../student/actions";
+import { IDatabaseUser } from "../user/actions";
 
 import {
   DATABASE_COURSE,
@@ -18,7 +19,7 @@ export interface IDatabaseCourse extends ICourse {
   created_at: Date;
   school: string;
   students: Array<IDatabaseStudent>;
-  users?: string;
+  instructors: Array<IDatabaseUser>;
 }
 
 export interface IActionCourse {

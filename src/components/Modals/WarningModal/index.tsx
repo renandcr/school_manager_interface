@@ -10,6 +10,16 @@ import { toast } from "react-toastify";
 import * as React from "react";
 
 import {
+  actionDeleteStudent,
+  IDatabaseStudent,
+} from "../../../store/models/student/actions";
+
+import {
+  actionDeleteSchool,
+  IDatabaseSchool,
+} from "../../../store/models/school/actions";
+
+import {
   actionSelectedCourse,
   actionDeleteCourse,
   actionUpdateCourse,
@@ -22,24 +32,16 @@ import {
   IToken,
 } from "../../../store/models/user/actions";
 
-import {
-  actionDeleteStudent,
-  IDatabaseStudent,
-} from "../../../store/models/student/actions";
-
-import {
-  actionDeleteSchool,
-  IDatabaseSchool,
-} from "../../../store/models/school/actions";
-
 interface IWarningModal {
   setShowWarningModalOnCoursePage?: React.Dispatch<boolean>;
   setShowWarningModalOnSchoolPage?: React.Dispatch<boolean>;
+  setRemoveInstructorFromCourse?: React.Dispatch<boolean>;
   setRemoveStudentFromCourse?: React.Dispatch<boolean>;
   setDeleteStudent?: React.Dispatch<boolean>;
   setDeleteCourse?: React.Dispatch<boolean>;
   setDeleteSchool?: React.Dispatch<boolean>;
   setDeleteUser?: React.Dispatch<boolean>;
+  removeInstructorFromCourse?: boolean;
   removeStudentFromCourse?: boolean;
   children: React.ReactNode;
   deleteStudent?: boolean;
@@ -51,7 +53,9 @@ interface IWarningModal {
 const WarningModal: React.FC<IWarningModal> = ({
   setShowWarningModalOnCoursePage,
   setShowWarningModalOnSchoolPage,
+  setRemoveInstructorFromCourse,
   setRemoveStudentFromCourse,
+  removeInstructorFromCourse,
   removeStudentFromCourse,
   setDeleteStudent,
   setDeleteCourse,
@@ -149,6 +153,33 @@ const WarningModal: React.FC<IWarningModal> = ({
           else return toast.error("Falha ao tentar remover aluno do curso");
         });
 
+    removeInstructorFromCourse &&
+      api
+        .patch(
+          `course/instructor/${selectedCourse.id}/${selectedUser.email}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((response) => {
+          dispatch(actionUpdateCourse(response.data));
+          dispatch(actionSelectedCourse(response.data.name));
+          setShowWarningModalOnCoursePage?.(false);
+          toast.success(
+            `${
+              selectedUser.first_name + " " + selectedUser.last_name
+            } removido(a) com sucesso`
+          );
+        })
+        .catch((error) => {
+          if (error.response.data.detail)
+            return toast.error(error.response.data.detail);
+          else return toast.error("Falha ao tentar remover instrutor do curso");
+        });
+
     deleteSchool &&
       api
         .delete(`/school/${selectedSchool.id}`, {
@@ -200,6 +231,7 @@ const WarningModal: React.FC<IWarningModal> = ({
             onClick={() => {
               setShowWarningModalOnCoursePage?.(false);
               setShowWarningModalOnSchoolPage?.(false);
+              setRemoveInstructorFromCourse?.(false);
               setRemoveStudentFromCourse?.(false);
               setDeleteStudent?.(false);
               setDeleteCourse?.(false);
