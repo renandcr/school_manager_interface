@@ -216,6 +216,7 @@ const SchoolPage = () => {
         setShowUserInformation={setShowUserInformation}
         showUserInformation={showUserInformation}
         studentUpdate={studentUpdate}
+        userUpdate={userUpdate}
       />
       <MainSchoolPageContainer
         initial={{ opacity: 0 }}

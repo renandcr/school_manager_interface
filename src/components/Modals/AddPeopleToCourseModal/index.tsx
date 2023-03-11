@@ -56,6 +56,7 @@ const AddPeopleToCourseModal: React.FC<IAddPeopleToCourseModal> = ({
             dispatch(actionUpdateCourse(response.data));
             dispatch(actionSelectedCourse(response.data.name));
             setShowAddPeopleModal(false);
+            setAddStudent(false);
           })
           .catch((error) => {
             if (error.response.data.detail) {
@@ -77,6 +78,7 @@ const AddPeopleToCourseModal: React.FC<IAddPeopleToCourseModal> = ({
             dispatch(actionUpdateCourse(response.data));
             dispatch(actionSelectedCourse(response.data.name));
             setShowAddPeopleModal(false);
+            setAddInstructor(false);
           })
           .catch((error) => {
             if (error.response.data.detail) {

@@ -11,6 +11,7 @@ export interface IHeader {
   studentUpdate?: boolean;
   hideOptions?: boolean;
   coursePage?: boolean;
+  userUpdate?: boolean;
 }
 
 const Header: React.FC<IHeader> = ({
@@ -20,6 +21,7 @@ const Header: React.FC<IHeader> = ({
   showUserInformation,
   setCoursePage,
   studentUpdate,
+  userUpdate,
   coursePage,
   hideOptions = false,
 }) => {
@@ -56,7 +58,7 @@ const Header: React.FC<IHeader> = ({
                   Voltar
                 </li>
               )}
-              {showUserInformation && (
+              {showUserInformation && !userUpdate && (
                 <li
                   onClick={() => {
                     setShowUserInformation?.(false);
