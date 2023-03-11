@@ -3,7 +3,6 @@ import { IToken } from "../../../store/models/user/actions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VARIABLES } from "../../../styles/global";
 import { useTypedSelector } from "../../../store";
-import { topScreen } from "../../../assets/utils";
 import { SchoolFormContainer } from "./style";
 import DefaultButton from "../../DefaultButton";
 import { TextField } from "@mui/material";
@@ -23,14 +22,12 @@ import {
 interface ISchoolForm {
   setShowFormSchool: React.Dispatch<boolean>;
   setSchoolUpdate: React.Dispatch<boolean>;
-  showFormSchool: boolean;
   schoolUpdate: boolean;
 }
 
 const SchoolForm: React.FC<ISchoolForm> = ({
   setShowFormSchool,
   setSchoolUpdate,
-  showFormSchool,
   schoolUpdate,
 }) => {
   const selectedSchool: IDatabaseSchool = useTypedSelector(
@@ -57,10 +54,12 @@ const SchoolForm: React.FC<ISchoolForm> = ({
     zip_code: yup
       .string()
       .max(8, "Limite de 8 caracteres")
+      .min(8, "Mínimo de 8 caracteres")
       .required("Cep é obrigatório"),
     state: yup
       .string()
       .max(2, "Limite de 2 caracteres")
+      .min(2, "Mínimo de 2 caracteres")
       .required("Estado é obrigatório"),
     city: yup
       .string()
@@ -91,7 +90,7 @@ const SchoolForm: React.FC<ISchoolForm> = ({
 
   React.useEffect(() => {
     schoolUpdate ? reset(selectedSchool) : reset({});
-  }, [schoolUpdate]);
+  }, []);
 
   const handleRequests = (data: ISchool) => {
     schoolUpdate
@@ -102,13 +101,22 @@ const SchoolForm: React.FC<ISchoolForm> = ({
             },
           })
           .then((response) => {
-            toast.success("Alteração concluída com sucesso");
+            toast.success("Atualização concluída com sucesso");
             dispatch(actionUpdateSchool(response.data));
             setShowFormSchool(false);
             setSchoolUpdate(false);
-            topScreen();
           })
-          .catch((error) => toast.error(error.response.data.detail))
+          .catch((error) => {
+            if (error.response.data.name) {
+              return toast.error(error.response.data.name[0]);
+            } else if (error.response.data.branch) {
+              return toast.error(error.response.data.branch[0]);
+            } else if (error.response.data.email) {
+              return toast.error(error.response.data.email[0]);
+            } else if (error.response.data.detail) {
+              return toast.error(error.response.data.detail);
+            } else return toast.error("Falha ao tentar atualizar escola");
+          })
       : api
           .post(`/school`, data, {
             headers: {
@@ -116,136 +124,132 @@ const SchoolForm: React.FC<ISchoolForm> = ({
             },
           })
           .then(() => {
-            toast.success("Escola criada com sucesso");
+            toast.success("Escola cadastrada com sucesso");
             setShowFormSchool(false);
-            topScreen();
           })
-          .catch((error) => toast.error(error.response.data.detail));
+          .catch((error) => {
+            if (error.response.data.name) {
+              return toast.error(error.response.data.name[0]);
+            } else if (error.response.data.branch) {
+              return toast.error(error.response.data.branch[0]);
+            } else if (error.response.data.email) {
+              return toast.error(error.response.data.email[0]);
+            } else if (error.response.data.detail) {
+              return toast.error(error.response.data.detail);
+            } else return toast.error("Falha ao tentar cadastrar escola");
+          });
   };
 
   return (
-    <>
-      {showFormSchool && (
-        <SchoolFormContainer
-          onSubmit={handleSubmit(handleRequests)}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: { duration: 1 } }}
+    <SchoolFormContainer
+      onSubmit={handleSubmit(handleRequests)}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 1 } }}
+    >
+      {schoolUpdate ? <h2>Editar informações</h2> : <h2>Cadastrar Escola</h2>}
+      <TextField
+        className="text_field"
+        label="Nome"
+        type="text"
+        autoFocus
+        {...register("name")}
+      />
+      {formState.errors.name && <p>{formState.errors.name.message}</p>}
+
+      <TextField
+        className="text_field"
+        label="E-mail"
+        type="email"
+        {...register("email")}
+      />
+      {formState.errors.email && <p>{formState.errors.email.message}</p>}
+
+      <TextField
+        className="text_field"
+        label="Filial"
+        type="text"
+        {...register("branch")}
+      />
+      {formState.errors.branch && <p>{formState.errors.branch?.message}</p>}
+
+      <TextField
+        className="text_field"
+        label="Cep"
+        type="text"
+        {...register("zip_code")}
+      />
+      {formState.errors.zip_code && <p>{formState.errors.zip_code?.message}</p>}
+
+      <TextField
+        className="text_field"
+        label="Estado"
+        type="text"
+        {...register("state")}
+      />
+      {formState.errors.state && <p>{formState.errors.state.message}</p>}
+
+      <TextField
+        className="text_field"
+        label="Cidade"
+        type="text"
+        {...register("city")}
+      />
+      {formState.errors.city && <p>{formState.errors.city.message}</p>}
+
+      <TextField
+        className="text_field"
+        label="Rua"
+        type="text"
+        {...register("street")}
+      />
+      {formState.errors.street && <p>{formState.errors.street.message}</p>}
+
+      <TextField
+        className="text_field"
+        label="Bairro"
+        type="text"
+        {...register("district")}
+      />
+      {formState.errors.district && <p>{formState.errors.district?.message}</p>}
+
+      <TextField
+        className="text_field"
+        label="Número"
+        type="text"
+        {...register("number")}
+      />
+      {formState.errors.number && <p>{formState.errors.number.message}</p>}
+
+      <TextField
+        className="text_field"
+        label="Telefone"
+        type="text"
+        key={selectedSchool.phone}
+        {...register("phone")}
+      />
+      {formState.errors.phone && <p>{formState.errors.phone.message}</p>}
+      <HorizontalButtonContainer>
+        {schoolUpdate ? (
+          <DefaultButton height="55px">{"Salvar alterações"}</DefaultButton>
+        ) : (
+          <DefaultButton height="55px">{"Salvar escola"}</DefaultButton>
+        )}
+        <DefaultButton
+          border={`solid 1px ${VARIABLES.blueColor}`}
+          backgroundcolor="transparent"
+          color={VARIABLES.blueColor}
+          height="55px"
+          onClick={(e) => {
+            setShowFormSchool(false);
+            setSchoolUpdate(false);
+            e.preventDefault();
+            clearErrors();
+          }}
         >
-          {schoolUpdate ? (
-            <h2>Editar informações</h2>
-          ) : (
-            <h2>Cadastrar Escola</h2>
-          )}
-          <TextField
-            className="text_field"
-            label="Nome"
-            type="text"
-            autoFocus
-            {...register("name")}
-          />
-          {formState.errors.name && <p>{formState.errors.name.message}</p>}
-
-          <TextField
-            className="text_field"
-            label="E-mail"
-            type="email"
-            {...register("email")}
-          />
-          {formState.errors.email && <p>{formState.errors.email.message}</p>}
-
-          <TextField
-            className="text_field"
-            label="Filial"
-            type="text"
-            {...register("branch")}
-          />
-          {formState.errors.branch && <p>{formState.errors.branch?.message}</p>}
-
-          <TextField
-            className="text_field"
-            label="Cep"
-            type="text"
-            {...register("zip_code")}
-          />
-          {formState.errors.zip_code && (
-            <p>{formState.errors.zip_code?.message}</p>
-          )}
-
-          <TextField
-            className="text_field"
-            label="Estado"
-            type="text"
-            {...register("state")}
-          />
-          {formState.errors.state && <p>{formState.errors.state.message}</p>}
-
-          <TextField
-            className="text_field"
-            label="Cidade"
-            type="text"
-            {...register("city")}
-          />
-          {formState.errors.city && <p>{formState.errors.city.message}</p>}
-
-          <TextField
-            className="text_field"
-            label="Rua"
-            type="text"
-            {...register("street")}
-          />
-          {formState.errors.street && <p>{formState.errors.street.message}</p>}
-
-          <TextField
-            className="text_field"
-            label="Bairro"
-            type="text"
-            {...register("district")}
-          />
-          {formState.errors.district && (
-            <p>{formState.errors.district?.message}</p>
-          )}
-
-          <TextField
-            className="text_field"
-            label="Número"
-            type="text"
-            {...register("number")}
-          />
-          {formState.errors.number && <p>{formState.errors.number.message}</p>}
-
-          <TextField
-            className="text_field"
-            label="Telefone"
-            type="text"
-            key={selectedSchool.phone}
-            {...register("phone")}
-          />
-          {formState.errors.phone && <p>{formState.errors.phone.message}</p>}
-          <HorizontalButtonContainer>
-            {schoolUpdate ? (
-              <DefaultButton height="55px">{"Salvar alterações"}</DefaultButton>
-            ) : (
-              <DefaultButton height="55px">{"Salvar escola"}</DefaultButton>
-            )}
-            <DefaultButton
-              border={`solid 1px ${VARIABLES.blueColor}`}
-              backgroundcolor="transparent"
-              color={VARIABLES.blueColor}
-              height="55px"
-              onClick={(e) => {
-                setShowFormSchool(false);
-                setSchoolUpdate(false);
-                e.preventDefault();
-                clearErrors();
-                topScreen();
-              }}
-            >
-              {"Cancelar"}
-            </DefaultButton>
-          </HorizontalButtonContainer>
-        </SchoolFormContainer>
-      )}
-    </>
+          {"Cancelar"}
+        </DefaultButton>
+      </HorizontalButtonContainer>
+    </SchoolFormContainer>
   );
 };
 

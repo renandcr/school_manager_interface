@@ -2,7 +2,12 @@ import { schoolReducer, selectedSchoolReducer } from "./models/school/reducer";
 import { courseReducer, selectedCourseReducer } from "./models/course/reducer";
 import { legacy_createStore as createStore, combineReducers } from "redux";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
-import { tokenReducer } from "./models/user/reducer";
+
+import {
+  selectedUserReducer,
+  tokenReducer,
+  userReducer,
+} from "./models/user/reducer";
 
 import {
   selectedStudentReducer,
@@ -13,10 +18,12 @@ const reducers = combineReducers({
   selectedStudent: selectedStudentReducer,
   selectedSchool: selectedSchoolReducer,
   selectedCourse: selectedCourseReducer,
+  selectedUser: selectedUserReducer,
   students: studentReducer,
   schools: schoolReducer,
   courses: courseReducer,
   token: tokenReducer,
+  users: userReducer,
 });
 
 type RootState = ReturnType<typeof reducers>;

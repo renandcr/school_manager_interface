@@ -1,7 +1,7 @@
 import { VARIABLES } from "../../../styles/global";
 import styled from "styled-components";
 
-export const AddStudentToCourseContainer = styled.div`
+export const AddPeopleToCourseContainer = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 100%;

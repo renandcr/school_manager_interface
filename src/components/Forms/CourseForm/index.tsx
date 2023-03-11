@@ -4,7 +4,6 @@ import { IToken } from "../../../store/models/user/actions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VARIABLES } from "../../../styles/global";
 import { useTypedSelector } from "../../../store";
-import { topScreen } from "../../../assets/utils";
 import DefaultButton from "../../DefaultButton";
 import { CourseFormContainer } from "./style";
 import { TextField } from "@mui/material";
@@ -25,14 +24,12 @@ import {
 interface ICourseForm {
   setShowCourseForm: React.Dispatch<boolean>;
   setCourseUpdate: React.Dispatch<boolean>;
-  showCourseForm: boolean;
   courseUpdate: boolean;
 }
 
 const CourseForm: React.FC<ICourseForm> = ({
   setShowCourseForm,
   setCourseUpdate,
-  showCourseForm,
   courseUpdate,
 }) => {
   const token: IToken = useTypedSelector((state) => state.token);
@@ -63,7 +60,7 @@ const CourseForm: React.FC<ICourseForm> = ({
 
   React.useEffect(() => {
     courseUpdate ? reset(selectedCourse) : reset({});
-  }, [courseUpdate]);
+  }, []);
 
   const handleRequests = (data: ICourse) => {
     !courseUpdate
@@ -77,7 +74,6 @@ const CourseForm: React.FC<ICourseForm> = ({
             toast.success("Curso cadastrado com sucesso");
             dispatch(actionCreateCourse(response.data));
             setShowCourseForm(false);
-            topScreen();
           })
           .catch((error) => {
             if (error.response.data.name) {
@@ -97,7 +93,6 @@ const CourseForm: React.FC<ICourseForm> = ({
             dispatch(actionUpdateCourse(response.data));
             setShowCourseForm(false);
             setCourseUpdate(false);
-            topScreen();
           })
           .catch((error) => {
             if (error.response.data.name)
@@ -109,64 +104,55 @@ const CourseForm: React.FC<ICourseForm> = ({
   };
 
   return (
-    <>
-      {showCourseForm && (
-        <CourseFormContainer
-          onSubmit={handleSubmit(handleRequests)}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: { duration: 1 } }}
-        >
-          {!courseUpdate ? (
-            <h2>Cadastrar curso</h2>
-          ) : (
-            <h2>Editar informações</h2>
-          )}
-          <TextField
-            className="text_field"
-            label="Nome"
-            type="text"
-            autoFocus
-            {...register("name")}
-          />
-          {formState.errors.name && <p>{formState.errors.name?.message}</p>}
+    <CourseFormContainer
+      onSubmit={handleSubmit(handleRequests)}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 1 } }}
+    >
+      {!courseUpdate ? <h2>Cadastrar curso</h2> : <h2>Editar informações</h2>}
+      <TextField
+        className="text_field"
+        label="Nome"
+        type="text"
+        autoFocus
+        {...register("name")}
+      />
+      {formState.errors.name && <p>{formState.errors.name?.message}</p>}
 
-          <TextField
-            className="text_field text_area"
-            label="Descrição"
-            type="text"
-            placeholder="Destalhes sobre o curso"
-            multiline
-            rows={4}
-            {...register("description")}
-          />
-          {formState.errors.description && (
-            <p>{formState.errors.description?.message}</p>
-          )}
-          <HorizontalButtonContainer>
-            {!courseUpdate ? (
-              <DefaultButton height="55px">{"Salvar curso"}</DefaultButton>
-            ) : (
-              <DefaultButton height="55px">{"Salvar alterações"}</DefaultButton>
-            )}
-            <DefaultButton
-              border={`solid 1px ${VARIABLES.blueColor}`}
-              backgroundcolor="transparent"
-              color={VARIABLES.blueColor}
-              height="55px"
-              onClick={(e) => {
-                setShowCourseForm(false);
-                setCourseUpdate(false);
-                e.preventDefault();
-                clearErrors();
-                topScreen();
-              }}
-            >
-              {"Cancelar"}
-            </DefaultButton>
-          </HorizontalButtonContainer>
-        </CourseFormContainer>
+      <TextField
+        className="text_field text_area"
+        label="Descrição"
+        type="text"
+        placeholder="Destalhes sobre o curso"
+        multiline
+        rows={4}
+        {...register("description")}
+      />
+      {formState.errors.description && (
+        <p>{formState.errors.description?.message}</p>
       )}
-    </>
+      <HorizontalButtonContainer>
+        {!courseUpdate ? (
+          <DefaultButton height="55px">{"Salvar curso"}</DefaultButton>
+        ) : (
+          <DefaultButton height="55px">{"Salvar alterações"}</DefaultButton>
+        )}
+        <DefaultButton
+          border={`solid 1px ${VARIABLES.blueColor}`}
+          backgroundcolor="transparent"
+          color={VARIABLES.blueColor}
+          height="55px"
+          onClick={(e) => {
+            setShowCourseForm(false);
+            setCourseUpdate(false);
+            e.preventDefault();
+            clearErrors();
+          }}
+        >
+          {"Cancelar"}
+        </DefaultButton>
+      </HorizontalButtonContainer>
+    </CourseFormContainer>
   );
 };
 

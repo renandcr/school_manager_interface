@@ -4,18 +4,24 @@ import * as React from "react";
 
 export interface IHeader {
   setShowStudentInformation?: React.Dispatch<boolean>;
-  setShowAllStudents?: React.Dispatch<boolean>;
+  setShowUserInformation?: React.Dispatch<boolean>;
   setCoursePage?: React.Dispatch<boolean>;
-  showAllStudents?: boolean;
-  coursePage?: boolean;
+  showStudentInformation?: boolean;
+  showUserInformation?: boolean;
+  studentUpdate?: boolean;
   hideOptions?: boolean;
+  coursePage?: boolean;
+  userUpdate?: boolean;
 }
 
 const Header: React.FC<IHeader> = ({
   setShowStudentInformation,
-  setShowAllStudents,
-  showAllStudents,
+  showStudentInformation,
+  setShowUserInformation,
+  showUserInformation,
   setCoursePage,
+  studentUpdate,
+  userUpdate,
   coursePage,
   hideOptions = false,
 }) => {
@@ -33,14 +39,29 @@ const Header: React.FC<IHeader> = ({
         <HeaderNavContainer hideOptions={hideOptions}>
           <nav>
             <ul>
-              {(showAllStudents || coursePage) && (
+              {coursePage && (
                 <li
                   onClick={() => {
-                    coursePage
-                      ? history.push("/school_page")
-                      : setShowStudentInformation?.(false);
-                    setShowAllStudents?.(false);
                     setCoursePage?.(false);
+                    history.push("/school_page");
+                  }}
+                >
+                  Voltar
+                </li>
+              )}
+              {showStudentInformation && !studentUpdate && (
+                <li
+                  onClick={() => {
+                    setShowStudentInformation?.(false);
+                  }}
+                >
+                  Voltar
+                </li>
+              )}
+              {showUserInformation && !userUpdate && (
+                <li
+                  onClick={() => {
+                    setShowUserInformation?.(false);
                   }}
                 >
                   Voltar

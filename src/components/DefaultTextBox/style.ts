@@ -14,7 +14,8 @@ export const DefaultTextBoxContainer = styled.div`
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      h2 {
+      h2,
+      h3 {
         max-width: 100%;
         overflow: hidden;
         white-space: nowrap;
@@ -25,7 +26,8 @@ export const DefaultTextBoxContainer = styled.div`
         font-family: ${VARIABLES.fontFive};
         color: ${VARIABLES.grayColor3};
       }
-      span {
+      span,
+      h4 {
         font-size: 18px;
         line-height: 24px;
         font-weight: 500;
@@ -34,6 +36,12 @@ export const DefaultTextBoxContainer = styled.div`
       }
       .email_field {
         color: ${VARIABLES.yellowColor};
+      }
+    }
+    .upper {
+      text-transform: uppercase;
+      span {
+        font-size: 16px;
       }
     }
     .text_area {

@@ -1,10 +1,12 @@
-import AddStudentToCourseModal from "../../components/Modals/AddStudentToCourseModal";
+import AddPeopleToCourseModal from "../../components/Modals/AddPeopleToCourseModal";
 import { IDatabaseStudent } from "../../store/models/student/actions";
 import StudentInformation from "../../components/StudentInformation";
 import { IDatabaseCourse } from "../../store/models/course/actions";
 import CourseInformation from "../../components/CourseInformation";
+import { IDatabaseUser } from "../../store/models/user/actions";
 import WarningModal from "../../components/Modals/WarningModal";
 import DefaultButton from "../../components/DefaultButton";
+import { AnimatePresence } from "framer-motion";
 import { useTypedSelector } from "../../store";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -22,52 +24,95 @@ const CoursePage = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const [showAddPeopleModal, setShowAddPeopleModal] = React.useState(false);
   const [showWarningModalOnCoursePage, setShowWarningModalOnCoursePage] =
     React.useState(false);
+  const [deleteCourse, setDeleteCourse] = React.useState(false);
+  const [coursePage, setCoursePage] = React.useState(true);
+
   const [removeStudentFromCourse, setRemoveStudentFromCourse] =
     React.useState(false);
+  const [addStudent, setAddStudent] = React.useState(false);
+
+  const [removeInstructorFromCourse, setRemoveInstructorFromCourse] =
+    React.useState(false);
+  const [addInstructor, setAddInstructor] = React.useState(false);
+
   const selectedStudent: IDatabaseStudent = useTypedSelector(
     (state) => state.selectedStudent
   );
   const selectedCourse: IDatabaseCourse = useTypedSelector(
     (state) => state.selectedCourse
   );
-  const [showAddStudentModal, setShowAddStudentModal] = React.useState(false);
-  const [deleteCourse, setDeleteCourse] = React.useState(false);
-  const [coursePage, setCoursePage] = React.useState(true);
+  const selectedUser: IDatabaseUser = useTypedSelector(
+    (state) => state.selectedUser
+  );
 
   return (
     <>
-      <AddStudentToCourseModal
-        setShowAddStudentModal={setShowAddStudentModal}
-        showAddStudentModal={showAddStudentModal}
-      />
-      {showWarningModalOnCoursePage && (
-        <WarningModal
-          setShowWarningModalOnCoursePage={setShowWarningModalOnCoursePage}
-          removeStudentFromCourse={removeStudentFromCourse}
-          setDeleteCourse={setDeleteCourse}
-          deleteCourse={deleteCourse}
-        >
-          {deleteCourse ? (
-            <>
-              <span className="warning_red">
-                Tem certeza que deseja continuar?
-              </span>{" "}
-              Esta ação removerá o curso <span>{selectedCourse.name}</span> e
-              todos os registros relacionados a ele. Isso não pode ser desfeito!
-            </>
-          ) : (
-            <>
-              Remover{" "}
-              <span>
-                {selectedStudent.first_name + " " + selectedStudent.last_name}
-              </span>{" "}
-              do curso {selectedCourse.name}?
-            </>
-          )}
-        </WarningModal>
-      )}
+      <AnimatePresence>
+        {showAddPeopleModal && (
+          <AddPeopleToCourseModal
+            setShowAddPeopleModal={setShowAddPeopleModal}
+            setAddInstructor={setAddInstructor}
+            setAddStudent={setAddStudent}
+            addStudent={addStudent}
+          >
+            {addStudent && (
+              <p>
+                Insira o e-mail do aluno para adicioná-lo ao curso{" "}
+                <span>{selectedCourse.name}.</span>
+              </p>
+            )}
+            {addInstructor && (
+              <p>
+                Insira o e-mail do instrutor para adicioná-lo ao curso{" "}
+                <span>{selectedCourse.name}.</span>
+              </p>
+            )}
+          </AddPeopleToCourseModal>
+        )}
+        {showWarningModalOnCoursePage && (
+          <WarningModal
+            setShowWarningModalOnCoursePage={setShowWarningModalOnCoursePage}
+            setRemoveInstructorFromCourse={setRemoveInstructorFromCourse}
+            setRemoveStudentFromCourse={setRemoveStudentFromCourse}
+            removeInstructorFromCourse={removeInstructorFromCourse}
+            removeStudentFromCourse={removeStudentFromCourse}
+            setDeleteCourse={setDeleteCourse}
+            deleteCourse={deleteCourse}
+          >
+            {deleteCourse && (
+              <p>
+                <span className="warning_red">
+                  Tem certeza que deseja continuar?
+                </span>{" "}
+                Esta ação removerá o curso <span>{selectedCourse.name}</span> e
+                todos os registros relacionados a ele. Isso não pode ser
+                desfeito!
+              </p>
+            )}
+            {removeStudentFromCourse && (
+              <p>
+                Remover{" "}
+                <span>
+                  {selectedStudent.first_name + " " + selectedStudent.last_name}
+                </span>{" "}
+                do curso {selectedCourse.name}?
+              </p>
+            )}
+            {removeInstructorFromCourse && (
+              <p>
+                Remover{" "}
+                <span>
+                  {selectedUser.first_name + " " + selectedStudent.last_name}
+                </span>{" "}
+                do curso {selectedCourse.name}?
+              </p>
+            )}
+          </WarningModal>
+        )}
+      </AnimatePresence>
       <Header coursePage={coursePage} setCoursePage={setCoursePage} />
       <MainCoursePageContainer
         initial={{ opacity: 0 }}
@@ -76,12 +121,33 @@ const CoursePage = () => {
         <CoursePageContainer>
           <CourseContainer>
             <div className="course_container">
-              <CourseInformation current={selectedCourse} />
+              <CourseInformation
+                setRemoveInstructorFromCourse={setRemoveInstructorFromCourse}
+                setShowWarningModalOnCoursePage={
+                  setShowWarningModalOnCoursePage
+                }
+                fontsize="28px"
+                current={selectedCourse}
+                coursePage={coursePage}
+                removeOption
+              />
             </div>
             <div className="course_buttons">
               <DefaultButton
                 height="47px"
-                onClick={() => setShowAddStudentModal(true)}
+                onClick={() => {
+                  setShowAddPeopleModal(true);
+                  setAddInstructor(true);
+                }}
+              >
+                {"Adicionar instrutor"}
+              </DefaultButton>
+              <DefaultButton
+                height="47px"
+                onClick={() => {
+                  setShowAddPeopleModal(true);
+                  setAddStudent(true);
+                }}
               >
                 {"Adicionar aluno"}
               </DefaultButton>

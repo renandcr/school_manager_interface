@@ -16,7 +16,7 @@ This project has an API developed in Python with the help of the Django framewor
 
 <br>
 
-### 🎥 [Check out the project presentation video](https://drive.google.com/file/d/1vrYVuAFTt26RY_G1ZU_FcJy_aTvtNX3j/view?usp=share_link)
+### 🎥 [Check out the project presentation video](https://drive.google.com/file/d/1h1rGR_n9aeKa93m-OtuMOkbwVQRRLvRh/view?usp=sharing)
 
 <br>
 
@@ -26,8 +26,8 @@ This project has an API developed in Python with the help of the Django framewor
 
 ### Index
 
-- [Features](#️-features)
-- [Technologies used](#️-technologies-used)
+- [⚙️ Features](#️-features)
+- [🛠️ Technologies used](#️-technologies-used)
 - [Auxiliary tools](#auxiliary-tools)
 - [Author](#author)
 - [License](#license)
@@ -43,10 +43,15 @@ This project has an API developed in Python with the help of the Django framewor
 5. Edit Student Information
 6. Remove the student from the course
 7. Delete student from school
-8. Edit a school's information
-9. Delete school
-10. Edit course information
-11. Delete course
+8. Register employees
+9. Edit employee information
+10. Delete employee
+11. Add Instructor to a Course
+12. Removing an Instructor from a Course
+13. Edit a school's information
+14. Delete school
+15. Edit course information
+16. Delete course
 
 <br>
 

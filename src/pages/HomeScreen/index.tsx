@@ -6,11 +6,11 @@ import Footer from "../../components/Footer";
 import * as React from "react";
 
 const HomeScreen = () => {
+  const [showRegistrationForm, setShowRegistrationForm] = React.useState(false);
+
   React.useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
-
-  const [showRegistrationForm, setShowRegistrationForm] = React.useState(false);
+  }, [showRegistrationForm]);
 
   return (
     <>
@@ -20,14 +20,14 @@ const HomeScreen = () => {
         animate={{ opacity: 1, transition: { duration: 1 } }}
       >
         <HomeScreenContainer>
-          <RegistrationForm
-            showRegistrationForm={showRegistrationForm}
-            setShowRegistrationForm={setShowRegistrationForm}
-          />
-          <LoginForm
-            showRegistrationForm={showRegistrationForm}
-            setShowRegistrationForm={setShowRegistrationForm}
-          />
+          {showRegistrationForm && (
+            <RegistrationForm
+              setShowRegistrationForm={setShowRegistrationForm}
+            />
+          )}
+          {!showRegistrationForm && (
+            <LoginForm setShowRegistrationForm={setShowRegistrationForm} />
+          )}
         </HomeScreenContainer>
       </MainHomeScreenContainer>
       <Footer />

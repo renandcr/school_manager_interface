@@ -29,9 +29,16 @@ export const SchoolContainer = styled(motion.section)`
   .school_buttons {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
     column-gap: 12px;
     row-gap: 12px;
+    height: fit-content;
     max-width: 100%;
+
+    @media only screen and (min-width: 880px) {
+      max-width: 50%;
+      justify-content: flex-end;
+    }
   }
 `;
 
@@ -73,7 +80,7 @@ export const StudentsContainer = styled(motion.section)`
     border-bottom: ${`solid 1px ${VARIABLES.grayBorder}`};
     padding-bottom: 50px;
   }
-  .students_container {
+  .model_container {
     display: flex;
     flex-direction: column;
     max-width: 100%;
@@ -82,3 +89,5 @@ export const StudentsContainer = styled(motion.section)`
     padding-top: 40px;
   }
 `;
+
+export const UsersContainer = styled(StudentsContainer)``;
