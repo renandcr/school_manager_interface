@@ -20,7 +20,7 @@ This project has an API developed in Python with the help of the Django framewor
 
 <br>
 
-### Project status 🚀 under development!
+### 🖥️ Project status 🚀 In production! Access the website [here.](https://school-manager-interface.vercel.app/)
 
 <br>
 
