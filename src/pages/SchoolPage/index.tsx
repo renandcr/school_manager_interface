@@ -77,6 +77,7 @@ const SchoolPage = () => {
   }, [
     showRegistrationFormOnSchoolPage,
     showStudentInformation,
+    showUserInformation,
     showStudentForm,
     showCourseForm,
   ]);
